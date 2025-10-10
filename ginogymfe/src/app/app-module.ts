@@ -6,19 +6,20 @@ import { App } from './app';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Macchinario } from './features/macchinario/macchinario';
 import { Utenti } from './features/utenti/utenti';
-import { PersonalTrainer } from './features/personal-trainer/personal-trainer';
+import { UtenteDetail } from './features/utenti/utente-detail/utente-detail';
 
 @NgModule({
   declarations: [
     App,
     Macchinario,
+    UtenteDetail,
     Utenti,
-    PersonalTrainer
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule
+    
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
