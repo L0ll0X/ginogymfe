@@ -3,18 +3,27 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Macchinario } from './features/macchinario/macchinario';
+import { GruppoMuscolareDetail } from './features/gruppo-muscolare-detail/gruppo-muscolare-detail';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     App,
-    Macchinario
+    Macchinario,
+    GruppoMuscolareDetail
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbTypeaheadModule,
+    HttpClientModule,
+    NgbModule,
+    RouterModule,
+    FormsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

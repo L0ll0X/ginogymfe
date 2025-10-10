@@ -1,0 +1,28 @@
+<div class="modal-header">
+		<h4 class="title" id="basic-title">Inserisci Gruppo Muscolare</h4>
+	</div>
+	<div class="modal-body">
+		<form #form='ngForm'>
+			<div class="mb-3">
+				<div class="input-group">
+					<input
+                        id="name"
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="model.description"
+						name="description"
+						placeholder="Inserisci"
+					/>
+
+				</div>
+			</div>
+		</form>
+</div>
+<div class="footer">
+	<button type="button" class="btn-goBack" (click)="goBack()">
+		<i class="fa-solid fa-house"></i>Torna alla Home
+	</button>
+	<button type="button" class="btn-salva" (click)="submit()">
+		<i class="fa-solid fa-bookmark"></i>Salva
+	</button>
+</div>
