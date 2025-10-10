@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UtenteDetail } from './features/utenti/utente-detail/utente-detail';
+import { Macchinari } from './features/macchinario/macchinari';
 
 const routes: Routes = [
   {
     path: '',
-    component: UtenteDetail
+    loadChildren: () => import('./features/feature-module').then(m => m.FeatureModule)
   }
 ];
 

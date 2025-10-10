@@ -4,8 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 
 @Component({
   selector: 'app-utente-detail',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  standalone: false,
   templateUrl: './utente-detail.html',
   styleUrl: './utente-detail.css'
 })
