@@ -5,11 +5,15 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Macchinario } from './features/macchinario/macchinario';
+import { Utenti } from './features/utenti/utenti';
+import { PersonalTrainer } from './features/personal-trainer/personal-trainer';
 
 @NgModule({
   declarations: [
     App,
-    Macchinario
+    Macchinario,
+    Utenti,
+    PersonalTrainer
   ],
   imports: [
     BrowserModule,
