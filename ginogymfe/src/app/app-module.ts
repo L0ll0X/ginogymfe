@@ -3,22 +3,19 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Macchinario } from './features/macchinario/macchinario';
-import { Utenti } from './features/utenti/utenti';
-import { PersonalTrainer } from './features/personal-trainer/personal-trainer';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
     App,
-    Macchinario,
-    Utenti,
-    PersonalTrainer
   ],
   imports: [
     BrowserModule,
+    RouterModule,
+    HttpClientModule,
     AppRoutingModule,
-    NgbModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

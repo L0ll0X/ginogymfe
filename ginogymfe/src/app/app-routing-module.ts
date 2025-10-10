@@ -1,7 +1,13 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Macchinari } from './features/macchinario/macchinari';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () => import('./features/feature-module').then(m => m.FeatureModule)
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
