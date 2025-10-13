@@ -11,8 +11,8 @@ export class GruppoMuscolareService {
 constructor(private http: HttpClient) {
 }
 
-getGruppiMuscolari$(): Observable <GruppoMuscolare[]> {
-    return this.http.get<GruppoMuscolare[]>(`${url.baseUrl}${url.gruppi_muscolari}`);
+getGruppiMuscolariById$(id:number): Observable <GruppoMuscolare> {
+    return this.http.get<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari}`);
 }
 
 create$(gruppoMuscolare: GruppoMuscolare): Observable <GruppoMuscolare> {
