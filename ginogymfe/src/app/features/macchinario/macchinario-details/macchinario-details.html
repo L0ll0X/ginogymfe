@@ -1,13 +1,21 @@
-<div class="main-card">
-     <div class="centered-layout">
-    <h3 class="titolo">Inserisci macchinario:</h3>
-    <form #form="ngForm">
-        <input type="text" placeholder="inserisci nome" name="nome" [(ngModel)]="macchinario.nome">
-    </form>
-    <button class="submit-button" type="button" (click)="submit()">Salva</button>
-</div>
-</div>
+<h2>Aggiungi Nuovo Macchinario:</h2>
+<form #form="ngForm" (ngSubmit)="submit()">
+    <input 
+        type="text" 
+        placeholder="inserisci nome" 
+        name="nome" 
+        [(ngModel)]="macchinario.nome"
+        required
+        #nomeInput="ngModel"  >
 
+    <div *ngIf="nomeInput.invalid && (nomeInput.dirty || nomeInput.touched)">
+        <div *ngIf="nomeInput.errors?.['required']">
+            Il nome è obbligatorio.
+        </div>
+    </div>
+    
+    <button type="submit" [disabled]="!form.valid">Salva</button>
+</form>
 
 
 

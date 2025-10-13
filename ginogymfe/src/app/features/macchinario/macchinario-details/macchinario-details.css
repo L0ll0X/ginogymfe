@@ -1,35 +1,99 @@
-.submit-button {
- padding: 8px 16px; 
-  font-size: 0.9rem;
-  border-radius: 5px; 
-  border: 1px solid #007bff;
-  background-color: #007bff;
-  color: white; 
-  cursor: pointer;
-  /* Assicura che sia allineato al centro di Flexbox (necessario se hai max-width) */
-  align-self: center; 
-  cursor: pointer;
+:host {
+    /* Stile per l'Host/Pagina intera - Mantenuto */
+    display: block; 
+    padding: 20px;
+    background-color: #f4f7f6; 
+    min-height: 100vh;
 }
- .main-card {
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombra leggera */
-  border: 1px solid #e0e0e0; /* Bordo sottile e discreto */
-  background-color: white; 
-  padding: 30px; /* Spazio interno per separare il contenuto dai bordi */
 
-  /* CENTRAGGIO TOTALE DELLA CARD SULLA PAGINA */
-  /* Larghezza massima della card (grande) */
-  max-width: 900px; 
-  width: 95%; /* Responsive */
-  /* Centra la card orizzontalmente usando i margini automatici */
-  margin: 40px auto; 
- }
+h2 {
+    /* Stile per il Titolo della Pagina (es. "Dettagli Macchinario") - Mantenuto */
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: Arial, sans-serif;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+}
 
- .centered-layout {
-  /* Rende la Card il contenitore Flex */
-  display: flex; 
-  flex-direction: column; 
-  /* Centra orizzontalmente gli elementi figli (bottone e tabella) */
-  align-items: center; 
-  gap: 20px; 
+form {
+    max-width: 500px;
+    margin: 0 auto; 
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+form > div {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+    font-size: 14px;
+}
+
+input[type="text"] {
+    width: 100%; 
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 16px;
+}
+
+input:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+
+div[style="color: red;"] {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #dc3545 !important; 
+    font-style: italic;
+}
+
+input.ng-touched.ng-invalid {
+    border-color: #dc3545;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, opacity 0.3s;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover:not([disabled]) {
+    background-color: #0056b3;
+}
+
+button[type="submit"][disabled] {
+    background-color: #a0c3e8;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+    form {
+        padding: 20px;
+        margin: 20px 10px; 
+    }
 }
