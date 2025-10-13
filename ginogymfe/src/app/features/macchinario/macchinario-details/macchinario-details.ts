@@ -20,25 +20,25 @@ export class MacchinarioDetails {
   }
 
   submit() {
-
-  // const macchinario = 
-
-  //   if (macchinario) {
-  //     this.macchinarioService.put$(this.macchinario).pipe(
-  //       tap((machinario: Macchinario) => {
-  //         this.router.navigate(['../macchinario']);
-  //       })
-  //     ).subscribe()
-  //   } else {
-  //     this.macchinarioService.create$(this.macchinario).pipe(
-  //       tap((macchinario: Macchinario) => {
-  //         this.router.navigate(['../macchinario']);
-  //       })
-  //     ).subscribe();
-  //   }
-  // }
-
-
+  if (this.macchinario) {
+    this.macchinarioService.put$(this.macchinario).subscribe({
+      next: (response) => {
+        console.log('Modifica avvenuta con successo', response);
+      },
+      error: (error) => {
+        console.error('Modifica fallita', error);
+      }
+    }); // <-- Missing closing parenthesis and semicolon for subscribe()
+  } else {
+    this.macchinarioService.create$(this.macchinario).subscribe({ // <-- Extra dot and missing parenthesis/semicolon
+      next: (response) => {
+        console.log('Creazione avvenuta con successo', response);
+      },
+      error: (error) => {
+        console.error('Creazione fallita', error);
+      }
+    });
   }
+ }
 
 }

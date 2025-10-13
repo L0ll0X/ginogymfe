@@ -7,10 +7,6 @@ const routes: Routes = [
     path: 'macchinari',
     loadChildren: () => import('./macchinario/macchinario-module').then(m => m.MacchinarioModule)
   },
-  {
-    path:'gruppo-muscolare-detail',
-    component: GruppoMuscolareDetail
-  }
  
 ];
 
