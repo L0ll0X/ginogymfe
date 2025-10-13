@@ -12,10 +12,11 @@ const routes: Routes = [
     path:'gruppo-muscolare-detail',
     component: GruppoMuscolareDetail
   },
-  {
-    path:'user-detail',
-    component: UtenteDetail
-  }
+   {
+    path: 'utenti',
+    loadChildren: () => import('./utenti/utenti-module').then(m => m.UtentiModule)
+  },
+
  
 ];
 
