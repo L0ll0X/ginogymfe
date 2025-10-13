@@ -68,7 +68,9 @@ input.ng-touched.ng-invalid {
 }
 
 button[type="submit"] {
-    width: 100%;
+    flex-grow: 1;
+    display: flex; 
+    gap: 10px; 
     padding: 12px;
     background-color: #007bff; 
     color: white;
@@ -79,6 +81,8 @@ button[type="submit"] {
     transition: background-color 0.3s, opacity 0.3s;
     font-weight: bold;
     margin-top: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 button[type="submit"]:hover:not([disabled]) {

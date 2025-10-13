@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { macchinarioService } from '../services/macchinario.service';
 import { Macchinario } from '../models/macchinario.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { tap } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class MacchinarioDetails {
 
   macchinario = new Macchinario();
 
-  constructor(private macchinarioService: macchinarioService, private router: Router) {
+  constructor(private macchinarioService: macchinarioService, private router: Router, private acroute: ActivatedRoute) {
   }
 
   submit() {
@@ -27,10 +27,11 @@ export class MacchinarioDetails {
       },
       error: (error) => {
         console.error('Modifica fallita', error);
-      }
-    }); // <-- Missing closing parenthesis and semicolon for subscribe()
+      },
+    }); 
+    this.router.navigate(['macchinari']);
   } else {
-    this.macchinarioService.create$(this.macchinario).subscribe({ // <-- Extra dot and missing parenthesis/semicolon
+    this.macchinarioService.create$(this.macchinario).subscribe({ 
       next: (response) => {
         console.log('Creazione avvenuta con successo', response);
       },
@@ -38,7 +39,12 @@ export class MacchinarioDetails {
         console.error('Creazione fallita', error);
       }
     });
+     this.router.navigate(['macchinari']);
   }
  }
+
+goBack(){
+  this.router.navigate(['macchinari']);
+}
 
 }
