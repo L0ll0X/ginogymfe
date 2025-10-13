@@ -8,7 +8,6 @@ const routes: Routes = [
     path: 'macchinari',
     loadChildren: () => import('./macchinario/macchinario-module').then(m => m.MacchinarioModule)
   },
-<<<<<<< HEAD
   {
     path:'gruppo-muscolare-detail',
     component: GruppoMuscolareDetail
@@ -18,8 +17,6 @@ const routes: Routes = [
     loadChildren: () => import('./utenti/utenti-module').then(m => m.UtentiModule)
   },
 
-=======
->>>>>>> develop_giulia
  
 ];
 
