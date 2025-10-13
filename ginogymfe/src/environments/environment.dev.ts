@@ -6,5 +6,11 @@ export const url ={
         create:'',
         delete:''
     },
+    macchinari: {
+        get: '',
+        update:'',
+        create:'',
+        delete:''
+    },
     
 }
