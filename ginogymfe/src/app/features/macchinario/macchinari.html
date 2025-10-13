@@ -1,0 +1,17 @@
+<div class="table-container">
+  <button class="insert-button"(click)="goToDetails()">Inserisci</button>
+<table class="table table-striped">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let macchinario of (macchinari$ | async)">
+      <th scope="row">{{macchinario.nome}}</th>
+      <button class="Modifica" (click)="updateMacchinario(macchinario.id)">Modifica</button>
+    </tr>
+  </tbody>
+</table>
+</div>
