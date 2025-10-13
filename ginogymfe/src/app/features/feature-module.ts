@@ -12,7 +12,6 @@ import { GruppoMuscolareDetail } from './gruppo-muscolare-detail/gruppo-muscolar
 
 @NgModule({
   declarations: [
-    GruppoMuscolareDetail
   ],
   imports: [
     CommonModule,

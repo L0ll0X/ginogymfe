@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { GruppoMuscolareDetail } from "../gruppo-muscolare-detail";
 import { GruppoMuscolare } from "../models/gruppo-muscolare";
 
 @Injectable({providedIn: 'root'})

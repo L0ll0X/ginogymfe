@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path:'gruppo-muscolare-detail',
-    component: GruppoMuscolareDetail
+    loadChildren: () => import('./gruppo-muscolare-detail/gruppo-muscolare-module').then(m => m.GruppoMuscolareDetailModule)
   }
  
 ];
