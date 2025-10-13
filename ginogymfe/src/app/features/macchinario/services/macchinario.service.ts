@@ -12,6 +12,10 @@ export class macchinarioService{
 
     constructor(private http: HttpClient) {}
 
+    getMacchinarioById$(id: number): Observable<Macchinario> {
+      return this.http.get<Macchinario>(`${url.baseUrl}${url.macchinari}`);
+    }
+
     get$(): Observable<Macchinario[]> {
         return this.http.get<Macchinario[]>(`${url.baseUrl}${url.macchinari}`);
     }
