@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Utenti } from './utenti';
-import { UserResolver } from './services/resolver';
+import { UserResolver } from './services/resolver-utente';
 
 
 @NgModule({
