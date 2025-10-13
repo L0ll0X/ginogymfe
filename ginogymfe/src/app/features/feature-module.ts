@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 import { FeaturesRoutingModule } from './features-routing-module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { GruppoMuscolareDetail } from './gruppo-muscolare-detail/gruppo-muscolare-detail';
+import { GruppoMuscolareDetail } from './gruppi-muscolari/gruppo-muscolare-detail/gruppo-muscolare-detail';
+import { GruppiMuscolari } from './gruppi-muscolari/gruppi-muscolari';
 
 
 @NgModule({
   declarations: [
-    GruppoMuscolareDetail,
+  
+    GruppiMuscolari
   ],
   imports: [
     CommonModule,
