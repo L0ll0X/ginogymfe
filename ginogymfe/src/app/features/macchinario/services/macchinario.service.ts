@@ -9,7 +9,7 @@ import { Macchinario } from "../models/macchinario.model";
 
 export class macchinarioService{
 
-    baseURL = 'http://localhost:8080/macchinari';
+    baseURL = 'http://localhost:8080/';
     constructor(private http: HttpClient) {}
 
     get$(): Observable<Macchinario[]> {
