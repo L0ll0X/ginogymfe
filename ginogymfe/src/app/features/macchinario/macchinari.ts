@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { macchinarioService } from './services/macchinario.service';
 import { Macchinario } from './models/macchinario.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -14,7 +14,6 @@ import { Observable, tap } from 'rxjs';
 export class Macchinari {
 
   macchinari$!: Observable<Macchinario[]>
-
 
   constructor(
     private macchinarioService: macchinarioService, 
@@ -29,8 +28,8 @@ export class Macchinari {
     this.router.navigate(['macchinario-details'], {relativeTo: this.acroute});   
   }
 
-  updateMacchinario(id: number) {
-
-}
+  updateMacchinario(macchinario: Macchinario) {
+    this.router.navigate(['macchinario-details', macchinario.id], {relativeTo: this.acroute});
+  }
   }
 
