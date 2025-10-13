@@ -21,8 +21,6 @@ export class MacchinarioDetails {
 
   submit() {
 
-  // const macchinario = 
-
   //   if (macchinario) {
   //     this.macchinarioService.put$(this.macchinario).pipe(
   //       tap((machinario: Macchinario) => {

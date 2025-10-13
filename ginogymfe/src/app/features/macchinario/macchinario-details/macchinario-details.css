@@ -1,0 +1,35 @@
+.submit-button {
+ padding: 8px 16px; 
+  font-size: 0.9rem;
+  border-radius: 5px; 
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  color: white; 
+  cursor: pointer;
+  /* Assicura che sia allineato al centro di Flexbox (necessario se hai max-width) */
+  align-self: center; 
+  cursor: pointer;
+}
+ .main-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+  border: 1px solid #e0e0e0; /* Bordo sottile e discreto */
+  background-color: white; 
+  padding: 30px; /* Spazio interno per separare il contenuto dai bordi */
+
+  /* CENTRAGGIO TOTALE DELLA CARD SULLA PAGINA */
+  /* Larghezza massima della card (grande) */
+  max-width: 900px; 
+  width: 95%; /* Responsive */
+  /* Centra la card orizzontalmente usando i margini automatici */
+  margin: 40px auto; 
+ }
+
+ .centered-layout {
+  /* Rende la Card il contenitore Flex */
+  display: flex; 
+  flex-direction: column; 
+  /* Centra orizzontalmente gli elementi figli (bottone e tabella) */
+  align-items: center; 
+  gap: 20px; 
+}
