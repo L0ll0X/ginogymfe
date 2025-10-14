@@ -1,1 +1,18 @@
+<h2>Utenti Abbonati</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let utente of utenti">
+      <td>{{ utente.nome }}</td>
+      <td>{{ utente.email }}</td>
+    </tr>
+  </tbody>
+</table>
+
 <router-outlet></router-outlet>

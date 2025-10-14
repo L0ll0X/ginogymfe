@@ -12,7 +12,6 @@ import { GruppiMuscolari } from './gruppi-muscolari/gruppi-muscolari';
 
 @NgModule({
   declarations: [
-  
     GruppiMuscolari
   ],
   imports: [
