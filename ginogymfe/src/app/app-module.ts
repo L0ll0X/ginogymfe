@@ -4,11 +4,13 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { Utenti } from './features/utenti/utenti';
 
 
 @NgModule({
   declarations: [
     App,
+    Utenti,
   ],
   imports: [
     BrowserModule,
