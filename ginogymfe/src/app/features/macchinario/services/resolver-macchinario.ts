@@ -5,7 +5,7 @@ import {
     RouterStateSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { macchinarioService } from './macchinario.service';
+import { MacchinarioService } from './macchinario.service';
 import { Macchinario } from '../models/macchinario.model';
 
 
@@ -14,7 +14,7 @@ import { Macchinario } from '../models/macchinario.model';
 })
 export class MacchinarioResolver implements Resolve<Macchinario> {
 
-  constructor(private macchinarioService: macchinarioService) {}
+  constructor(private macchinarioService: MacchinarioService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Macchinario> {
     const macchinarioId = route.paramMap.get('id');

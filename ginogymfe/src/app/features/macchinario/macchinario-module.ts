@@ -8,6 +8,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { RouterModule } from '@angular/router';
 import { Macchinari } from './macchinari';
 import { MacchinarioDetails } from './macchinario-details/macchinario-details';
+import { MacchinarioResolver } from './services/resolver-macchinario';
 
 
 @NgModule({
@@ -21,12 +22,15 @@ import { MacchinarioDetails } from './macchinario-details/macchinario-details';
       {
         path: '',
         component: Macchinari,
+        children:[
+          {
+            path: 'details',
+            component: MacchinarioDetails,
+            resolve: {macchinario: MacchinarioResolver}
+    
+          }
+        ]
       },
-      {
-        path: 'macchinario-details',
-        component: MacchinarioDetails,
-
-      }
     ]),
     HttpClientModule,
     NgbModule,
