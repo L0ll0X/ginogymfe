@@ -12,15 +12,15 @@ constructor(private http: HttpClient) {
 }
 
 getGruppiMuscolariById$(id:number): Observable <GruppoMuscolare> {
-    return this.http.get<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari}`);
+    return this.http.get<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}`);
 }
 
-create$(gruppoMuscolare: GruppoMuscolare): Observable <GruppoMuscolare> {
-    return this.http.post<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari}`, gruppoMuscolare);
+create$(gruppoMuscolare: GruppoMuscolare): Observable<GruppoMuscolare> {
+    return this.http.post<GruppoMuscolare>(`${url.baseUrl}/${url.gruppi_muscolari}`, gruppoMuscolare);
 }
 
-update$(gruppoMuscolare: GruppoMuscolare): Observable <GruppoMuscolare> {
-    return this.http.put<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari}/${gruppoMuscolare.id}`, gruppoMuscolare);
+update$(gruppoMuscolare: GruppoMuscolare): Observable<GruppoMuscolare> {
+    return this.http.put<GruppoMuscolare>(`${url.baseUrl}/${url.gruppi_muscolari}/${gruppoMuscolare.id}`, gruppoMuscolare);
 }
 
 
