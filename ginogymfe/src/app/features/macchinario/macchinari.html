@@ -1,5 +1,5 @@
 <div class="justify-content-beetween">
-<button class="insert-button"(click)="goToDetails()">Inserisci Nuovo Macchinario</button>
+<button class="insert-button"(click)="goToCreate()">Inserisci Nuovo Macchinario</button>
 <h2>Lista Macchinari:</h2>
 </div>
 <div class="table-container">
@@ -13,8 +13,10 @@
     <tbody>
       <tr *ngFor="let macchinario of (macchinari$ | async)">
         <th scope="row">{{macchinario.nome}}</th>
-        <button class="Modifica" (click)="updateMacchinario(macchinario)"><i class="fas fa-edit"></i>Modifica</button>
+        <button class="Modifica" (click)="goToDetail(macchinario.id)"><i class="fas fa-edit"></i>Modifica</button>
       </tr>
     </tbody>
   </table>
 </div>
+
+<router-outlet></router-outlet>

@@ -10,7 +10,6 @@ import { Utenti } from './features/utenti/utenti';
 @NgModule({
   declarations: [
     App,
-    Utenti,
   ],
   imports: [
     BrowserModule,

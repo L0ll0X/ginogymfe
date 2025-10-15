@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { macchinarioService } from '../services/macchinario.service';
+import { Component, OnInit } from '@angular/core';
+import { MacchinarioService } from '../services/macchinario.service';
 import { Macchinario } from '../models/macchinario.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { tap } from 'rxjs';
 
 
@@ -12,30 +11,43 @@ import { tap } from 'rxjs';
   templateUrl: './macchinario-details.html',
   styleUrl: './macchinario-details.css'
 })
-export class MacchinarioDetails {
+export class MacchinarioDetails implements OnInit{
 
-  macchinario = new Macchinario();
+  macchinario!:Macchinario;
 
-  constructor(private macchinarioService: macchinarioService, private router: Router, private acroute: ActivatedRoute) {
+  constructor(
+    private macchinarioService: MacchinarioService, 
+    private router: Router, 
+    private acroute: ActivatedRoute) {
   }
 
+  ngOnInit(): void {
+    this.acroute.data.pipe(
+      tap(({macchinario}) =>{
+        this.macchinario = macchinario;
+      })
+    ).subscribe();
+  }
+
+
+
   submit() {
-  if (this.macchinario) {
+  if (this.macchinario.id) {
     this.macchinarioService.put$(this.macchinario).subscribe({
-      next: (response) => {
+      next: (response:any) => {
         console.log('Modifica avvenuta con successo', response);
       },
-      error: (error) => {
+      error: (error:any) => {
         console.error('Modifica fallita', error);
       },
     }); 
     this.router.navigate(['macchinari']);
   } else {
     this.macchinarioService.create$(this.macchinario).subscribe({ 
-      next: (response) => {
+      next: (response:any) => {
         console.log('Creazione avvenuta con successo', response);
       },
-      error: (error) => {
+      error: (error:any) => {
         console.error('Creazione fallita', error);
       }
     });

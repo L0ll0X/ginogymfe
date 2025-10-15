@@ -8,7 +8,7 @@ import { url } from "../../../../environments/environment.dev";
     providedIn: 'root'
 })
 
-export class macchinarioService{
+export class MacchinarioService{
 
     constructor(private http: HttpClient) {}
 
@@ -21,7 +21,8 @@ export class macchinarioService{
     }
 
     create$(macchinario: Macchinario): Observable<Macchinario> {
-        return this.http.post<Macchinario>(`${url.baseUrl}${url.macchinari}`, macchinario);
+        console.log(`${url.baseUrl}${url.macchinari.base}`)
+        return this.http.post<Macchinario>(`${url.baseUrl}${url.macchinari.base}`, macchinario);
     }
 
     put$(macchinario: Macchinario): Observable<Macchinario> {

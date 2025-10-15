@@ -12,7 +12,7 @@ constructor(private http: HttpClient) {
 }
 
 getGruppiMuscolariById$(id:number): Observable <GruppoMuscolare> {
-    return this.http.get<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari}`);
+    return this.http.get<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}`);
 }
 
 create$(gruppoMuscolare: GruppoMuscolare): Observable <GruppoMuscolare> {
