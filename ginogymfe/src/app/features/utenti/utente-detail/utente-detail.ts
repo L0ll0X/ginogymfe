@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs';
 import { Utente } from '../models/utenti.model';
+import { UtenteService } from '../services/utente.service';
 
 @Component({
   selector: 'app-utente-detail',
@@ -14,7 +15,7 @@ import { Utente } from '../models/utenti.model';
 export class UtenteDetail {
   userForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private acRoute: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private acRoute: ActivatedRoute, private userService: UtenteService) { }
 
   ngOnInit(): void {
     this.acRoute.data.pipe(
@@ -50,6 +51,8 @@ export class UtenteDetail {
   onSubmit(): void {
     if (this.userForm.valid) {
       console.log('Form valido. Dati pronti per il backend:', this.userForm.value);
+      this.userService.create$(new Utente(this.userForm.controls['firstName'].value, this.userForm.controls['lastName'].value, this.userForm.controls['email'].value, this.userForm.controls['password'].value, this.userForm.controls['role'].value))
+      .subscribe()
     } else {
       console.log('Form non valido. Compila tutti i campi richiesti.');
       this.userForm.markAllAsTouched();
