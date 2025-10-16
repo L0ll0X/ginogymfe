@@ -1,22 +1,40 @@
-<div class="justify-content-beetween">
-<button class="insert-button"(click)="goToCreate()">Inserisci Nuovo Macchinario</button>
-<h2>Lista Macchinari:</h2>
+<div >
+  <button class="insert-button" (click)="goToCreate()">
+    Inserisci Nuovo Macchinario
+  </button>
+  <h2 class="text-center flex-grow-1">Lista Macchinari:</h2>
 </div>
+
 <div class="table-container">
   <table class="table table-striped">
     <thead class="table-light">
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Nome</th>
+        <th scope="col">Descrizione</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let macchinario of (macchinari$ | async)">
-        <th scope="row">{{macchinario.nome}}</th>
-        <button class="Modifica" (click)="goToDetail(macchinario.id)"><i class="fas fa-edit"></i>Modifica</button>
+    <tbody >
+      <tr *ngFor="let m of (macchinari$|async)">
+        <td>{{ m.id }}</td>
+        <td>{{ m.name }}</td>
+        <td>{{ m.description }}</td>
+        <td>
+          <button class="btn btn-primary me-2" (click)="goToDetail(m.id)">
+            <i class="fas fa-edit"></i> Modifica
+          </button>
+          <button class="btn btn-danger" (click)="deleteMacchinario(m.id)">
+            <i class="fas fa-trash"></i> Elimina
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+   <ng-template #noData>
+    <tr>
+      <td colspan="4" class="text-center">Nessun macchinario presente.</td>
+    </tr>
+  </ng-template>
 </div>
 
 <router-outlet></router-outlet>
