@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
+import { Esercizio } from './models/esercizio-model';
 import { Observable } from 'rxjs';
-import { GruppoMuscolare } from './models/gruppo-muscolare';
-import { GruppoMuscolareService } from './service/gruppo-muscolare.service';
+import { EsercizioService } from './service/esercizio.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-gruppi-muscolari',
+  selector: 'app-esercizi',
   standalone: false,
-  templateUrl: './gruppi-muscolari.html',
-  styleUrl: './gruppi-muscolari.css'
+  templateUrl: './esercizi.html',
+  styleUrl: './esercizi.css'
 })
-export class GruppiMuscolari {
+export class Esercizi {
 
-  gruppiMuscolari$!: Observable<GruppoMuscolare[]>
+  esercizi$!: Observable<Esercizio[]>
 
   constructor(
-    private gruppoMuscolareService: GruppoMuscolareService,
+    private esercizioService: EsercizioService,
     private router: Router,
     private acroute: ActivatedRoute) { };
 
   ngOnInit(): void {
-    this.gruppiMuscolari$ = this.gruppoMuscolareService.get$();
+    // this.esercizi$ = this.esercizioService.get$();
   }
 
   goToCreate() {

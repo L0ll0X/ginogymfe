@@ -35,19 +35,6 @@ export class Macchinari implements OnInit {
 
   }
 
-
-  /* loadMacchinari() {
-  this.macchinarioService.get$({ page: this.page, size: this.size, sort: 'name,asc' }).subscribe({
-    next: (data) => {
-      this.macchinari$ = data.content;      // array di macchinari
-      this.totalPages = data.totalPages;
-      this.totalElements = data.totalElements;
-    },
-    error: (err) => console.error('Errore caricamento macchinari', err)
-  });*/
-
-
-
   goToCreate() {
     this.router.navigate(['./details'], { relativeTo: this.acroute });
   }
