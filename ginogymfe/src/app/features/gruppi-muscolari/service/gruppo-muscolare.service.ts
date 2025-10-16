@@ -26,7 +26,8 @@ create$(gruppoMuscolare: GruppoMuscolare): Observable <GruppoMuscolare> {
     return this.http.post<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}`, gruppoMuscolare);
 }
 
-update$(gruppoMuscolare: GruppoMuscolare): Observable <GruppoMuscolare> {
+
+update$(gruppoMuscolare: GruppoMuscolare): Observable<GruppoMuscolare> {
     return this.http.put<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}/${gruppoMuscolare.id}`, gruppoMuscolare);
 }
 

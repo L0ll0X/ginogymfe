@@ -24,11 +24,8 @@ export class Macchinari implements OnInit {
     private macchinarioService: MacchinarioService,
     private router: Router,
     private acroute: ActivatedRoute
+ ) { }
 
-  ) { 
-  }
-
-  
   ngOnInit(): void {
     this.macchinari$ = this.macchinarioService.macchinari$;
     this.macchinarioService.get$({ page: this.page, size: this.size, sort: this.sort }).subscribe();
@@ -47,8 +44,6 @@ export class Macchinari implements OnInit {
     this.macchinarioService.delete$(id).subscribe({
       next: () => {
       console.log(`Macchinario ${id} eliminato`);
-      
-     
       },
       error: err => console.error('Errore eliminazione', err)
     });
