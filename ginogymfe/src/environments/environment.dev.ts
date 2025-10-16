@@ -1,3 +1,5 @@
+import { get } from "node:http";
+
 export const url ={
     baseUrl: 'http://localhost:8080/api/',
     gruppi_muscolari: {
@@ -14,5 +16,8 @@ export const url ={
         create:'',
         delete:''
     },
+    utenti:{
+        base:"users"
+    }
     
 }

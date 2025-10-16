@@ -19,7 +19,7 @@ export class UserResolver implements Resolve<Utente> {
     const userId = route.paramMap.get('id');
     
     if (!userId) {
-      return of(new Utente()); // Oppure null / throw error, dipende dalla tua logica
+    return of(new Utente('', '', '', '', 'USER')); 
     }
 
     return this.utenteService.getUserById$(+userId);

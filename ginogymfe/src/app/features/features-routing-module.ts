@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path:'gruppi-muscolari',
-    loadChildren: () => import('./gruppi-muscolari/gruppo-muscolare-module').then(m => m.GruppoMuscolareDetailModule)
+    loadChildren: () => import('./gruppi-muscolari/gruppo-muscolare-module').then(m => m.GruppoMuscolareModule)
   }
  
 ];
