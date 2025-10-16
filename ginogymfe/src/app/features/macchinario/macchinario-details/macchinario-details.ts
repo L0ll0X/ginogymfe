@@ -37,14 +37,14 @@ export class MacchinarioDetails implements OnInit{
       next: (response:any) => {
         console.log('Modifica avvenuta con successo', response);
       },
-      error: (error:any) => {
+      error: (error) => {
         console.error('Modifica fallita', error);
       },
     }); 
     this.router.navigate(['macchinari']);
   } else {
     this.macchinarioService.create$(this.macchinario).subscribe({ 
-      next: (response:any) => {
+      next: (response) => {
         console.log('Creazione avvenuta con successo', response);
       },
       error: (error:any) => {

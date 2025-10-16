@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { Macchinari } from './macchinari';
 import { MacchinarioDetails } from './macchinario-details/macchinario-details';
