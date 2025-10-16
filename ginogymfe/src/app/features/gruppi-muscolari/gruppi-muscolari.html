@@ -1,1 +1,36 @@
+<div class="page-header">
+  <h2>Lista Gruppi Muscolari:</h2>
+  <div class="insert-container">
+    <button class="insert-button" (click)="goToCreate()">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="table table-striped">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+        <th scope="col" style="width: 120px;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let gruppoMuscolare of (gruppiMuscolari$ | async)">
+        <td>{{gruppoMuscolare.id}}</td>
+        <td>{{gruppoMuscolare.name}}</td>
+        <td class="action-buttons">
+          <button class="button-modifica" (click)="goToDetail(gruppoMuscolare.id)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="button-elimina" (click)="deleteGruppoMuscolare(gruppoMuscolare.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 <router-outlet></router-outlet>

@@ -1,1 +1,52 @@
-<p>details works!</p>
+<div class="form-container">
+  <h2 class="title" id="basic-title">Aggiungi Nuovo Esercizio:</h2>
+</div>
+
+<div class="modal-body">
+  <form #form="ngForm">
+    <div class="mb-3">
+      <div class="input-group">
+        <input id="name" type="text" class="form-control" placeholder="Inserisci nome" name="name"
+          [(ngModel)]="esercizio.name" required #nomeInput="ngModel" />
+        <div *ngIf="!esercizio.name" style="color: red;">
+          Il nome dell'esercizio è obbligatorio.
+        </div>
+
+      </div>
+      <div class="input-group">
+        <select id="gruppo" class="form-control" name="gruppoMuscolare" [(ngModel)]="esercizio.id" required>
+          <option *ngIf="gruppi.length === 0" disabled>
+            Non ci sono elementi
+          </option>
+          <option *ngFor="let group of gruppi" [value]="group.id">
+            {{group.name}}
+          </option>
+        </select>
+
+
+      </div>
+
+      <div class="input-group">
+        <select id="name" class="form-control" placeholder="Scegli">
+          <option *ngIf="macchinari.length == 0 else items_">
+            Non ci sono elementi
+          </option>
+          <ng-template #items_>
+            <option *ngFor="let machine of macchinari" [value]="machine.id">
+              {{machine.name}}
+            </option>
+          </ng-template>
+        </select>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button class="btn-goBack" type="button" (click)="goBack()">
+        <i class="fa-solid fa-house"></i> Torna alla Lista
+      </button>
+      <button class="btn-salva" type="submit" [disabled]="form.invalid" (click)="submit()">
+        <i class="fa-solid fa-bookmark"></i> Salva
+      </button>
+    </div>
+  </form>
+</div>
