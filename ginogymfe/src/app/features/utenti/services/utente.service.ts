@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Utente } from '../models/utenti.model';
 
@@ -8,19 +8,16 @@ import { Utente } from '../models/utenti.model';
 })
 export class UtenteService {
 
-  constructor(private http: HttpClient) {
+  private apiUrl = 'http://localhost:8080/api/users'; // 👈 allineato al backend
 
-  }
+  constructor(private http: HttpClient) {}
 
   getUserById$(id: number): Observable<Utente> {
-  return this.http.get<Utente>(`http://localhost:8080/utente/}`);
-}
-
+    return this.http.get<Utente>(`${this.apiUrl}/${id}`);
+  }
 
   get$(): Observable<Utente[]> {
-    return this.http.get<Utente[]>('http://localhost:8080/utente');
+    return this.http.get<Utente[]>(this.apiUrl);
   }
 
 }
-
-

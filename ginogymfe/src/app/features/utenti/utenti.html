@@ -1,18 +1,43 @@
-<h2>Utenti Abbonati</h2>
+<div class="justify-content-between d-flex align-items-center mb-3">
+  <h2>Lista Utenti</h2>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let utente of utenti">
-      <td>{{ utente?.firstName ?? ''}}</td>
-      <td>{{ utente?.email ?? ''}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="mb-3">
+  <label class="form-check-label me-2">
+    <input 
+      type="checkbox" 
+      class="form-check-input me-1"
+      [(ngModel)]="mostraSoloAbbonati" 
+      (change)="filtraUtenti()" 
+    />
+    Mostra solo abbonati
+  </label>
+  <button class="btn btn-secondary btn-sm" (click)="resetFiltro()">Reset filtro</button>
+</div>
+
+<div class="table-container">
+  <table class="table table-striped">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Cognome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Cellulare</th>
+        <th scope="col">Abbonato</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let utente of utentiFiltrati">
+        <td>{{ utente.firstName }}</td>
+        <td>{{ utente.lastName }}</td>
+        <td>{{ utente.email }}</td>
+        <td>{{ utente.cellulare }}</td>
+        <td>
+          <input type="checkbox" [checked]="utente.abbonato" disabled />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <router-outlet></router-outlet>
