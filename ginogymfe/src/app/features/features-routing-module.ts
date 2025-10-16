@@ -15,8 +15,11 @@ const routes: Routes = [
   {
     path:'gruppi-muscolari',
     loadChildren: () => import('./gruppi-muscolari/gruppo-muscolare-module').then(m => m.GruppoMuscolareDetailModule)
+  },
+  {
+    path: 'esercizi',
+    loadChildren: () => import('./esercizi/esercizio-module').then(m => m.EsercizioModule)
   }
- 
 ];
 
 @NgModule({

@@ -13,11 +13,15 @@ export class MacchinarioService{
     constructor(private http: HttpClient) {}
 
     getMacchinarioById$(id: number): Observable<Macchinario> {
-      return this.http.get<Macchinario>(`${url.baseUrl}${url.macchinari}`);
+      return this.http.get<Macchinario>(`${url.baseUrl}${url.macchinari.base}`);
     }
 
     get$(): Observable<Macchinario[]> {
-        return this.http.get<Macchinario[]>(`${url.baseUrl}${url.macchinari}`);
+        return this.http.get<Macchinario[]>(`${url.baseUrl}${url.macchinari.base}`);
+    }
+
+    getAll$(): Observable<Macchinario[]> {
+        return this.http.get<Macchinario[]>(`${url.baseUrl}${url.macchinari.base}`);
     }
 
     create$(macchinario: Macchinario): Observable<Macchinario> {
@@ -26,10 +30,7 @@ export class MacchinarioService{
     }
 
     put$(macchinario: Macchinario): Observable<Macchinario> {
-        return this.http.put<Macchinario>(`${url.baseUrl}${url.macchinari}/${macchinario.id}`, macchinario);
+        return this.http.put<Macchinario>(`${url.baseUrl}${url.macchinari.base}/${macchinario.id}`, macchinario);
     }
-
-
-
 
 }

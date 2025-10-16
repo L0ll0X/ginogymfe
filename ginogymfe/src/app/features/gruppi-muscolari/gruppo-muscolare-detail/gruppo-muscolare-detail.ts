@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { GruppoMuscolare } from '../models/gruppo-muscolare';
 import { GruppoMuscolareService } from '../service/gruppo-muscolare.service';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
+
 
 @Component({
   selector: 'app-gruppo-muscolare',

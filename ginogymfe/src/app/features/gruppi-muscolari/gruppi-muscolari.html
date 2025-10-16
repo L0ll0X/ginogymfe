@@ -1,1 +1,22 @@
+<div class="justify-content-beetween">
+  <button class="insert-button"(click)="goToCreate()">Inserisci Nuovo Gruppo Muscolare</button>
+  <h2>Lista Gruppi Muscolari:</h2>
+</div>
+<div class="table-container">
+  <table class="table table-striped">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let gruppoMuscolare of (gruppiMuscolari$ | async)">
+        <th scope="row">{{gruppoMuscolare.name}}</th>
+        <button class="Modifica" (click)="goToDetail(gruppoMuscolare.id)"><i class="fas fa-edit"></i>Modifica</button>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 <router-outlet></router-outlet>
