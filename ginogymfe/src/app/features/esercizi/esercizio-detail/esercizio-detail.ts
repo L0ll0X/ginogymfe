@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Esercizio } from '../models/esercizio-model';
 import { ModificaEsercizio } from '../models/modifica-esercizio.model';
 import { CreaEsercizio } from '../models/crea-esercizio.model';
-import { tap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 import { GruppoMuscolareService } from '../../gruppi-muscolari/service/gruppo-muscolare.service';
 import { SelectItem } from '../../../select-item.model';
 import { GruppoMuscolare } from '../../gruppi-muscolari/models/gruppo-muscolare';
@@ -22,11 +22,11 @@ export class EsercizioDetails implements OnInit {
   esercizio!: Esercizio;
   gruppi: SelectItem[] = []; 
   macchinari: SelectItem[] = [];
-   totalElements = 0;
+  totalElements = 0;
   totalPages = 0;
   page = 0;
   size = 10;
-  sort = 'nome,asc';
+  sort = 'name,asc';
   constructor(
     private esercizioService: EsercizioService, 
     private gruppoMuscolareService: GruppoMuscolareService,
@@ -41,14 +41,13 @@ export class EsercizioDetails implements OnInit {
     this.acRoute.data.pipe(
       tap(({esercizio}) =>{
         this.esercizio =esercizio;
+      }),
+      switchMap((_) => this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
+      tap((gruppi: Page<GruppoMuscolare>) =>{
+        this.gruppi = gruppi.content.map(x => new SelectItem({id: x.id, name:x.name}))
       })
+    ))
     ).subscribe();
-
-    this.gruppoMuscolareService.get$().pipe(
-      tap((gruppi: GruppoMuscolare[]) =>{
-        this.gruppi = gruppi.map(x => new SelectItem({id: x.id, name:x.name}))
-      })
-    ).subscribe()
 
     this.macchinarioService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
         tap((macchinari: Page<Macchinario>) =>{

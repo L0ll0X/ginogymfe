@@ -1,12 +1,14 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable, tap } from "rxjs";
 import { GruppoMuscolare } from "../models/gruppo-muscolare";
 import { url } from "../../../../environments/environment.dev";
+import { Page } from "../../macchinario/services/macchinario.service";
 
 @Injectable({providedIn: 'root'})
 
 export class GruppoMuscolareService {
+
 
 constructor(private http: HttpClient) {
 }
@@ -16,8 +18,12 @@ getGruppiMuscolariById$(id:number): Observable <GruppoMuscolare> {
 }
 
 
-get$(): Observable<GruppoMuscolare[]> {
-    return this.http.get<GruppoMuscolare[]>(`${url.baseUrl}${url.gruppi_muscolari.base}`);
+get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'nome,asc' }): Observable<Page<GruppoMuscolare>> {
+    let params = new HttpParams()
+    .set('page', pageable.page.toString())
+    .set('size', pageable.size.toString())
+    .set('sort', pageable.sort);
+    return this.http.get<any>(`${url.baseUrl}${url.gruppi_muscolari.base}`, { params });
 }
 
 
@@ -29,5 +35,10 @@ create$(gruppoMuscolare: GruppoMuscolare): Observable <GruppoMuscolare> {
 update$(gruppoMuscolare: GruppoMuscolare): Observable <GruppoMuscolare> {
     return this.http.put<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}/${gruppoMuscolare.id}`, gruppoMuscolare);
 }
+
+delete$(id: number): Observable<void> {
+  return this.http.delete<void>(`${url.baseUrl}${url.gruppi_muscolari.base}/${id}`);
+}
+
 
 }

@@ -18,7 +18,7 @@ export class Macchinari implements OnInit {
   totalPages = 0;
   page = 0;
   size = 10;
-  sort = 'nome,asc';
+  sort = 'name,asc';
 
   constructor(
     private macchinarioService: MacchinarioService,
