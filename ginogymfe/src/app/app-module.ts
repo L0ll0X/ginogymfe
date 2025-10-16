@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { Utenti } from './features/utenti/utenti';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,6 +16,7 @@ import { Utenti } from './features/utenti/utenti';
     RouterModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
