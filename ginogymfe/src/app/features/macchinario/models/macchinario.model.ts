@@ -1,7 +1,8 @@
 export class Macchinario{
 
     id!: number;
-    nome!: string;
+    name!: string;
+    description!:string;
 
     constructor(obj?:any) {
       Object.assign(this, obj);

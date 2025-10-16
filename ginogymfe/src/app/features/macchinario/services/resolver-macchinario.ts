@@ -18,7 +18,7 @@ export class MacchinarioResolver implements Resolve<Macchinario> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Macchinario> {
     const macchinarioId = route.paramMap.get('id');
-    
+    debugger;
     if (!macchinarioId) {
       return of(new Macchinario()); // Oppure null / throw error, dipende dalla tua logica
     }

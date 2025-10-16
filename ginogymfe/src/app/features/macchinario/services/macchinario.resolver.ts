@@ -4,7 +4,10 @@ import { Observable, of } from "rxjs";
 import { Utente } from "../../utenti/models/utenti.model";
 import { UtenteService } from "../../utenti/services/utente.service";
 import { MacchinarioService } from "./macchinario.service";
-
+import { Injectable } from "@angular/core";
+@Injectable({
+    providedIn:'root'
+})
 export class MacchinarioResolver implements Resolve<Macchinario> {
     constructor(private macchinarioService: MacchinarioService) { }
 
