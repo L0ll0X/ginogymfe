@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { GruppoMuscolare } from '../models/gruppo-muscolare';
 import { GruppoMuscolareService } from '../service/gruppo-muscolare.service';
-import { Router } from '@angular/router';
-
+import { Router, ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-gruppo-muscolare',
@@ -13,41 +13,54 @@ import { Router } from '@angular/router';
 
 export class GruppoMuscolareDetail {
 
-  gruppoMuscolare = new GruppoMuscolare()
+  gruppoMuscolare!:GruppoMuscolare;
 
-  constructor(private gruppiMuscolariService: GruppoMuscolareService, private router: Router) {
-
+ 
+constructor(
+    private gruppiMuscolariService: GruppoMuscolareService, 
+    private router: Router,
+    private route: ActivatedRoute 
+  ) {
+    
+    this.gruppoMuscolare = {} as GruppoMuscolare;
   }
-
   ngOnInit(): void {
-  
-  }
+    this.route.data.pipe(
+      tap(({gruppoMuscolare}) => {
+          if (gruppoMuscolare) {
+              this.gruppoMuscolare = gruppoMuscolare; 
+          }
+      })
+    ).subscribe();
+  }
 
   goBack() {
-  this.router.navigate(['./home']);
+  this.router.navigate(['/gruppi-muscolari']);
   }
 
   submit() {
-    if (this.gruppoMuscolare) {
+    if (this.gruppoMuscolare.id) {
       this.gruppiMuscolariService.update$(this.gruppoMuscolare).subscribe({
         next: (response) => {
           console.log('Gruppo Muscolare aggiornato:', response);
-      },
-      error: (err) => {
-        console.error('Errore: ')
-      }
+          this.router.navigate(['/gruppi-muscolari']); // 👈 Torna alla lista
+        },
+        error: (err) => {
+          console.error('Errore:', err);
+        }
       });
-      } else {
-        this.gruppiMuscolariService.create$(this.gruppoMuscolare).subscribe({
-           next: (response) => {
+    } else {
+      this.gruppiMuscolariService.create$(this.gruppoMuscolare).subscribe({
+        next: (response) => {
           console.log('Gruppo Muscolare aggiunto:', response);
-      },
-      error: (err) => {
-        console.error('Errore: ')
-      }
+          this.router.navigate(['/gruppi-muscolari']); // 👈 Torna alla lista
+        },
+        error: (err) => {
+          console.error('Errore:', err);
+        }
       });
+    }
   }
-}
-
+  
 
 }

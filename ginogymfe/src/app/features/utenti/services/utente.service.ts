@@ -13,12 +13,17 @@ export class UtenteService {
   }
 
   getUserById$(id: number): Observable<Utente> {
-  return this.http.get<Utente>(`http://localhost:8080/utente/}`);
+  return this.http.get<Utente>(`http://localhost:8080/utente/`);
 }
 
 
   get$(): Observable<Utente[]> {
     return this.http.get<Utente[]>('http://localhost:8080/utente');
+  }
+
+  create$(utente: Utente) {
+    return this.http.post('http://localhost:8080/utente', utente );
+
   }
 
 }

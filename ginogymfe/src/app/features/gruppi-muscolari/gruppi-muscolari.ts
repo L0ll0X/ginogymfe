@@ -20,7 +20,7 @@ export class GruppiMuscolari {
     private acroute: ActivatedRoute) { };
 
   ngOnInit(): void {
-    // this.gruppiMuscolari$ = this.gruppoMuscolareService.get$();
+    this.gruppiMuscolari$ = this.gruppoMuscolareService.get$();
   }
 
   goToCreate() {

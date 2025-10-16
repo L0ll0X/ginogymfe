@@ -41,7 +41,7 @@ export class EsercizioDetails implements OnInit {
 
     this.gruppoMuscolareService.getAll$().pipe(
       tap((gruppi: GruppoMuscolare[]) =>{
-        this.gruppi = gruppi.map(x => new SelectItem({id: x.id, name:x.description}))
+        this.gruppi = gruppi.map(x => new SelectItem({id: x.id, name:x.name}))
       })
     ).subscribe()
 

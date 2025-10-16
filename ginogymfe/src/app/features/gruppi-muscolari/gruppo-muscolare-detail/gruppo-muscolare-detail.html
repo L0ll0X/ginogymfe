@@ -10,15 +10,15 @@
           id="name"
           type="text"
           class="form-control"
-          [(ngModel)]="gruppoMuscolare.description"
-          name="description"
+          [(ngModel)]="gruppoMuscolare.name"
+          name="name"
           placeholder="Inserisci..."
           required
           #description="ngModel"
         />
 
         <!-- Messaggio d’errore se non compilato -->
-        <div *ngIf="description.invalid && description.touched" style="color: red;">
+        <div *ngIf="!gruppoMuscolare.name" style="color: red;">
           Il nome del gruppo muscolare è obbligatorio.
         </div>
       </div>
@@ -27,7 +27,7 @@
     <!-- ✅ BOTTONI DENTRO AL FORM -->
     <div class="form-buttons d-flex gap-2">
       <button type="button" class="btn-goBack" (click)="goBack()">
-        <i class="fa-solid fa-house"></i> Torna alla Home
+        <i class="fa-solid fa-list"></i> Torna alla Lista
       </button>
 
       <!-- Disabilitato se il form non è valido -->

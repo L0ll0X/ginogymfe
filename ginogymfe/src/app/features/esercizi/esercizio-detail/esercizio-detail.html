@@ -26,13 +26,16 @@
             id="name"
             class="form-control"
             placeholder="Scegli">
-            <option *ngFor="let group of gruppi" [value]="group.id">
-                {{group.name}}
+            <option *ngIf="gruppi.length == 0 else items">
+              Non ci sono elementi
             </option>
+            <ng-template #items>
+              <option *ngFor="let group of gruppi" [value]="group.id">
+                  {{group.name}}
+              </option>
+            </ng-template>
         </select>
-            <div *ngIf="!gruppi.name" style="color: red;">
-            Il nome del gruppo muscolare è obbligatorio.
-            </div>
+          
         </div>
 
         <div class="input-group">
@@ -40,13 +43,15 @@
             id="name"
             class="form-control"
             placeholder="Scegli">
-            <option *ngFor="let machine of macchinari" [value]="machine.id">
-                {{machine.name}}
+              <option *ngIf="macchinari.length == 0 else items_">
+              Non ci sono elementi
             </option>
+            <ng-template #items_>
+              <option *ngFor="let machine of macchinari" [value]="machine.id">
+                  {{machine.name}}
+              </option>
+            </ng-template>
         </select>
-            <div *ngIf="!macchinari.name" style="color: red;">
-            Il nome del macchinario è obbligatorio.
-            </div>
         </div>
     </div>
 

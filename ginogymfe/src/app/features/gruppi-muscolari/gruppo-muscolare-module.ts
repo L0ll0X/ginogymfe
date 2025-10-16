@@ -1,39 +1,47 @@
-import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { GruppoMuscolareDetail } from './gruppo-muscolare-detail/gruppo-muscolare-detail';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
+import { GruppoMuscolareDetail } from "./gruppo-muscolare-detail/gruppo-muscolare-detail";
+import { GruppoMuscolareResolver } from './service/resolver-gruppo-muscolare';
 import { GruppiMuscolari } from './gruppi-muscolari';
 
 
 @NgModule({
   declarations: [
-    GruppoMuscolareDetail,
+    GruppiMuscolari,
+    GruppoMuscolareDetail
   ],
   imports: [
     CommonModule,
-    NgbModule,
     FormsModule,
+    HttpClientModule,
+    NgbModule,
+
     RouterModule.forChild([
       {
         path: '',
-        component: GruppiMuscolari,
-        children:[
-          {
-            path: 'detail',
-            component: GruppoMuscolareDetail
-          }
-        ]
+        component: GruppiMuscolari
       },
+      {
+        path: 'details/:id',
+        component: GruppoMuscolareDetail,
+        resolve: { gruppoMuscolare: GruppoMuscolareResolver }
+      },
+      {
+        path: 'details',
+        component: GruppoMuscolareDetail,
+        resolve: { gruppoMuscolare: GruppoMuscolareResolver }
+      }
     ]),
-    HttpClientModule,
-  ],
-  providers: [
-  
   ],
 
+  providers: [
+    GruppoMuscolareResolver
+  ]
 })
-export class GruppoMuscolareDetailModule { }
+export class GruppoMuscolareModule { }
