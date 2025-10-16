@@ -15,20 +15,11 @@ getGruppiMuscolariById$(id:number): Observable <GruppoMuscolare> {
     return this.http.get<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}/${id}`);
 }
 
-<<<<<<< HEAD
-create$(gruppoMuscolare: GruppoMuscolare): Observable <GruppoMuscolare> {
-    console.log(`${url.baseUrl}${url.gruppi_muscolari.base}`)
-    return this.http.post<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}`, gruppoMuscolare);
-}
-
-update$(gruppoMuscolare: GruppoMuscolare): Observable <GruppoMuscolare> {
-=======
 create$(gruppoMuscolare: GruppoMuscolare): Observable<GruppoMuscolare> {
     return this.http.post<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}`, gruppoMuscolare);
 }
 
 update$(gruppoMuscolare: GruppoMuscolare): Observable<GruppoMuscolare> {
->>>>>>> develop_tatiana
     return this.http.put<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}/${gruppoMuscolare.id}`, gruppoMuscolare);
 }
 }

@@ -10,11 +10,7 @@ import { Utenti } from './features/utenti/utenti';
 @NgModule({
   declarations: [
     App,
-<<<<<<< HEAD
   ],
-=======
-    ],
->>>>>>> develop_luca
   imports: [
     BrowserModule,
     RouterModule,
