@@ -10,15 +10,15 @@
           id="name"
           type="text"
           class="form-control"
-          [(ngModel)]="gruppoMuscolare.description"
-          name="description"
+          [(ngModel)]="gruppoMuscolare.name"
+          name="name"
           placeholder="Inserisci..."
           required
           #description="ngModel"
         />
 
         <!-- Messaggio d’errore se non compilato -->
-        <div *ngIf="description.invalid && description.touched" style="color: red;">
+        <div *ngIf="!gruppoMuscolare.name" style="color: red;">
           Il nome del gruppo muscolare è obbligatorio.
         </div>
       </div>
