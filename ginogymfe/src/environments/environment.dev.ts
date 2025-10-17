@@ -1,3 +1,4 @@
+import { DettagliEsercizio } from "../app/features/dettagli-esercizio/dettagli-esercizio";
 
 export const url ={
     baseUrl: 'http://localhost:8080/api/',
@@ -16,6 +17,13 @@ export const url ={
     },
     utenti:{
         base:"users"
+    },
+    DettagliEsercizio: {
+        base: 'exerciseDetails',
+        get: '',
+        update:'',
+        create:'',
+        delete:''
     }
     
 }

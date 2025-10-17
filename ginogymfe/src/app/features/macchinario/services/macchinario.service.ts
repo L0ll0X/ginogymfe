@@ -26,7 +26,7 @@ export class MacchinarioService {
   }
 
   
-  get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'nome,asc' }): Observable<Page<Macchinario>> {
+  get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<Macchinario>> {
     let params = new HttpParams()
       .set('page', pageable.page.toString())
       .set('size', pageable.size.toString())
