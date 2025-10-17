@@ -9,13 +9,19 @@
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Nome</th>
+        <th scope="col">Gruppo Muscolare</th>
+        <th scope="col">Macchinario</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let esercizio of (esercizi$ | async)">
         <th scope="row">{{esercizio.name}}</th>
-        <button class="Modifica" (click)="goToDetail(esercizio.id)"><i class="fas fa-edit"></i>Modifica</button>
+        <th scope="row">{{esercizio.gruppoMuscolare}}</th>
+        <th scope="row">{{esercizio.macchinario}}</th>
+        <button class="Modifica" (click)="goToDetail(esercizio.id)"><i class="fas fa-edit"></i></button>
         <button class="Dettagli" (click)="goToExerciseDetails()">Inserisci Dettagli Esercizio</button>
+        <button class="Elimina" (click)="deleteEsercizio(esercizio.id)"><i class="fas fa-trash"></i></button>
       </tr>
     </tbody>
   </table>
