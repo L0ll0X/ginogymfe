@@ -31,4 +31,8 @@ export class Esercizi {
     this.router.navigate(['./details', id], { relativeTo: this.acroute });
   }
 
+  goToExerciseDetails(){
+    this.router.navigate(['./dettagli-esercizio'],{ relativeTo: this.acroute });
+  }
+
 }

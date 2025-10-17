@@ -1,30 +1,36 @@
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtenteService } from './services/utente.service';
-import { Utente } from './models/utenti.model';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-utenti',
-  standalone: false,
+  standalone:false,
   templateUrl: './utenti.html',
-  styleUrl: './utenti.css'
 })
-export class Utenti {
-
- utenti: Utente[] = [];
+export class UtentiComponent implements OnInit {
+  utenti: any[] = [];
+  utentiFiltrati: any[] = [];
+  mostraSoloAbbonati = false;
 
   constructor(private service: UtenteService) {}
 
-  ngOnInit(): void {
-   this.service.get$()
-       .subscribe({
-        next: (response) => {
-          this.utenti = response;
-        },
-        error: (error) => {
-          console.error('Errore nel caricamento degli utenti:', error);
-        }
-      });
+  ngOnInit() {
+    this.service.get$().pipe(
+      tap(x => this.utenti= x)
+    ).subscribe()
+  }
+
+  filtraUtenti() {
+    if (this.mostraSoloAbbonati) {
+      this.utentiFiltrati = this.utenti.filter(u => u.abbonato === true);
+    } else {
+      this.utentiFiltrati = this.utenti;
+    }
+  }
+
+  resetFiltro() {
+    this.mostraSoloAbbonati = false;
+    this.utentiFiltrati = this.utenti;
   }
 }

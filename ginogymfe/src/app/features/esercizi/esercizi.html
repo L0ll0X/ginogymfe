@@ -15,6 +15,7 @@
       <tr *ngFor="let esercizio of (esercizi$ | async)">
         <th scope="row">{{esercizio.name}}</th>
         <button class="Modifica" (click)="goToDetail(esercizio.id)"><i class="fas fa-edit"></i>Modifica</button>
+        <button class="Dettagli" (click)="goToExerciseDetails()">Inserisci Dettagli Esercizio</button>
       </tr>
     </tbody>
   </table>
