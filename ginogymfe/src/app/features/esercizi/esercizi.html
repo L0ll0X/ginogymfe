@@ -1,7 +1,12 @@
-<div class="justify-content-beetween">
-  <button class="insert-button"(click)="goToCreate()">Inserisci Nuovo Esercizio</button>
+<div class="page-header">
   <h2>Lista Esercizi:</h2>
+  <div class="insert-container">
+    <button class="insert-button" (click)="goToCreate()">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
 </div>
+
 <div class="table-container">
   <table class="table table-striped">
     <thead class="table-light">
@@ -10,32 +15,27 @@
         <th scope="col">Nome</th>
         <th scope="col">Gruppo Muscolare</th>
         <th scope="col">Macchinario</th>
-<<<<<<< HEAD
-        <th scope="col"></th>
-=======
->>>>>>> develop_giulia
+         <th scope="col" style="width: 120px;"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let esercizio of (esercizi$ | async)">
         <th scope="row">{{esercizio.id}}</th>
         <th scope="row">{{esercizio.name}}</th>
-<<<<<<< HEAD
-        <th scope="row">{{esercizio.gruppoMuscolare}}</th>
-        <th scope="row">{{esercizio.macchinario}}</th>
-        <button class="Modifica" (click)="goToDetail(esercizio.id)"><i class="fas fa-edit"></i></button>
-        <button class="Dettagli" (click)="goToExerciseDetails()">Inserisci Dettagli Esercizio</button>
-        <button class="Elimina" (click)="deleteEsercizio(esercizio.id)"><i class="fas fa-trash"></i></button>
-=======
-        <th scope="row">{{esercizio.muscleGroup.name}}</th>
+        <th scope="row">{{esercizio.muscleGroup.name}}</th>
         <th scope="row">{{esercizio.machine.name}}</th>
-       <td scope="row"> 
-          <button class="Modifica" (click)="goToDetail(esercizio.id)"><i class="fas fa-edit"></i>Modifica</button>
-          <button class="Dettagli" (click)="goToExerciseDetails()">Inserisci Dettagli Esercizio</button>
+        <td class="action-buttons">
+          <button class="Modifica" (click)="goToDetail(esercizio.id)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="Dettagli" (click)="goToExerciseDetails()">Inserisci Dettagli Esercizio</button>
+          <button class="Elimina" (click)="deleteEsercizio(esercizio.id)">
+            <i class="fas fa-trash"></i>
+          </button>
         </td>
->>>>>>> develop_giulia
       </tr>
     </tbody>
   </table>
 </div>
 
+<router-outlet></router-outlet>

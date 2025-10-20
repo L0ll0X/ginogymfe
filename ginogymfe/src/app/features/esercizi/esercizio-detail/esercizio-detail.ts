@@ -28,7 +28,7 @@ export class EsercizioDetails implements OnInit {
    totalElements = 0;
   totalPages = 0;
   page = 0;
-  size = 10;
+  size = 15;
   sort = 'name,asc';
 
   constructor(
@@ -52,7 +52,6 @@ export class EsercizioDetails implements OnInit {
       })
     ))
     ).subscribe();
-
     this.macchinarioService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
         tap((macchinari: Page<Macchinario>) =>{
           this.macchinari = macchinari.content.map(x => new SelectItem({id: x.id, name:x.name, description:x.description}))

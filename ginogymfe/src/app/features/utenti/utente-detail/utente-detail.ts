@@ -23,8 +23,6 @@ export class UtenteDetail {
         this.populateForm(user);
       })
     ).subscribe();
-
-
   }
 
   private populateForm(user: Utente) {
