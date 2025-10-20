@@ -20,13 +20,16 @@ import { Macchinario } from '../../macchinario/models/macchinario.model';
 export class EsercizioDetails implements OnInit {
 
   esercizio!: Esercizio;
+
   gruppi: SelectItem[] = []; 
   macchinari: SelectItem[] = [];
+
   totalElements = 0;
   totalPages = 0;
   page = 0;
-  size = 10;
+  size = 15;
   sort = 'name,asc';
+
   constructor(
     private esercizioService: EsercizioService, 
     private gruppoMuscolareService: GruppoMuscolareService,
@@ -48,7 +51,6 @@ export class EsercizioDetails implements OnInit {
       })
     ))
     ).subscribe();
-
     this.macchinarioService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
         tap((macchinari: Page<Macchinario>) =>{
           this.macchinari = macchinari.content.map(x => new SelectItem({id: x.id, name:x.name}))
@@ -56,16 +58,15 @@ export class EsercizioDetails implements OnInit {
       ).subscribe()
   }
 
-
   submit() {
     if (this.esercizio.id) {
       this.esercizioService.put$(new ModificaEsercizio({
         id: this.esercizio.id,
         name: this.esercizio.name,
-      
       } as ModificaEsercizio)).subscribe({
         next: (response) => {
           console.log('Esercizio aggiornato:', response);
+          this.router.navigate(['./esercizi']);
         },
         error: (err) => {
           console.error('Errore: ')
@@ -78,6 +79,7 @@ export class EsercizioDetails implements OnInit {
       } as ModificaEsercizio)).subscribe({
         next: (response) => {
           console.log('Esercizio aggiunto:', response);
+          this.router.navigate(['./esercizi']);
         },
         error: (err) => {
           console.error('Errore: ')

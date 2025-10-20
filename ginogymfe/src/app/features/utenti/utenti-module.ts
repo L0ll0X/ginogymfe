@@ -26,7 +26,7 @@ import { UserResolver } from './services/resolver-utente';
         component: UtentiComponent,
         children: [
           {
-            path: 'utente-detail',
+            path: 'details',
             component: UtenteDetail,
             resolve: {user: UserResolver}
           }
