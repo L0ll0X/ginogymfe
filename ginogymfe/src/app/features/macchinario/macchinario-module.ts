@@ -1,36 +1,40 @@
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { Macchinari } from './macchinari';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 import { MacchinarioDetails } from './macchinario-details/macchinario-details';
-import { MacchinarioResolver } from './services/resolver-macchinario';
+import { Macchinari } from './macchinari';
+import { MacchinarioResolver } from './services/macchinario.resolver';
 
 
 @NgModule({
   declarations: [
-    Macchinari,
-    MacchinarioDetails
+  Macchinari,
+  MacchinarioDetails
   ],
   imports: [
+    
     CommonModule,
     RouterModule.forChild([
       {
         path: '',
         component: Macchinari,
-        children:[
+        
+      },
           {
             path: 'details',
             component: MacchinarioDetails,
             resolve: {macchinario: MacchinarioResolver}
     
-          }
-        ]
-      },
+          },
+           {
+        path: 'details/:id', // /macchinari/details/7 -> modifica/dettaglio
+        component: MacchinarioDetails,
+        resolve: { macchinario: MacchinarioResolver }
+      }
+        
     ]),
     HttpClientModule,
     NgbModule,

@@ -1,16 +1,21 @@
 <h2>Aggiungi Nuovo Macchinario:</h2>
 <form #form="ngForm">
-    <input type="text" placeholder="inserisci nome" name="nome" [(ngModel)]="macchinario.nome" required #nomeInput="ngModel">
-
+    <input type="text" placeholder="inserisci nome" name="name" [(ngModel)]="macchinario.name" required #nomeInput="ngModel">
+<input type="text" placeholder="inserisci descrizione" name="description" [(ngModel)]="macchinario.description" required #nomeInput="ngModel">
     <div *ngIf="nomeInput.invalid && (nomeInput.dirty || nomeInput.touched)">
         <div *ngIf="nomeInput.errors?.['required']">
             Il nome è obbligatorio.
         </div>
     </div>
     <div class="d-flex gap-2">
-     <button type="submit" (click)="goBack()"><i class="fa-solid fa-house"></i>Torna alla Home</button>
-     <button type="submit" [disabled]="!form.valid" (click)="submit()"><i class="fa-solid fa-bookmark"></i>Salva</button>
+        <button type="button" (click)="goBack()">
+            <i class="fa-solid fa-list"></i>Torna alla Lista
+        </button>
+        <button type="button" class="btn-salva" [disabled]="form.invalid" (click)="submit()">
+            <i class="fa-solid fa-bookmark"></i> Salva
+        </button>
     </div>
+    
 </form>
 
 

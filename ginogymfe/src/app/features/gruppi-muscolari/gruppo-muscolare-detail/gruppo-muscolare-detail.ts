@@ -24,6 +24,7 @@ constructor(
     
     this.gruppoMuscolare = {} as GruppoMuscolare;
   }
+  
   ngOnInit(): void {
     this.route.data.pipe(
       tap(({gruppoMuscolare}) => {
@@ -49,9 +50,9 @@ constructor(
         console.error('Errore: ')
       }
       });
-      } else {
-        this.gruppiMuscolariService.create$(this.gruppoMuscolare).subscribe({
-           next: (response) => {
+    } else {
+      this.gruppiMuscolariService.create$(this.gruppoMuscolare).subscribe({
+        next: (response) => {
           console.log('Gruppo Muscolare aggiunto:', response);
           this.router.navigate(['/gruppi-muscolari']); //torna alla lista
       },
@@ -59,8 +60,8 @@ constructor(
         console.error('Errore: ')
       }
       });
+    }
   }
-}
-
+  
 
 }
