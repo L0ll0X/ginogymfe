@@ -31,4 +31,17 @@ export class Esercizi {
     this.router.navigate(['./details', id], { relativeTo: this.acroute });
   }
 
+  goToExerciseDetails(){
+    this.router.navigate(['./dettagli-esercizio'],{ relativeTo: this.acroute });
+  }
+  
+  deleteEsercizio(id: number): void {
+    this.esercizioService.delete$(id).subscribe({
+      next: () => {
+        console.log(`Esercizio ${id} eliminato`);
+      },
+      error: err => console.error('Errore eliminazione', err)
+    });
+  }
+
 }
