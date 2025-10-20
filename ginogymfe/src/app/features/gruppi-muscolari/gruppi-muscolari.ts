@@ -13,8 +13,7 @@ import { Page } from '../macchinario/services/macchinario.service';
 })
 export class GruppiMuscolari {
 
-  gruppiMuscolariSubject = new BehaviorSubject<GruppoMuscolare[]>([]);
-  get gruppiMuscolari$(){ return this.gruppiMuscolariSubject.asObservable()}
+  gruppiMuscolari$!: Observable<GruppoMuscolare[]>;
 
 
   totalElements = 0;
@@ -28,18 +27,8 @@ export class GruppiMuscolari {
     private acroute: ActivatedRoute) { };
 
   ngOnInit(): void {
-     this.loadGruppiMuscolari();
-  }
-
-  private loadGruppiMuscolari(){
-     this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
-      map((grupppi: Page<GruppoMuscolare>) =>{
-        return grupppi.content
-      }),
-      tap((gruppi: GruppoMuscolare[]) => {
-        this.gruppiMuscolariSubject.next(gruppi);
-      })
-    ).subscribe();
+    this.gruppiMuscolari$ = this.gruppoMuscolareService.gruppiMuscolari$;
+    this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).subscribe();
   }
 
   goToCreate() {
@@ -52,13 +41,15 @@ export class GruppiMuscolari {
 
   deleteGruppoMuscolare(id: number) {
   if (confirm('Sei sicuro di voler eliminare questo gruppo muscolare?')) {
-    this.gruppoMuscolareService.delete$(id).pipe(
-      tap((_) =>{
-        this.loadGruppiMuscolari();
-      })
-    ).subscribe();
+    this.gruppoMuscolareService.delete$(id).subscribe({
+      next: () => {
+      console.log(`GruppoMuscolare ${id} eliminato`);
+      },
+      error: err => console.error('Errore eliminazione', err)
+    });
+  }
   }
 }
 
 
-}
+

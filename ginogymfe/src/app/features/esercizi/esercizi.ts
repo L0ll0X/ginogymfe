@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Esercizio } from './models/esercizio-model';
 import { Observable } from 'rxjs';
 import { EsercizioService } from './service/esercizio.service';
@@ -12,15 +12,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class Esercizi {
 
+
   esercizi$!: Observable<Esercizio[]>
+
+  totalElements = 0;
+  totalPages = 0;
+  page = 0;
+  size = 10;
+  sort = 'name,asc';
 
   constructor(
     private esercizioService: EsercizioService,
     private router: Router,
-    private acroute: ActivatedRoute) { };
+    private acroute: ActivatedRoute,
+    private cdr: ChangeDetectorRef) { };
 
   ngOnInit(): void {
-    // this.esercizi$ = this.esercizioService.get$();
+    this.esercizioService.get$({ page: this.page, size: this.size, sort: this.sort }).subscribe(()=> {
+    this.cdr.detectChanges();
+  });
+    this.esercizi$ = this.esercizioService.esercizi$;
   }
 
   goToCreate() {
@@ -33,6 +44,17 @@ export class Esercizi {
 
   goToExerciseDetails(){
     this.router.navigate(['./dettagli-esercizio'],{ relativeTo: this.acroute });
+  }
+
+  deleteEsercizio(id: number) {
+  if (confirm('Sei sicuro di voler eliminare questo esercizio?')) {
+    this.esercizioService.delete$(id).subscribe({
+      next: () => {
+      console.log(`Esercizio ${id} eliminato`);
+      },
+      error: err => console.error('Errore eliminazione', err)
+    });
+  }
   }
 
 }

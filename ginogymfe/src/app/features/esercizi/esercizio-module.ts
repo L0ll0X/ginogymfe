@@ -36,6 +36,11 @@ import { DettaglioEsercizioResolver } from '../dettagli-esercizio/service/dettag
         path: 'dettagli-esercizio',
         component: DettagliEsercizio,
         resolve: { dettaglioEsercizio: DettaglioEsercizioResolver }
+      },
+      {
+        path: 'details/:id', 
+        component: EsercizioDetails,
+        resolve: { esercizio: EsercizioResolver }
       }
     ]),
     HttpClientModule,

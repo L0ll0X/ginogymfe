@@ -1,4 +1,3 @@
-
 <div class="justify-content-beetween">
   <button class="insert-button"(click)="goToCreate()">Inserisci Nuovo Esercizio</button>
   <h2>Lista Esercizi:</h2>
@@ -9,13 +8,20 @@
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Nome</th>
+        <th scope="col">Gruppo Muscolare</th>
+        <th scope="col">Macchinario</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let esercizio of (esercizi$ | async)">
+        <th scope="row">{{esercizio.id}}</th>
         <th scope="row">{{esercizio.name}}</th>
-        <button class="Modifica" (click)="goToDetail(esercizio.id)"><i class="fas fa-edit"></i>Modifica</button>
-        <button class="Dettagli" (click)="goToExerciseDetails()">Inserisci Dettagli Esercizio</button>
+        <th scope="row">{{esercizio.muscleGroup.name}}</th>
+        <th scope="row">{{esercizio.machine.name}}</th>
+       <td scope="row"> 
+          <button class="Modifica" (click)="goToDetail(esercizio.id)"><i class="fas fa-edit"></i>Modifica</button>
+          <button class="Dettagli" (click)="goToExerciseDetails()">Inserisci Dettagli Esercizio</button>
+        </td>
       </tr>
     </tbody>
   </table>
