@@ -43,6 +43,7 @@ constructor(
       this.gruppiMuscolariService.update$(this.gruppoMuscolare).subscribe({
         next: (response) => {
           console.log('Gruppo Muscolare aggiornato:', response);
+          this.router.navigate(['/gruppi-muscolari']); //torna alla lista
       },
       error: (err) => {
         console.error('Errore: ')
@@ -52,6 +53,7 @@ constructor(
         this.gruppiMuscolariService.create$(this.gruppoMuscolare).subscribe({
            next: (response) => {
           console.log('Gruppo Muscolare aggiunto:', response);
+          this.router.navigate(['/gruppi-muscolari']); //torna alla lista
       },
       error: (err) => {
         console.error('Errore: ')
