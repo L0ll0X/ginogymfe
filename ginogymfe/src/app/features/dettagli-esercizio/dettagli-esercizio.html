@@ -1,0 +1,62 @@
+<div class="form-container">
+  <h2 class="title" id="basic-title">Aggiungi Dettagli Esercizio:</h2>
+</div>
+
+<div class="modal-body">
+  <form #form="ngForm">
+    <div class="mb-3">
+        <div class="input-group">
+            <input
+            id="name"
+            type="text"
+            class="form-control"
+            placeholder="Inserisci serie"
+            name="serie"
+            [(ngModel)]="dettaglioEsercizio.serie"
+            required
+            #nomeInput="ngModel"
+            />
+        <div *ngIf="!dettaglioEsercizio.serie" style="color: red;">
+            Il numero di serie è obbligatorio.
+        </div>
+            <input
+            id="name"
+            type="text"
+            class="form-control"
+            placeholder="Inserisci ripetizioni"
+            name="ripetizioni"
+            [(ngModel)]="dettaglioEsercizio.ripetizioni"
+            required
+            #nomeInput="ngModel"
+            />
+        <div *ngIf="!dettaglioEsercizio.ripetizioni" style="color: red;">
+            Il numero di ripetizioni è obbligatorio.
+        </div>
+            <input
+            id="name"
+            type="text"
+            class="form-control"
+            placeholder="Inserisci recupero"
+            name="recupero"
+            [(ngModel)]="dettaglioEsercizio.recupero"
+            required
+            #nomeInput="ngModel"
+            />
+        <div *ngIf="!dettaglioEsercizio.recupero" style="color: red;">
+            La durata del recupero è obbligatoria.
+        </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button class="btn-goBack" type="button" (click)="goBack()">
+           <i class="fa-solid fa-house"></i> Torna alla Lista</button>
+          <button
+          class="btn-salva"
+          type="submit"
+          [disabled]="form.invalid"
+          (click)="submit()">
+          <i class="fa-solid fa-bookmark"></i> Salva</button>
+        </div>
+
+</div>
+

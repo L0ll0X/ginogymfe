@@ -24,6 +24,7 @@ constructor(
     
     this.gruppoMuscolare = {} as GruppoMuscolare;
   }
+  
   ngOnInit(): void {
     this.route.data.pipe(
       tap(({gruppoMuscolare}) => {
