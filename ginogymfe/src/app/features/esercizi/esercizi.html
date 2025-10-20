@@ -1,0 +1,22 @@
+
+<div class="justify-content-beetween">
+  <button class="insert-button"(click)="goToCreate()">Inserisci Nuovo Esercizio</button>
+  <h2>Lista Esercizi:</h2>
+</div>
+<div class="table-container">
+  <table class="table table-striped">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let esercizio of (esercizi$ | async)">
+        <th scope="row">{{esercizio.name}}</th>
+        <button class="Modifica" (click)="goToDetail(esercizio.id)"><i class="fas fa-edit"></i>Modifica</button>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

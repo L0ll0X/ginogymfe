@@ -43,22 +43,24 @@ constructor(
       this.gruppiMuscolariService.update$(this.gruppoMuscolare).subscribe({
         next: (response) => {
           console.log('Gruppo Muscolare aggiornato:', response);
-      },
-      error: (err) => {
-        console.error('Errore: ')
-      }
+          this.router.navigate(['/gruppi-muscolari']); // 👈 Torna alla lista
+        },
+        error: (err) => {
+          console.error('Errore:', err);
+        }
       });
-      } else {
-        this.gruppiMuscolariService.create$(this.gruppoMuscolare).subscribe({
-           next: (response) => {
+    } else {
+      this.gruppiMuscolariService.create$(this.gruppoMuscolare).subscribe({
+        next: (response) => {
           console.log('Gruppo Muscolare aggiunto:', response);
-      },
-      error: (err) => {
-        console.error('Errore: ')
-      }
+          this.router.navigate(['/gruppi-muscolari']); // 👈 Torna alla lista
+        },
+        error: (err) => {
+          console.error('Errore:', err);
+        }
       });
+    }
   }
-}
-
+  
 
 }

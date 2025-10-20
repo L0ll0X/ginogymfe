@@ -1,68 +1,48 @@
-import {
-  AngularNodeAppEngine,
-  createNodeRequestHandler,
-  isMainModule,
-  writeResponseToNodeResponse,
-} from '@angular/ssr/node';
+// src/server.ts
+import 'zone.js/node';
 import express from 'express';
-import { join } from 'node:path';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { readFileSync } from 'fs';
+import { platformServer } from '@angular/platform-server';
+import { AppServerModule } from './app/app.module.server';
+import { DOCUMENT } from '@angular/common';
 
-const browserDistFolder = join(import.meta.dirname, '../browser');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
-const angularApp = new AngularNodeAppEngine();
+const distFolder = join(__dirname, '../browser');
+const indexHtml = join(distFolder, 'index.html');
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+// Serve static files
+app.use(express.static(distFolder, { maxAge: '1y' }));
 
-/**
- * Serve static files from /browser
- */
-app.use(
-  express.static(browserDistFolder, {
-    maxAge: '1y',
-    index: false,
-    redirect: false,
-  }),
-);
+// SSR for all other routes (Express 5 requires '/*' instead of '*')
+app.get('/*', async (req, res, next) => {
+  try {
+    // Read template
+    const template = readFileSync(indexHtml).toString();
 
-/**
- * Handle all other requests by rendering the Angular application.
- */
-app.use((req, res, next) => {
-  angularApp
-    .handle(req)
-    .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
-    )
-    .catch(next);
+    // Bootstrap Angular AppServerModule
+    const moduleRef = await platformServer().bootstrapModule(AppServerModule);
+
+    // Get DOCUMENT to render full HTML
+    const document = moduleRef.injector.get(DOCUMENT);
+    const html = template.replace(
+      '<app-root></app-root>',
+      document.documentElement.outerHTML
+    );
+
+    res.status(200).send(html);
+  } catch (err) {
+    console.error('❌ SSR Error:', err);
+    next(err);
+  }
 });
 
-/**
- * Start the server if this module is the main entry point.
- * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
- */
-if (isMainModule(import.meta.url)) {
-  const port = process.env['PORT'] || 4000;
-  app.listen(port, (error) => {
-    if (error) {
-      throw error;
-    }
-
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
-}
-
-/**
- * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
- */
-export const reqHandler = createNodeRequestHandler(app);
+// Start server
+const port = process.env['PORT'] || 4000;
+app.listen(port, () => {
+  console.log(`✅ Angular SSR server running at http://localhost:${port}`);
+});

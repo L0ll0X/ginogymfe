@@ -36,13 +36,14 @@ export class MacchinarioService {
     return this.http.get<any>(`${url.baseUrl}${url.macchinari.base}`, { params }).pipe(
       tap(data => {
         this.macchinari = data.content;
-        this.macchinariSubject.next(this.macchinari); // aggiorna lo stream
+        this.macchinariSubject.next(this.macchinari); 
       })
     );
   }
 
 
   create$(macchinario: Macchinario): Observable<Macchinario> {
+    console.log("macchinario" , macchinario) 
     return this.http.post<Macchinario>(`${url.baseUrl}${url.macchinari.base}`, macchinario).pipe(
       tap(newMac => {
         this.macchinari.push(newMac);

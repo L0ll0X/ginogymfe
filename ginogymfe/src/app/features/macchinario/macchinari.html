@@ -1,4 +1,4 @@
-<div >
+<div>
   <button class="insert-button" (click)="goToCreate()">
     Inserisci Nuovo Macchinario
   </button>
@@ -12,11 +12,12 @@
         <th scope="col">Id</th>
         <th scope="col">Nome</th>
         <th scope="col">Descrizione</th>
+        <th scope="col" style="width: 150px;"></th>
       </tr>
     </thead>
-    <tbody >
-      <tr *ngFor="let m of (macchinari$|async)">
-        <td>{{ m.id }}</td>
+    <tbody>
+      <tr *ngFor="let m of (macchinari$ | async)">
+       <td>{{ m.id }}</td>
         <td>{{ m.name }}</td>
         <td>{{ m.description }}</td>
         <td>
@@ -28,13 +29,12 @@
           </button>
         </td>
       </tr>
+
+      <tr *ngIf="(macchinari$ | async)?.length === 0">
+        <td colspan="4" class="text-center">Nessun macchinario presente.</td>
+      </tr>
     </tbody>
   </table>
-   <ng-template #noData>
-    <tr>
-      <td colspan="4" class="text-center">Nessun macchinario presente.</td>
-    </tr>
-  </ng-template>
 </div>
 
 <router-outlet></router-outlet>

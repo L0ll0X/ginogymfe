@@ -19,7 +19,7 @@ export class MacchinarioDetails implements OnInit{
     private macchinarioService: MacchinarioService, 
     private router: Router, 
     private acroute: ActivatedRoute) {
-      this.macchinario={} as Macchinario;
+      this.macchinario={} as Macchinario
   }
 
   ngOnInit(): void {

@@ -3,10 +3,17 @@ import { provideServerRendering, withRoutes } from '@angular/ssr';
 import { App } from './app';
 import { AppModule } from './app-module';
 import { serverRoutes } from './app.routes.server';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [AppModule],
+  imports: [AppModule,
+    FormsModule,
+  
+  ],
   providers: [provideServerRendering(withRoutes(serverRoutes))],
   bootstrap: [App],
 })
 export class AppServerModule {}
+
+
+

@@ -18,35 +18,19 @@ export class Macchinari implements OnInit {
   totalPages = 0;
   page = 0;
   size = 10;
-  sort = 'nome,asc';
+  sort = 'name,asc';
 
   constructor(
     private macchinarioService: MacchinarioService,
     private router: Router,
     private acroute: ActivatedRoute
+ ) { }
 
-  ) { 
-  }
-
-  
   ngOnInit(): void {
     this.macchinari$ = this.macchinarioService.macchinari$;
     this.macchinarioService.get$({ page: this.page, size: this.size, sort: this.sort }).subscribe();
 
   }
-
-
-  /* loadMacchinari() {
-  this.macchinarioService.get$({ page: this.page, size: this.size, sort: 'name,asc' }).subscribe({
-    next: (data) => {
-      this.macchinari$ = data.content;      // array di macchinari
-      this.totalPages = data.totalPages;
-      this.totalElements = data.totalElements;
-    },
-    error: (err) => console.error('Errore caricamento macchinari', err)
-  });*/
-
-
 
   goToCreate() {
     this.router.navigate(['./details'], { relativeTo: this.acroute });
@@ -60,12 +44,12 @@ export class Macchinari implements OnInit {
     this.macchinarioService.delete$(id).subscribe({
       next: () => {
       console.log(`Macchinario ${id} eliminato`);
-      
-     
       },
       error: err => console.error('Errore eliminazione', err)
     });
   }
+  
+
 }
 
 

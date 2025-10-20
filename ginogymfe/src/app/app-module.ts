@@ -1,27 +1,17 @@
-import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing-module';
-import { App } from './app';
-import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { Utenti } from './features/utenti/utenti';
-
+import { App } from './app';
 
 @NgModule({
-  declarations: [
-    App,
-  ],
+  declarations: [App],       
   imports: [
     BrowserModule,
-    RouterModule,
-    HttpClientModule,
-    AppRoutingModule,
-  ],
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
-    provideClientHydration(withEventReplay())
+    RouterModule.forRoot([
+      
+      { path: '', component: App }
+    ])
   ],
   bootstrap: [App]
 })
-export class AppModule { }
+export class AppModule {}
