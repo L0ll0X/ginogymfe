@@ -7,6 +7,7 @@ import { SelectItem } from '../../select-item.model';
 import { EsercizioService } from '../esercizi/service/esercizio.service';
 import { Esercizio } from '../esercizi/models/esercizio-model';
 import { DettaglioEsercizio } from './models/dettaglio-esercizio.model';
+import { Page } from '../macchinario/services/macchinario.service';
 
 export const GiorniSettimana = [
 { id: 1, nome: 'Lunedì' },
@@ -32,7 +33,7 @@ export class DettagliEsercizio {
     totalPages = 0;
     page = 0;
     size = 10;
-    sort = 'nome,asc';
+    sort = 'name,asc';
    
     constructor(
       private dettaglioEsercizioService: DettaglioEsercizioService, 
@@ -51,8 +52,8 @@ export class DettagliEsercizio {
      ).subscribe();
  
      this.esercizioService.get$().pipe(
-       tap((esercizi: Esercizio[]) =>{
-         this.esercizi = esercizi.map(x => new SelectItem({id: x.id, name:x.name}))
+       tap((esercizi: Page<Esercizio>) =>{
+         this.esercizi = esercizi.content.map(x => new SelectItem({id: x.id, name:x.name}))
        })
      ).subscribe()
    }

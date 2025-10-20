@@ -15,8 +15,12 @@ import { ModalConfirmation } from '../../modale/modale';
 })
 export class GruppiMuscolari {
 
+<<<<<<< HEAD
   gruppiMuscolariSubject = new BehaviorSubject<GruppoMuscolare[]>([]);
   get gruppiMuscolari$() { return this.gruppiMuscolariSubject.asObservable() }
+=======
+  gruppiMuscolari$!: Observable<GruppoMuscolare[]>;
+>>>>>>> develop_giulia
 
 
   totalElements = 0;
@@ -31,6 +35,7 @@ export class GruppiMuscolari {
     private acroute: ActivatedRoute) { };
 
   ngOnInit(): void {
+<<<<<<< HEAD
     this.loadGruppiMuscolari();
   }
 
@@ -43,6 +48,10 @@ export class GruppiMuscolari {
         this.gruppiMuscolariSubject.next(gruppi);
       })
     ).subscribe();
+=======
+    this.gruppiMuscolari$ = this.gruppoMuscolareService.gruppiMuscolari$;
+    this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).subscribe();
+>>>>>>> develop_giulia
   }
 
   goToCreate() {
@@ -54,6 +63,7 @@ export class GruppiMuscolari {
   }
   
   deleteGruppoMuscolare(id: number) {
+<<<<<<< HEAD
   // 2️⃣ Apre la modale di conferma
   const modalRef = this.modalService.open(ModalConfirmation);
 
@@ -75,8 +85,22 @@ export class GruppiMuscolari {
       console.log('Eliminazione annullata');
     }
   );
+=======
+  if (confirm('Sei sicuro di voler eliminare questo gruppo muscolare?')) {
+    this.gruppoMuscolareService.delete$(id).subscribe({
+      next: () => {
+      console.log(`GruppoMuscolare ${id} eliminato`);
+      },
+      error: err => console.error('Errore eliminazione', err)
+    });
+  }
+  }
+>>>>>>> develop_giulia
 }
 
 
 
+<<<<<<< HEAD
 }
+=======
+>>>>>>> develop_giulia
