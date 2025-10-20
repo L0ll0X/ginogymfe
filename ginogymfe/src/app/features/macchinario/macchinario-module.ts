@@ -30,7 +30,7 @@ import { MacchinarioResolver } from './services/macchinario.resolver';
     
           },
            {
-        path: 'details/:id', // /macchinari/details/7 -> modifica/dettaglio
+        path: 'details/:id', 
         component: MacchinarioDetails,
         resolve: { macchinario: MacchinarioResolver }
       }

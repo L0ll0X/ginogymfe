@@ -1,10 +1,10 @@
 import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing-module';
-import { App } from './app';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing-module';
+import { App } from './app';
 
 
 @NgModule({
@@ -25,4 +25,4 @@ import { FormsModule } from '@angular/forms';
   ],
   bootstrap: [App]
 })
-export class AppModule { }
+export class AppModule {}
