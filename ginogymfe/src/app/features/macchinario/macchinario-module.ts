@@ -11,7 +11,7 @@ import { MacchinarioResolver } from './services/macchinario.resolver';
 
 @NgModule({
   declarations: [
-   Macchinari,
+  Macchinari,
   MacchinarioDetails
   ],
   imports: [

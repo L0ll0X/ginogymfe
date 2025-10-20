@@ -36,8 +36,8 @@ export class GruppiMuscolari {
 
   private loadGruppiMuscolari() {
     this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
-      map((grupppi: Page<GruppoMuscolare>) => {
-        return grupppi.content
+      map((gruppi: Page<GruppoMuscolare>) => {
+        return gruppi.content
       }),
       tap((gruppi: GruppoMuscolare[]) => {
         this.gruppiMuscolariSubject.next(gruppi);
@@ -52,20 +52,6 @@ export class GruppiMuscolari {
   goToDetail(id: number) {
     this.router.navigate(['./details', id], { relativeTo: this.acroute });
   }
-
-  // deleteGruppoMuscolare(id: number) {
-  //   this.modalService.open(ModalConfimation).result.then(
-  //     (value) => {
-  //       if (value) {
-  //         this.gruppoMuscolareService.delete$(id).pipe(
-  //           tap((_) => {
-  //             this.loadGruppiMuscolari();
-  //           })
-  //         ).subscribe();
-  //       }
-  //     }
-  //   ).finally(() =>{})
-  // }
   
   deleteGruppoMuscolare(id: number) {
   // 2️⃣ Apre la modale di conferma

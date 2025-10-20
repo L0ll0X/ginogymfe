@@ -8,8 +8,12 @@
         </div>
     </div>
     <div class="d-flex gap-2">
-     <button type="button" (click)="goBack()"><i class="fa-solid fa-house"></i>Torna alla Home</button>
-     <button type="submit" [disabled]="!form.valid" (click)="submit()"><i class="fa-solid fa-bookmark"></i>Salva</button>
+        <button type="button" (click)="goBack()">
+            <i class="fa-solid fa-list"></i>Torna alla Lista
+        </button>
+        <button type="button" class="btn-salva" [disabled]="form.invalid" (click)="submit()">
+            <i class="fa-solid fa-bookmark"></i> Salva
+        </button>
     </div>
     
 </form>
