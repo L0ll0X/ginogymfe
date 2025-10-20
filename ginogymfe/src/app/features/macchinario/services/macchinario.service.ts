@@ -31,28 +31,6 @@ export class MacchinarioService {
       .set('page', pageable.page.toString())
       .set('size', pageable.size.toString())
       .set('sort', pageable.sort);
-<<<<<<< HEAD
-    
-
-    return this.http.get<any>(`${url.baseUrl}${url.macchinari.base}`, { params }).pipe(
-      tap(data => {
-        this.macchinari = data.content;
-        this.macchinariSubject.next(this.macchinari); 
-      })
-    );
-  }
-
-
-  create$(macchinario: Macchinario): Observable<Macchinario> {
-    console.log("macchinario" , macchinario) 
-    return this.http.post<Macchinario>(`${url.baseUrl}${url.macchinari.base}`, macchinario).pipe(
-      tap(newMac => {
-        this.macchinari.push(newMac);
-        this.macchinariSubject.next(this.macchinari);
-           })
-    );
-    
-=======
       return this.http.get<any>(`${url.baseUrl}${url.macchinari.base}`, { params })
       //.pipe(
     //   tap(data => {
@@ -65,7 +43,6 @@ export class MacchinarioService {
   create$(macchinario: Macchinario): Observable <Macchinario> {
       console.log(`${url.baseUrl}${url.macchinari.base}`)
       return this.http.post<Macchinario>(`${url.baseUrl}${url.macchinari.base}`, macchinario);
->>>>>>> origin/develop_martina
   }
   
   

@@ -18,13 +18,8 @@ export class MacchinarioDetails implements OnInit{
   constructor(
     private macchinarioService: MacchinarioService, 
     private router: Router, 
-<<<<<<< HEAD
-    private acroute: ActivatedRoute) {
-      this.macchinario={} as Macchinario
-=======
     private route: ActivatedRoute) {
     this.macchinario = {} as Macchinario;
->>>>>>> origin/develop_martina
   }
 
   ngOnInit(): void {
