@@ -9,6 +9,7 @@ import { GruppoMuscolareDetail } from "./gruppo-muscolare-detail/gruppo-muscolar
 import { GruppoMuscolareResolver } from './service/resolver-gruppo-muscolare';
 import { GruppiMuscolari } from './gruppi-muscolari';
 
+ 
 
 @NgModule({
   declarations: [

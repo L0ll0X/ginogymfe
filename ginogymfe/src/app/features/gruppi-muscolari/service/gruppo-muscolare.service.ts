@@ -5,8 +5,15 @@ import { GruppoMuscolare } from "../models/gruppo-muscolare";
 import { url } from "../../../../environments/environment.dev";
 import { Page } from "../../macchinario/services/macchinario.service";
 
-@Injectable({providedIn: 'root'})
+export interface page<T> {
+  content: T[];
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number;
+}
 
+@Injectable({ providedIn: 'root' })
 export class GruppoMuscolareService {
 
     gruppiMuscolari:any[]=[];
@@ -16,9 +23,12 @@ export class GruppoMuscolareService {
 constructor(private http: HttpClient) {
 }
 
-getGruppiMuscolariById$(id:number): Observable <GruppoMuscolare> {
+  
+
+  
+  getById$(id: number): Observable<GruppoMuscolare> {
     return this.http.get<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}/${id}`);
-}
+  }
 
 
 get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<GruppoMuscolare>> {
@@ -66,6 +76,6 @@ delete$(id: number): Observable<void> {
       })
     );
 }
-
-
 }
+
+

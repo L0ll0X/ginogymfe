@@ -16,7 +16,7 @@ export class UtenteService {
     return this.http.get<Utente>(`${url.baseUrl + url.utenti.base}/${id}`);
   }
 
-  get$(): Observable<Utente[]> {
+  get$(): Observable<Utente[]> { //aggiungere paginazione
     return this.http.get<Utente[]>(url.baseUrl + url.utenti.base);
   }
 

@@ -19,9 +19,10 @@ const routes: Routes = [
     path: 'esercizi',
     loadChildren: () => import('./esercizi/esercizio-module').then(m => m.EsercizioModule)
   },
- 
-  { path: 'home', component: Home },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+   {
+    path: 'schede',
+    loadChildren: () => import('./scheda/scheda-module').then(m => m.SchedaModule)
+  },
 
 ];
 

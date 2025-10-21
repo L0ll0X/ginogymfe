@@ -16,6 +16,9 @@ export const url ={
     },
     DettagliEsercizio: {
         base: 'exerciseDetails'
-    }
-    
+    },
+  schede: {         
+    base: 'schede'  
+  }
 }
+    
