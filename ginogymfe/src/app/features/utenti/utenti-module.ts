@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UtentiComponent } from './utenti';
 import { UserResolver } from './services/resolver-utente';
 
-
 @NgModule({
   declarations: [
     UtentiComponent,
