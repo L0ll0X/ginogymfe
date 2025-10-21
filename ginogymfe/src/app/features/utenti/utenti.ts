@@ -1,36 +1,87 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { UtenteService } from './services/utente.service';
-import { tap } from 'rxjs';
+import { Utente } from './models/utenti.model';
 
 @Component({
   selector: 'app-utenti',
-  standalone:false,
   templateUrl: './utenti.html',
+  styleUrls: ['./utenti.css']
 })
 export class UtentiComponent implements OnInit {
-  utenti: any[] = [];
-  utentiFiltrati: any[] = [];
-  mostraSoloAbbonati = false;
+  utenti: Utente[] = [];
+  utentiFiltrati: Utente[] = [];
+  ruoloFiltro: string = 'Tutti';
+  currentPage = 0;
+  totalPages = 1;
 
-  constructor(private service: UtenteService) {}
+  constructor(private utenteService: UtenteService, private router: Router) {}
 
-  ngOnInit() {
-    this.service.get$().pipe(
-      tap(x => this.utenti= x)
-    ).subscribe()
+  ngOnInit(): void {
+    this.caricaUtenti();
   }
 
-  filtraUtenti() {
-    if (this.mostraSoloAbbonati) {
-      this.utentiFiltrati = this.utenti.filter(u => u.abbonato === true);
-    } else {
+  // 🔹 Carica lista utenti
+  caricaUtenti(): void {
+    this.utenteService.get$(this.currentPage, 10).subscribe({
+      next: (res) => {
+        this.utenti = res.content;
+        this.totalPages = res.totalPages;
+        this.filtraPerRuolo();
+      },
+      error: (err) => console.error('Errore nel caricamento utenti:', err)
+    });
+  }
+
+  // 🔹 Filtra per ruolo
+  filtraPerRuolo(): void {
+    if (this.ruoloFiltro === 'Tutti') {
       this.utentiFiltrati = this.utenti;
+    } else {
+      this.utentiFiltrati = this.utenti.filter(u => u.role === this.ruoloFiltro);
     }
   }
 
-  resetFiltro() {
-    this.mostraSoloAbbonati = false;
-    this.utentiFiltrati = this.utenti;
+  // 🔹 Naviga a "Aggiungi Utente"
+  vaiAggiungi(): void {
+    this.router.navigate(['/utenti/aggiungi']);
+  }
+
+  // 🔹 Naviga a "Modifica Utente"
+  vaiModifica(id: number): void {
+    this.router.navigate(['/utenti/aggiungi', id]);
+  }
+
+  // 🔹 Elimina utente
+  eliminaUtente(id: number): void {
+    if (confirm('Sei sicuro di voler eliminare questo utente?')) {
+      this.utenteService.delete$(id).subscribe({
+        next: () => {
+          alert('Utente eliminato con successo!');
+          this.caricaUtenti();
+        },
+        error: (err) => console.error('Errore durante l\'eliminazione:', err)
+      });
+    }
+  }
+
+  // 🔹 Paginazione
+  paginaPrecedente(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.caricaUtenti();
+    }
+  }
+
+  paginaSuccessiva(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.caricaUtenti();
+    }
+  }
+
+  // 🔹 Torna alla Home
+  tornaHome(): void {
+    this.router.navigate(['/home']);
   }
 }

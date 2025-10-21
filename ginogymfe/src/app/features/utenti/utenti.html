@@ -1,43 +1,53 @@
-<div class="justify-content-between d-flex align-items-center mb-3">
-  <h2>Lista Utenti</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Lista Utenti e Istruttori</h2>
+
+  <div class="d-flex align-items-center gap-2">
+    <select [(ngModel)]="ruoloFiltro" (change)="filtraPerRuolo()" class="form-select w-auto">
+      <option value="Tutti">Tutti</option>
+      <option value="UTENTE">Utenti</option>
+      <option value="ISTRUTTORE">Istruttori</option>
+      <option value="ADMIN">Admin</option>
+    </select>
+
+    <button class="btn btn-success" (click)="vaiAggiungi()">➕ Aggiungi Nuovo</button>
+  </div>
 </div>
 
-<div class="mb-3">
-  <label class="form-check-label me-2">
-    <input 
-      type="checkbox" 
-      class="form-check-input me-1"
-      [(ngModel)]="mostraSoloAbbonati" 
-      (change)="filtraUtenti()" 
-    />
-    Mostra solo abbonati
-  </label>
-  <button class="btn btn-secondary btn-sm" (click)="resetFiltro()">Reset filtro</button>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Ruolo</th>
+      <th>Azioni</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let u of utentiFiltrati">
+    <td>{{ u.id }}</td>
+    <td>{{ u.firstName }} {{ u.lastName }}</td>
+    <td>{{ u.email }}</td>
+    <td>{{ u.role }}</td>
+    <td class="text-end">
+      <button class="btn btn-primary btn-sm me-2" (click)="vaiModifica(u.id)">✏️ Modifica</button>
+      <button class="btn btn-danger btn-sm" (click)="eliminaUtente(u.id)">🗑️ Elimina</button>
+    </td>
+  </tr>
+
+  <tr *ngIf="utentiFiltrati.length === 0">
+    <td colspan="5" class="text-center">Nessun utente trovato.</td>
+  </tr>
+</tbody>
+
+</table>
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <button class="btn btn-light" (click)="paginaPrecedente()" [disabled]="currentPage === 0">← Precedente</button>
+  <small>Pagina {{ currentPage + 1 }} / {{ totalPages || 1 }}</small>
+  <button class="btn btn-light" (click)="paginaSuccessiva()" [disabled]="currentPage >= totalPages - 1">Successiva →</button>
 </div>
 
-<div class="table-container">
-  <table class="table table-striped">
-    <thead class="table-light">
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Cognome</th>
-        <th scope="col">Email</th>
-        <th scope="col">Cellulare</th>
-        <th scope="col">Abbonato</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let utente of utentiFiltrati">
-        <td>{{ utente.firstName }}</td>
-        <td>{{ utente.lastName }}</td>
-        <td>{{ utente.email }}</td>
-        <td>{{ utente.cellulare }}</td>
-        <td>
-          <input type="checkbox" [checked]="utente.abbonato" disabled />
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<router-outlet></router-outlet>
+<div class="text-center mt-4">
+  <button class="btn btn-secondary" (click)="tornaHome()">🏠 Torna alla Home</button>
+</div>

@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({

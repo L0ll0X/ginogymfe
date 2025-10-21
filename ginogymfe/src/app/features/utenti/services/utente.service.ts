@@ -8,21 +8,32 @@ import { url } from '../../../../environments/environment.dev';
   providedIn: 'root'
 })
 export class UtenteService {
-
-
   constructor(private http: HttpClient) {}
 
+  // 🔹 GET ALL (paginato)
+  get$(page: number = 0, size: number = 10): Observable<{ content: Utente[]; totalElements: number; totalPages: number }> {
+    return this.http.get<{ content: Utente[]; totalElements: number; totalPages: number }>(
+      `${url.baseUrl + url.utenti.base}?page=${page}&size=${size}`
+    );
+  }
+
+  // 🔹 GET BY ID
   getUserById$(id: number): Observable<Utente> {
     return this.http.get<Utente>(`${url.baseUrl + url.utenti.base}/${id}`);
   }
 
-  get$(): Observable<Utente[]> {
-    return this.http.get<Utente[]>(url.baseUrl + url.utenti.base);
+  // 🔹 CREATE
+  create$(utente: Utente): Observable<Utente> {
+    return this.http.post<Utente>(`${url.baseUrl + url.utenti.base}`, utente);
   }
 
-  create$(utente: Utente) {
-    return this.http.post(url.baseUrl + url.utenti.base, utente );
-
+  // 🔹 UPDATE
+  update$(id: number, utente: Utente): Observable<Utente> {
+    return this.http.put<Utente>(`${url.baseUrl + url.utenti.base}/${id}`, utente);
   }
 
+  // 🔹 DELETE
+  delete$(id: number): Observable<void> {
+    return this.http.delete<void>(`${url.baseUrl + url.utenti.base}/${id}`);
+  }
 }

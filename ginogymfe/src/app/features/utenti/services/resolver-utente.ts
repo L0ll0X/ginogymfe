@@ -19,7 +19,7 @@ export class UserResolver implements Resolve<Utente> {
     const userId = route.paramMap.get('id');
     
     if (!userId) {
-    return of(new Utente('', '', '', '', 'USER')); 
+    return of(new Utente()); 
     }
 
     return this.utenteService.getUserById$(+userId);

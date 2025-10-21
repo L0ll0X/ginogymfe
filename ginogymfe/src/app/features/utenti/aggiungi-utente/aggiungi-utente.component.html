@@ -1,0 +1,46 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+  <div class="mb-3">
+    <label class="form-label">Nome</label>
+    <input class="form-control" formControlName="firstName" type="text" />
+    <div *ngIf="userForm.controls['firstName'].touched && userForm.controls['firstName'].invalid" class="text-danger small">
+      Nome obbligatorio.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Cognome</label>
+    <input class="form-control" formControlName="lastName" type="text" />
+    <div *ngIf="userForm.controls['lastName'].touched && userForm.controls['lastName'].invalid" class="text-danger small">
+      Cognome obbligatorio.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input class="form-control" formControlName="email" type="email" />
+    <div *ngIf="userForm.controls['email'].touched && userForm.controls['email'].invalid" class="text-danger small">
+      Email valida obbligatoria.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input class="form-control" formControlName="password" type="password" />
+    <div *ngIf="userForm.controls['password'].touched && userForm.controls['password'].invalid" class="text-danger small">
+      Password obbligatoria (min 8 caratteri).
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Ruolo</label>
+    <select class="form-select" formControlName="role">
+      <option value="utenti">Utente</option>
+      <option value="admin">Admin</option>
+      <option value="trainer">Trainer</option>
+    </select>
+  </div>
+
+  <button class="btn btn-primary" type="submit" [disabled]="submitting">
+    {{ submitting ? 'Salvataggio...' : 'Salva' }}
+  </button>
+</form>

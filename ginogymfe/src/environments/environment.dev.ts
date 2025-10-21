@@ -9,6 +9,8 @@ export const url ={
     },
     esercizi: {
         base: 'exercises',
-    }
+    },
+    utenti: { 
+        base: 'utenti' },
     
 }

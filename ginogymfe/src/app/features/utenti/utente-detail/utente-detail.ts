@@ -8,55 +8,57 @@ import { UtenteService } from '../services/utente.service';
 
 @Component({
   selector: 'app-utente-detail',
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './utente-detail.html',
-  styleUrl: './utente-detail.css'
+  styleUrls: ['./utente-detail.css']
 })
-export class UtenteDetail {
+export class UtenteDetailComponent {
   userForm!: FormGroup;
-
-  constructor(private fb: FormBuilder, private acRoute: ActivatedRoute, private userService: UtenteService) { }
+  
+  constructor(
+    private fb: FormBuilder,
+    private acRoute: ActivatedRoute,
+    private userService: UtenteService
+  ) {}
 
   ngOnInit(): void {
-    this.acRoute.data.pipe(
-      tap(({ user }) => {
-        this.populateForm(user);
-      })
-    ).subscribe();
+    this.userForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      role: ['utenti', Validators.required]
+    });
 
-
+    this.acRoute.data
+      .pipe(tap(({ user }) => this.populateForm(user)))
+      .subscribe();
   }
 
-  private populateForm(user: Utente) {
-    if (!!user) {
-      this.userForm = this.fb.group({
-        firstName: [user.firstName , Validators.required],
-        lastName: [user.lastName, Validators.required],
-        email: [user.email, [Validators.required, Validators.email]],
-        password: [user.password, [Validators.required, Validators.minLength(8)]],
-        role: ['utenti', Validators.required]
-      });
-    } else {
-      this.userForm = this.fb.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        role: ['utenti', Validators.required]
-      });
-    }
-
+  private populateForm(user: Utente): void {
+    if (user) this.userForm.patchValue(user);
   }
 
   onSubmit(): void {
-    if (this.userForm.valid) {
-      console.log('Form valido. Dati pronti per il backend:', this.userForm.value);
-      this.userService.create$(new Utente(this.userForm.controls['firstName'].value, this.userForm.controls['lastName'].value, this.userForm.controls['email'].value, this.userForm.controls['password'].value, this.userForm.controls['role'].value))
-      .subscribe()
-    } else {
-      console.log('Form non valido. Compila tutti i campi richiesti.');
+    if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
-
+      console.log('Form non valido. Compila tutti i campi richiesti.');
+      return;
     }
+
+    const nuovoUtente = new Utente(this.userForm.value);
+
+    this.userService.create$(nuovoUtente).subscribe({
+      next: (response) => {
+        console.log('✅ Utente creato con successo:', response);
+        alert('✅ Utente creato con successo!');
+        this.userForm.reset();
+      },
+      error: (err) => {
+        console.error('❌ Errore durante la creazione utente:', err);
+        alert('❌ Errore durante la creazione dell’utente. Controlla la console.');
+      }
+    });
   }
 }

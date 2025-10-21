@@ -1,41 +1,39 @@
-import {  NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { UtenteDetail } from './utente-detail/utente-detail';
-import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
+
+// Componenti classici (non standalone)
 import { UtentiComponent } from './utenti';
+import { AggiungiUtenteComponent } from './aggiungi-utente/aggiungi-utente.component';
+
+// Servizi
 import { UserResolver } from './services/resolver-utente';
 
 @NgModule({
-  declarations: [
-    UtentiComponent,
-    UtenteDetail
-  ],
   imports: [
     CommonModule,
     NgbModule,
-    ReactiveFormsModule,
     FormsModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: UtentiComponent,
-        children: [
-          {
-            path: 'utente-detail',
-            component: UtenteDetail,
-            resolve: {user: UserResolver}
-          }
-        ]
-      },
-    ]),
+    ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forChild([
+      { path: '', component: UtentiComponent },
+      { path: 'aggiungi', component: AggiungiUtenteComponent },
+      { path: 'aggiungi/:id', component: AggiungiUtenteComponent },
+      {
+        path: 'utente-detail/:id',
+        // ✅ Caricamento del componente standalone
+        loadComponent: () =>
+          import('./utente-detail/utente-detail').then(
+            (m) => m.UtenteDetailComponent
+          ),
+        resolve: { user: UserResolver }
+      }
+    ])
   ],
-  providers: [
-
-  ],
+  providers: [UserResolver]
 })
-export class UtentiModule { }
+export class UtentiModule {}
