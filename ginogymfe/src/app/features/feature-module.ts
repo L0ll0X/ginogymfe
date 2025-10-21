@@ -1,30 +1,19 @@
 import { NgModule } from '@angular/core';
-
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { FeaturesRoutingModule } from './features-routing-module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FeaturesRoutingModule } from './features-routing-module';
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   imports: [
-    
     CommonModule,
-    RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FeaturesRoutingModule,
     NgbModule,
-    FormsModule
-   
-  ],
-  providers: [
-    
+    FeaturesRoutingModule
   ]
 })
 export class FeatureModule { }

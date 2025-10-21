@@ -1,15 +1,17 @@
 import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing-module';
+import { RouterModule } from '@angular/router';
+import { Navbar } from './navbar/navbar';
 import { App } from './app';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing-module';
 
 
 @NgModule({
   declarations: [
     App,
+    Navbar,
   ],
   imports: [
     BrowserModule,
@@ -25,4 +27,4 @@ import { FormsModule } from '@angular/forms';
   ],
   bootstrap: [App]
 })
-export class AppModule { }
+export class AppModule {}

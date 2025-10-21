@@ -5,11 +5,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./features/feature-module').then(m => m.FeatureModule)
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

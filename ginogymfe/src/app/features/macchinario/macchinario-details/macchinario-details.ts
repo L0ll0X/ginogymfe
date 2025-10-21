@@ -18,12 +18,12 @@ export class MacchinarioDetails implements OnInit{
   constructor(
     private macchinarioService: MacchinarioService, 
     private router: Router, 
-    private route: ActivatedRoute) {
+    private acRoute: ActivatedRoute) {
     this.macchinario = {} as Macchinario;
   }
 
   ngOnInit(): void {
-    this.route.data.pipe(
+    this.acRoute.data.pipe(
       tap(({macchinario}) => {
           if (macchinario) {
               this.macchinario = macchinario; 
