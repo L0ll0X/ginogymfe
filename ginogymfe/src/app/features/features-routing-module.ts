@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Home } from './home/home';
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
     path: 'esercizi',
     loadChildren: () => import('./esercizi/esercizio-module').then(m => m.EsercizioModule)
   },
+ 
+  { path: 'home', component: Home },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 
 ];
 

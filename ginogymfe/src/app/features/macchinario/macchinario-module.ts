@@ -33,8 +33,7 @@ import { MacchinarioResolver } from './services/macchinario.resolver';
         path: 'details/:id', // /macchinari/details/7 -> modifica/dettaglio
         component: MacchinarioDetails,
         resolve: { macchinario: MacchinarioResolver }
-      }
-        
+      }       
     ]),
     HttpClientModule,
     NgbModule,

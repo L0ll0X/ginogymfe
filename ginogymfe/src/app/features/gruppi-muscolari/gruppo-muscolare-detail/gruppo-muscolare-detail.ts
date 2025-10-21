@@ -19,14 +19,14 @@ export class GruppoMuscolareDetail {
 constructor(
     private gruppiMuscolariService: GruppoMuscolareService, 
     private router: Router,
-    private route: ActivatedRoute 
+    private acRoute: ActivatedRoute 
   ) {
     
     this.gruppoMuscolare = {} as GruppoMuscolare;
   }
   
   ngOnInit(): void {
-    this.route.data.pipe(
+    this.acRoute.data.pipe(
       tap(({gruppoMuscolare}) => {
           if (gruppoMuscolare) {
               this.gruppoMuscolare = gruppoMuscolare; 
