@@ -1,1 +1,44 @@
-ciaooooo
+<div class="page-header">
+  <h2>Lista Schede:</h2>
+  <div class="insert-container">
+    <button class="insert-button" (click)="goToCreate()">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="table table-striped">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Data Inizio</th>
+        <th scope="col">Data Fine</th>
+        <th scope="col" style="width: 120px;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of (schede$ | async)">
+        <td>{{ s.id }}</td>
+        <td>{{ s.startDate}}</td>
+        <td>{{ s.endDate }}</td>
+        <td class="action-buttons">
+          <button class="button-modifica" (click)="goToDetail(s.id)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="button-elimina" (click)="deleteScheda(s.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noData>
+    <tr>
+      <td colspan="4" class="text-center">Nessuna scheda presente</td>
+    </tr>
+  </ng-template>
+</div>
+
+<router-outlet></router-outlet>
