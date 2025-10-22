@@ -1,22 +1,26 @@
-
 <header class="navbar">
+  <!-- Logo -->
   <div class="logo">
     Gino<span>Gym</span>
   </div>
 
-  <nav class="nav-links">
-    <a routerLink="/home" routerLinkActive="active">Home</a>
-    <a routerLink="/esercizi" routerLinkActive="active">Esercizi</a>
-    <a routerLink="/gruppi-muscolari" routerLinkActive="active">Gruppi Muscolari</a>
-    <a routerLink="/macchinari" routerLinkActive="active">Macchinari</a>
-  </nav>
-
-  <div class="auth-buttons">
-    <button class="login" routerLink="/login">Login</button>
-    <button class="register" routerLink="/register">Registrati</button>
+  <!-- Hamburger menu -->
+  <div class="menu-toggle" (click)="toggleMenu()" [class.active]="menuOpen">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
-</header>
 
-<!-- CONTENUTO DELLE PAGINE -->
-<main class="page-content">
-</main>
+  <!-- Link di navigazione e pulsanti auth -->
+  <nav [class.active]="menuOpen" class="nav-links">
+    <a routerLink="/home" routerLinkActive="active" (click)="menuOpen = false">Home</a>
+    <a routerLink="/esercizi" routerLinkActive="active" (click)="menuOpen = false">Esercizi</a>
+    <a routerLink="/gruppi-muscolari" routerLinkActive="active" (click)="menuOpen = false">Gruppi Muscolari</a>
+    <a routerLink="/macchinari" routerLinkActive="active" (click)="menuOpen = false">Macchinari</a>
+
+    <div class="auth-buttons">
+      <button class="login" routerLink="/login" (click)="menuOpen = false">Login</button>
+      <button class="register" routerLink="/register" (click)="menuOpen = false">Registrati</button>
+    </div>
+  </nav>
+</header>

@@ -115,6 +115,7 @@
   overflow: hidden;
   color: white;
   background: radial-gradient(circle at top left, #1a0000, #000000);
+  min-height: 100vh;
 }
 
 /* Effetto movimento sfondo */

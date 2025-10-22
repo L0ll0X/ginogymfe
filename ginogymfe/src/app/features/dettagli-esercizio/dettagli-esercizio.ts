@@ -73,6 +73,7 @@ if (this.dettaglioEsercizio.id) {
       } as DettaglioEsercizio)).subscribe({
         next: (response) => {
           console.log('DettaglioEsercizio aggiornato:', response);
+          this.router.navigate(['.esercizi']);
         },
         error: (err) => {
           console.error('Errore: ')
@@ -86,6 +87,7 @@ if (this.dettaglioEsercizio.id) {
       } as DettaglioEsercizio)).subscribe({
         next: (response) => {
           console.log('DettaglioEsercizio aggiunto:', response);
+          this.router.navigate(['.esercizi']);
         },
         error: (err) => {
           console.error('Errore: ')

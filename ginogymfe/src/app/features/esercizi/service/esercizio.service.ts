@@ -63,7 +63,7 @@ export class EsercizioService {
     }
 
     delete$(id: number) : Observable<void>  {
-      return this.http.delete<void>(`${url.baseUrl}${url.esercizi.base}`).pipe(
+      return this.http.delete<void>(`${url.baseUrl}${url.esercizi.base}/${id}`).pipe(
       tap(() => {
         this.esercizi = this.esercizi.filter(m => m.id !== id);
         this.eserciziSubject.next(this.esercizi);

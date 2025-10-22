@@ -23,15 +23,12 @@ export class GruppoMuscolareService {
 constructor(private http: HttpClient) {
 }
 
-  
-
-  
   getById$(id: number): Observable<GruppoMuscolare> {
     return this.http.get<GruppoMuscolare>(`${url.baseUrl}${url.gruppi_muscolari.base}/${id}`);
   }
 
 
-get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<GruppoMuscolare>> {
+get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 15, sort: 'name,asc' }): Observable<Page<GruppoMuscolare>> {
     let params = new HttpParams()
     .set('page', pageable.page.toString())
     .set('size', pageable.size.toString())
