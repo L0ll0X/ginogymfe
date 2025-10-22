@@ -31,7 +31,7 @@ constructor(private http: HttpClient) {
   }
 
 
-get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<GruppoMuscolare>> {
+get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 15, sort: 'name,asc' }): Observable<Page<GruppoMuscolare>> {
     let params = new HttpParams()
     .set('page', pageable.page.toString())
     .set('size', pageable.size.toString())
