@@ -22,10 +22,10 @@ export class EsercizioDetails implements OnInit {
   esercizio!:Esercizio;
   gruppi: GruppoMuscolare[] = [];
   macchinari: Macchinario[] = [];
-  macchinarioIdSelected: number = 0;
-  gruppoIdSelected: number = 0;
+  macchinarioIdSelected!: number;
+  gruppoIdSelected!: number;
 
-   totalElements = 0;
+  totalElements = 0;
   totalPages = 0;
   page = 0;
   size = 15;
@@ -45,6 +45,8 @@ export class EsercizioDetails implements OnInit {
     this.acRoute.data.pipe(
       tap(({esercizio}) =>{
         this.esercizio =esercizio;
+        this.macchinarioIdSelected = esercizio.machine?.id ?? 0;
+        this.gruppoIdSelected = esercizio.muscleGroup?.id ?? 0;
       }),
       switchMap((_) => this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
       tap((gruppi: Page<GruppoMuscolare>) =>{

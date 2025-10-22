@@ -35,10 +35,10 @@ export class SchedaDetail implements OnInit {
   }
 
   caricaUtenti(): void {
-    this.utenteService.get$().subscribe({
-      next: (data) => (this.utenti = data),
-      error: (err) => console.error('Errore nel caricamento utenti:', err)
-    });
+    // this.utenteService.get$().subscribe({
+    //   next: (data) => (this.utenti = data),
+    //   error: (err) => console.error('Errore nel caricamento utenti:', err)
+    // });
   }
 
   submit(): void {
