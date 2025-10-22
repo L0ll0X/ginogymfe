@@ -1,69 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@500&display=swap');
+
+/* STRUTTURA BASE */
 :host {
   display: block;
-  background-color: #f4f7f6;
-  padding: 0;
+  background: linear-gradient(180deg, #1e1e1e 0%, #2a2a2a 100%);
+  padding: 40px 20px;
+  min-height: 100vh;
+  font-family: 'Orbitron', sans-serif;
+  color: #f5f5f5;
+  position: relative;
+  overflow: hidden;
 }
 
 /* HEADER */
 .modal-header {
   justify-content: center;
-  background-color: #fff;
-  border-bottom: 2px solid #e0e0e0;
-  padding: 20px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  background-color: #1a1a1a;
+  border-bottom: 2px solid #ff1e1e;
+  padding: 20px 40px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 0 15px rgba(255,30,30,0.3);
 }
 
-.modal-header .title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #333;
+/* TITOLO FUTURISTICO */
+.modal-header .title,
+h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  letter-spacing: 1px;
+  color: #ff1e1e;
   text-align: center;
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0 0 40px 0;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(255,30,30,0.8);
+  border-bottom: 2px solid rgba(255,30,30,0.5);
+  padding-bottom: 10px;
 }
 
 /* BODY */
 .modal-body {
-  background-color: #fff;
-  padding: 30px 25px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 40px 20px;
 }
 
+/* FORM */
 form {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #fff;
+  font-family: 'Orbitron', sans-serif;
+  background: #1a1a1a;
   width: 80%;
-  max-width: 400px;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  padding: 40px;
+  border-radius: 12px;
+  border: 2px solid #ff1e1e;
+  box-shadow: 0 0 25px rgba(255,30,30,0.3);
+  transition: transform 0.3s ease;
+  margin: 0 auto;
 }
 
-/* CAMPI INPUT */
-.input-group {
-  display: flex;
-  flex-direction: column;
+form:hover {
+  transform: scale(1.02);
 }
 
+form > div {
+  margin-bottom: 25px;
+}
+
+/* LABEL */
 label {
+  display: block;
   margin-bottom: 8px;
-  font-weight: bold;
-  color: #555;
+  font-weight: 600;
+  color: #f5f5f5;
   font-size: 14px;
+  text-transform: uppercase;
 }
 
+/* INPUT */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 .form-control {
   width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 12px;
+  border: 1px solid #ff1e1e;
+  border-radius: 6px;
+  background: #2a2a2a;
+  color: #f5f5f5;
   box-sizing: border-box;
   transition: border-color 0.3s, box-shadow 0.3s;
   font-size: 16px;
@@ -71,24 +97,22 @@ input[type="password"],
 
 input:focus,
 .form-control:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  border-color: #ff1e1e;
+  box-shadow: 0 0 8px rgba(255,30,30,0.5);
   outline: none;
 }
 
 /* ERRORI */
-div[style="color: red;"] {
-  margin-top: 5px;
-  font-size: 13px;
-  color: #dc3545 !important;
-  font-style: italic;
-}
-
+div[style="color: red;"],
 input.ng-touched.ng-invalid {
-  border-color: #dc3545;
+  color: #ff4d4d !important;
+  font-style: italic;
+  font-size: 13px;
+  margin-top: 5px;
+  border-color: #ff4d4d;
 }
 
-/* BOTTONI SOTTO IL FORM */
+/* BOTTONI */
 .form-buttons {
   display: flex;
   justify-content: center;
@@ -98,6 +122,7 @@ input.ng-touched.ng-invalid {
   width: 100%;
 }
 
+button,
 .btn-goBack,
 .btn-salva {
   flex-grow: 1;
@@ -107,50 +132,55 @@ input.ng-touched.ng-invalid {
   gap: 10px;
   padding: 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   margin-top: 20px;
-  font-size: 15px;
-  cursor: pointer;
   font-size: 16px;
+  cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s, opacity 0.3s;
+  transition: background-color 0.3s, transform 0.2s, opacity 0.3s;
 }
 
-.btn-salva:disabled {
-  background-color: #a0c3e8;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-/* ✅ Bottone "Torna alla Home" verde */
+/* Bottone verde "Torna alla Home" */
 .btn-goBack {
-  background-color: #28a745; /* verde brillante */
+  background-color: #28a745;
   color: white;
 }
 
 .btn-goBack:hover {
-  background-color: #218838; /* verde più scuro */
+  background-color: #218838;
+  transform: scale(1.05);
 }
 
-/* Bottone "Salva" blu */
-.btn-salva {
-  background-color: #007bff;
+/* Bottone rosso "Salva" */
+.btn-salva,
+button[type="submit"] {
+  background-color: #ff1e1e;
   color: white;
 }
 
-.btn-salva:hover {
-  background-color: #0056b3;
+.btn-salva:hover:not([disabled]),
+button[type="submit"]:hover:not([disabled]) {
+  background-color: #cc1616;
+  transform: scale(1.05);
+}
+
+.btn-salva:disabled,
+button[type="submit"][disabled] {
+  background-color: #660000;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
   .modal-body {
-    padding: 15px;
+    padding: 20px;
   }
 
   form {
     width: 100%;
     padding: 20px;
+    margin: 20px 10px;
   }
 
   .form-buttons {
@@ -158,8 +188,16 @@ input.ng-touched.ng-invalid {
     gap: 10px;
   }
 
+  button,
   .btn-goBack,
   .btn-salva {
     width: 100%;
+  }
+
+  .modal-header .title,
+  h2 {
+    font-size: 36px;
+    letter-spacing: 1.5px;
+    padding-bottom: 8px;
   }
 }

@@ -57,7 +57,6 @@ export class Macchinari implements OnInit {
   deleteMacchinario(id: number) {
     // 2️⃣ Apre la modale di conferma
     const modalRef = this.modalService.open(ModalConfirmation);
-  
     // 3️⃣ Gestisce il risultato della modale
     modalRef.result.then(
       (confirmed) => {
@@ -78,14 +77,6 @@ export class Macchinari implements OnInit {
     );
   }
 
-  // deleteMacchinario(id: number): void {
-  //   this.macchinarioService.delete$(id).subscribe({
-  //     next: () => {
-  //     console.log(`Macchinario ${id} eliminato`);
-  //     },
-  //     error: err => console.error('Errore eliminazione', err)
-  //   });
-  // }
 }
 
 

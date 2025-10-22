@@ -4,6 +4,10 @@ import { UtenteService } from './services/utente.service';
 import { Utente } from './models/utenti.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { map, Observable } from 'rxjs';
+import { Page } from '../macchinario/services/macchinario.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalConfirmation } from '../../modale/modale';
 
 @Component({
   selector: 'app-utenti',
@@ -12,79 +16,64 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./utenti.css']
 })
 export class UtentiComponent implements OnInit {
-  utenti: Utente[] = [];
-  utentiFiltrati: Utente[] = [];
+  utenti$!: Observable<Utente[]>
   ruoloFiltro: string = 'Tutti';
   currentPage = 0;
   totalPages = 1;
+  sort = 'id,asc';
 
-  constructor(private utenteService: UtenteService, private router: Router) {}
+  constructor(private utenteService: UtenteService, private modalService: NgbModal, private router: Router) {}
 
   ngOnInit(): void {
-    this.caricaUtenti();
+    this.load();
   }
 
-  // 🔹 Carica lista utenti
-  caricaUtenti(): void {
-    this.utenteService.get$(this.currentPage, 10).subscribe({
-      next: (res) => {
-        this.utenti = res.content;
-        this.totalPages = res.totalPages;
-        this.filtraPerRuolo();
-      },
-      error: (err) => console.error('Errore nel caricamento utenti:', err)
-    });
+  load(): void {
+    this.utenti$ = this.utenteService.get$({ page: this.currentPage, size: 10, sort:this.sort }).pipe(
+      map((page: Page<Utente>) => page.content)
+    )
+
+  }
+  goToCreate(): void {
+    this.router.navigate(['/utenti/detail']);
   }
 
-  // 🔹 Filtra per ruolo
-  filtraPerRuolo(): void {
-    if (this.ruoloFiltro === 'Tutti') {
-      this.utentiFiltrati = this.utenti;
-    } else {
-      this.utentiFiltrati = this.utenti.filter(u => u.role === this.ruoloFiltro);
-    }
-  }
-
-  // 🔹 Naviga a "Aggiungi Utente"
-  vaiAggiungi(): void {
-    this.router.navigate(['/utenti/aggiungi']);
-  }
-
-  // 🔹 Naviga a "Modifica Utente"
-  vaiModifica(id: number): void {
-    this.router.navigate(['/utenti/aggiungi', id]);
+  goToDetail(id: number): void {
+    this.router.navigate(['/utenti/detail', id]);
   }
 
   // 🔹 Elimina utente
-  eliminaUtente(id: number): void {
+  delete(id: number): void {
     if (confirm('Sei sicuro di voler eliminare questo utente?')) {
       this.utenteService.delete$(id).subscribe({
         next: () => {
-          alert('Utente eliminato con successo!');
-          this.caricaUtenti();
+          this.load();
         },
-        error: (err) => console.error('Errore durante l\'eliminazione:', err)
-      });
-    }
+        error: (dismissed) => {
+          // Chiusura tramite "Cross" o clic fuori dalla modale
+          console.log('Eliminazione annullata');
+        }
+      })
   }
+}
 
   // 🔹 Paginazione
   paginaPrecedente(): void {
     if (this.currentPage > 0) {
       this.currentPage--;
-      this.caricaUtenti();
+      this.load();
     }
   }
 
   paginaSuccessiva(): void {
     if (this.currentPage < this.totalPages - 1) {
       this.currentPage++;
-      this.caricaUtenti();
+      this.load();
     }
   }
 
   // 🔹 Torna alla Home
   tornaHome(): void {
-    this.router.navigate(['/home']);
+    this.router.navigate(['../home']);
   }
 }
