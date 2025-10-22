@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:ginogymfe": "node dist/ginogymfe/server/server.mjs"
+    "build:ssr": "ng build && ng run ginogymfe:server",
+    "serve:ssr": "node dist/ginogymfe/server/server.mjs",
+    "dev:ssr": "ng run ginogymfe:serve-ssr"
   },
   "prettier": {
     "printWidth": 100,
@@ -28,24 +30,26 @@
     "@angular/core": "^20.2.0",
     "@angular/forms": "^20.2.0",
     "@angular/platform-browser": "^20.2.0",
+    "@angular/platform-browser-dynamic": "^20.3.4",
     "@angular/platform-server": "^20.2.0",
     "@angular/router": "^20.2.0",
     "@angular/ssr": "^20.2.1",
-    "@ng-bootstrap/ng-bootstrap": "^19.0.1",
-    "@popperjs/core": "^2.11.8",
     "@fortawesome/angular-fontawesome": "^3.0.0",
     "@fortawesome/fontawesome-free": "^7.0.1",
+    "@ng-bootstrap/ng-bootstrap": "^19.0.1",
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.6",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zone.js": "^0.15.1"
   },
   "devDependencies": {
     "@angular/build": "^20.2.1",
     "@angular/cli": "^20.2.1",
     "@angular/compiler-cli": "^20.2.0",
     "@angular/localize": "^20.2.0",
-    "@types/express": "^5.0.1",
+    "@types/express": "^5.0.3",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
     "jasmine-core": "~5.9.0",

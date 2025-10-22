@@ -4,6 +4,8 @@ import { GruppoMuscolare } from './models/gruppo-muscolare';
 import { GruppoMuscolareService } from './service/gruppo-muscolare.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from '../macchinario/services/macchinario.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalConfirmation } from '../../modale/modale';
 
 @Component({
   selector: 'app-gruppi-muscolari',
@@ -14,27 +16,28 @@ import { Page } from '../macchinario/services/macchinario.service';
 export class GruppiMuscolari {
 
   gruppiMuscolariSubject = new BehaviorSubject<GruppoMuscolare[]>([]);
-  get gruppiMuscolari$(){ return this.gruppiMuscolariSubject.asObservable()}
+  get gruppiMuscolari$() { return this.gruppiMuscolariSubject.asObservable() }
 
 
   totalElements = 0;
   totalPages = 0;
   page = 0;
-  size = 10;
+  size = 15;
   sort = 'name,asc';
   constructor(
     private gruppoMuscolareService: GruppoMuscolareService,
     private router: Router,
+    private modalService: NgbModal,
     private acroute: ActivatedRoute) { };
 
   ngOnInit(): void {
-     this.loadGruppiMuscolari();
+    this.loadGruppiMuscolari();
   }
 
-  private loadGruppiMuscolari(){
-     this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
-      map((grupppi: Page<GruppoMuscolare>) =>{
-        return grupppi.content
+  private loadGruppiMuscolari() {
+    this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
+      map((gruppi: Page<GruppoMuscolare>) => {
+        return gruppi.content
       }),
       tap((gruppi: GruppoMuscolare[]) => {
         this.gruppiMuscolariSubject.next(gruppi);
@@ -49,16 +52,29 @@ export class GruppiMuscolari {
   goToDetail(id: number) {
     this.router.navigate(['./details', id], { relativeTo: this.acroute });
   }
-
+  
   deleteGruppoMuscolare(id: number) {
-  if (confirm('Sei sicuro di voler eliminare questo gruppo muscolare?')) {
-    this.gruppoMuscolareService.delete$(id).pipe(
-      tap((_) =>{
-        this.loadGruppiMuscolari();
-      })
-    ).subscribe();
-  }
-}
+  // 2️⃣ Apre la modale di conferma
+  const modalRef = this.modalService.open(ModalConfirmation);
 
+  // 3️⃣ Gestisce il risultato della modale
+  modalRef.result.then(
+    (confirmed) => {
+      if (confirmed) {
+        // ✅ L'utente ha cliccato "Procedi" → elimina l'elemento
+        this.gruppoMuscolareService.delete$(id).subscribe(() => {
+          this.loadGruppiMuscolari(); // ricarica la lista aggiornata
+        });
+      } else {
+        // ⚠️ opzionale: log annullamento
+        console.log('Eliminazione annullata');
+      }
+    },
+    (dismissed) => {
+      // Chiusura tramite "Cross" o clic fuori dalla modale
+      console.log('Eliminazione annullata');
+    }
+  );
+}
 
 }

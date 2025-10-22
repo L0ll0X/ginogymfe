@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UtenteService } from './services/utente.service';
 import { Utente } from './models/utenti.model';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-utenti',
+  standalone: false,
   templateUrl: './utenti.html',
   styleUrls: ['./utenti.css']
 })

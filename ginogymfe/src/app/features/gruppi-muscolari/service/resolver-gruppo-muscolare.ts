@@ -19,9 +19,10 @@ export class GruppoMuscolareResolver implements Resolve<GruppoMuscolare> {
     const gruppoMuscolareId = route.paramMap.get('id');
     
     if (!gruppoMuscolareId) {
-      return of(new GruppoMuscolare()); // Oppure null / throw error, dipende dalla tua logica
+      return of(new GruppoMuscolare()); 
     }
 
-    return this.gruppoMuscolareService.getGruppiMuscolariById$(+gruppoMuscolareId);
+    
+    return this.gruppoMuscolareService.getById$(+gruppoMuscolareId);
   }
 }

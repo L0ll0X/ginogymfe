@@ -8,32 +8,32 @@ import { url } from '../../../../environments/environment.dev';
   providedIn: 'root'
 })
 export class UtenteService {
+
+private readonly baseUrl = url.baseUrl + url.utenti.base;
   constructor(private http: HttpClient) {}
 
-  // 🔹 GET ALL (paginato)
-  get$(page: number = 0, size: number = 10): Observable<{ content: Utente[]; totalElements: number; totalPages: number }> {
-    return this.http.get<{ content: Utente[]; totalElements: number; totalPages: number }>(
-      `${url.baseUrl + url.utenti.base}?page=${page}&size=${size}`
-    );
-  }
-
-  // 🔹 GET BY ID
   getUserById$(id: number): Observable<Utente> {
     return this.http.get<Utente>(`${url.baseUrl + url.utenti.base}/${id}`);
   }
 
-  // 🔹 CREATE
-  create$(utente: Utente): Observable<Utente> {
-    return this.http.post<Utente>(`${url.baseUrl + url.utenti.base}`, utente);
+  get$(page: number, size: number): Observable<{ content: Utente[], totalPages: number }> {
+  return this.http.get<{ content: Utente[], totalPages: number }>(
+    `${url.baseUrl + url.utenti.base}?page=${page}&size=${size}`
+  );
+}
+
+
+  create$(utente: Utente) {
+    return this.http.post(url.baseUrl + url.utenti.base, utente );
+
+  }
+  delete$(userId: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${userId}`);
+
   }
 
-  // 🔹 UPDATE
-  update$(id: number, utente: Utente): Observable<Utente> {
-    return this.http.put<Utente>(`${url.baseUrl + url.utenti.base}/${id}`, utente);
-  }
+  update$(userId: number, payload: any){
+    return this.http.put<Utente>(`${url.baseUrl + url.utenti.base}/${userId}`, payload);
 
-  // 🔹 DELETE
-  delete$(id: number): Observable<void> {
-    return this.http.delete<void>(`${url.baseUrl + url.utenti.base}/${id}`);
   }
 }

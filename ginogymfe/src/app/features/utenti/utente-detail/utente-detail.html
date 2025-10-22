@@ -28,12 +28,11 @@
     </div>
   </div>
 
-  <div>
-    <label for="password">Password:</label>
-    <input id="password" type="password" formControlName="password">
-    <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched">
-        <span *ngIf="userForm.get('password')?.errors?.['required']">La Password è obbligatoria.</span>
-        <span *ngIf="userForm.get('password')?.errors?.['minlength']">La Password deve essere di almeno 8 caratteri.</span>
+ <div>
+    <label for="cellulare">Cellulare:</label>
+    <input id="cellulare" type="cellulare" formControlName="cellulare">
+    <div *ngIf="userForm.get('cellulare')?.invalid && userForm.get('cellulare')?.touched">
+        <span *ngIf="userForm.get('cellulare')?.errors?.['required']">Il numero di Cellulare è obbligatorio.</span>
     </div>
   </div>
   

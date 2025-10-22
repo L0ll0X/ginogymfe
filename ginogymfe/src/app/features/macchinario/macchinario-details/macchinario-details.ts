@@ -18,26 +18,30 @@ export class MacchinarioDetails implements OnInit{
   constructor(
     private macchinarioService: MacchinarioService, 
     private router: Router, 
-    private acroute: ActivatedRoute) {
-      this.macchinario={} as Macchinario;
+    private acRoute: ActivatedRoute) {
+    this.macchinario = {} as Macchinario;
   }
 
   ngOnInit(): void {
-    this.acroute.data.pipe(
-      tap(({macchinario}) =>{
-        this.macchinario = macchinario;
-      })
-    ).subscribe();
+    this.acRoute.data.pipe(
+      tap(({macchinario}) => {
+          if (macchinario) {
+              this.macchinario = macchinario; 
+          }
+      })
+    ).subscribe();
+  }
+ 
+  goBack(){
+    this.router.navigate(['/macchinari']);
   }
-
-
 
   submit() {
   if (this.macchinario.id) {
     this.macchinarioService.put$(this.macchinario).subscribe({
       next: (response) => {
         console.log('Modifica avvenuta con successo', response);
-        this.router.navigate(['macchinari']);
+        this.router.navigate(['/macchinari']);
       },
       error: (error) => {
         console.error('Modifica fallita', error);
@@ -47,7 +51,7 @@ export class MacchinarioDetails implements OnInit{
     this.macchinarioService.create$(this.macchinario).subscribe({ 
       next: (response) => {
         console.log('Creazione avvenuta con successo', response);
-        this.router.navigate(['macchinari']);
+        this.router.navigate(['/macchinari']);
       },
       error: (error) => {
         console.error('Creazione fallita', error);
@@ -56,8 +60,5 @@ export class MacchinarioDetails implements OnInit{
   }
  }
 
-goBack(){
-  this.router.navigate(['macchinari']);
-}
 
 }

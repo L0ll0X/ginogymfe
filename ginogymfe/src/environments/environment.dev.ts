@@ -1,16 +1,24 @@
+import { DettagliEsercizio } from "../app/features/dettagli-esercizio/dettagli-esercizio";
 
 export const url ={
     baseUrl: 'http://localhost:8080/api/',
     gruppi_muscolari: {
-        base:'musclegroups',
+        base:'musclegroups'
     },
     macchinari: {
-        base:'machines',
+        base:'machines'
     },
     esercizi: {
-        base: 'exercises',
+        base: 'exercises'
     },
-    utenti: { 
-        base: 'utenti' },
-    
+    utenti:{
+        base:"users"
+    },
+    DettagliEsercizio: {
+        base: 'exerciseDetails'
+    },
+  schede: {         
+    base: 'schede'  
+  }
 }
+    

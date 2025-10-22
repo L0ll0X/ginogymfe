@@ -5,16 +5,16 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
 import { GruppoMuscolareDetail } from "./gruppo-muscolare-detail/gruppo-muscolare-detail";
 import { GruppoMuscolareResolver } from './service/resolver-gruppo-muscolare';
 import { GruppiMuscolari } from './gruppi-muscolari';
 
+ 
 
 @NgModule({
   declarations: [
     GruppiMuscolari,
-    GruppoMuscolareDetail
+    GruppoMuscolareDetail,
   ],
   imports: [
     CommonModule,

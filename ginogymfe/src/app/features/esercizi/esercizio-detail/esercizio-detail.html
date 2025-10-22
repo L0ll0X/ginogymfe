@@ -1,4 +1,4 @@
-<div class="form-container">
+<div class="modal-header">
   <h2 class="title" id="basic-title">Aggiungi Nuovo Esercizio:</h2>
 </div>
 
@@ -14,33 +14,33 @@
 
       </div>
       <div class="input-group">
-        <select id="gruppo" class="form-control" name="gruppoMuscolare" [(ngModel)]="esercizio.id" required>
-          <option *ngIf="gruppi.length === 0" disabled>
-            Non ci sono elementi
-          </option>
-          <option *ngFor="let group of gruppi" [value]="group.id">
-            {{group.name}}
-          </option>
+        <select id="muscleGroup" class="form-control" name="muscleGroup" placeholder="Scegli" (change)="selectGroup($any($event).target.value)" [(ngModel)]="gruppoIdSelected" required>
+         <option [value]="''" disabled>-- Scegli Gruppo Muscolare --</option> 
+    
+         <option *ngIf="gruppi.length === 0" disabled>Non ci sono elementi</option> 
+    
+         <option *ngFor="let group of gruppi" [value]="group.id">
+         {{group.name}}
+         </option>
         </select>
 
 
       </div>
 
       <div class="input-group">
-        <select id="name" class="form-control" placeholder="Scegli">
-          <option *ngIf="macchinari.length == 0 else items_">
-            Non ci sono elementi
-          </option>
-          <ng-template #items_>
-            <option *ngFor="let machine of macchinari" [value]="machine.id">
+        <select id="machine" class="form-control" name="machine" placeholder="Scegli" (change)="selectMachine($any($event).target.value)" [(ngModel)]="macchinarioIdSelected">
+           <option [value]="''" disabled>-- Scegli Macchinario --</option> 
+    
+         <option *ngIf="macchinari.length === 0" disabled>Non ci sono elementi</option> 
+    
+         <option *ngFor="let machine of macchinari" [value]="machine.id">
               {{machine.name}}
             </option>
-          </ng-template>
         </select>
       </div>
     </div>
 
-    <div class="d-flex gap-2">
+    <div class="form-buttons d-flex gap-2">
       <button class="btn-goBack" type="button" (click)="goBack()">
         <i class="fa-solid fa-house"></i> Torna alla Lista
       </button>

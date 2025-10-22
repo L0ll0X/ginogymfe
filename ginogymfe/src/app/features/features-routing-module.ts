@@ -1,38 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UtentiComponent } from './utenti/utenti';
+import { Home } from './home/home';
 
 const routes: Routes = [
   {
     path: 'macchinari',
-    loadChildren: () =>
-      import('./macchinario/macchinario-module').then(m => m.MacchinarioModule)
+    loadChildren: () => import('./macchinario/macchinario-module').then(m => m.MacchinarioModule)
+  },
+   {
+    path: 'utenti',
+    loadChildren: () => import('./utenti/utenti-module').then(m => m.UtentiModule)
   },
   {
-    path: 'gruppi-muscolari',
-    loadChildren: () =>
-      import('./gruppi-muscolari/gruppo-muscolare-module').then(
-        m => m.GruppoMuscolareModule
-      )
+    path:'gruppi-muscolari',
+    loadChildren: () => import('./gruppi-muscolari/gruppo-muscolare-module').then(m => m.GruppoMuscolareModule)
   },
   {
     path: 'esercizi',
-    loadChildren: () =>
-      import('./esercizi/esercizio-module').then(m => m.EsercizioModule)
+    loadChildren: () => import('./esercizi/esercizio-module').then(m => m.EsercizioModule)
+  },
+   {
+    path: 'schede',
+    loadChildren: () => import('./scheda/scheda-module').then(m => m.SchedaModule)
   },
 
-  // ✅ Rotta standalone diretta
-  { path: 'utenti', component: UtentiComponent },
-
-  // ✅ Eventuale aggiungi utente (quando pronto)
-  // { path: 'utenti/aggiungi', component: AggiungiUtenteComponent },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-    UtentiComponent // ✅ Import invece di dichiarazione
-  ],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class FeaturesRoutingModule {}
+export class FeaturesRoutingModule { }

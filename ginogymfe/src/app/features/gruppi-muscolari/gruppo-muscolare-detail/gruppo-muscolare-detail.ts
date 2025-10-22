@@ -19,13 +19,14 @@ export class GruppoMuscolareDetail {
 constructor(
     private gruppiMuscolariService: GruppoMuscolareService, 
     private router: Router,
-    private route: ActivatedRoute 
+    private acRoute: ActivatedRoute 
   ) {
     
     this.gruppoMuscolare = {} as GruppoMuscolare;
   }
+  
   ngOnInit(): void {
-    this.route.data.pipe(
+    this.acRoute.data.pipe(
       tap(({gruppoMuscolare}) => {
           if (gruppoMuscolare) {
               this.gruppoMuscolare = gruppoMuscolare; 
@@ -43,21 +44,21 @@ constructor(
       this.gruppiMuscolariService.update$(this.gruppoMuscolare).subscribe({
         next: (response) => {
           console.log('Gruppo Muscolare aggiornato:', response);
-          this.router.navigate(['/gruppi-muscolari']); // 👈 Torna alla lista
-        },
-        error: (err) => {
-          console.error('Errore:', err);
-        }
+          this.router.navigate(['/gruppi-muscolari']); //torna alla lista
+      },
+      error: (err) => {
+        console.error('Errore: ')
+      }
       });
     } else {
       this.gruppiMuscolariService.create$(this.gruppoMuscolare).subscribe({
         next: (response) => {
           console.log('Gruppo Muscolare aggiunto:', response);
-          this.router.navigate(['/gruppi-muscolari']); // 👈 Torna alla lista
-        },
-        error: (err) => {
-          console.error('Errore:', err);
-        }
+          this.router.navigate(['/gruppi-muscolari']); //torna alla lista
+      },
+      error: (err) => {
+        console.error('Errore: ')
+      }
       });
     }
   }
