@@ -1,8 +1,11 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Esercizio } from './models/esercizio-model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { EsercizioService } from './service/esercizio.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Page } from '../macchinario/services/macchinario.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalConfirmation } from '../../modale/modale';
 
 @Component({
   selector: 'app-esercizi',
@@ -25,6 +28,7 @@ export class Esercizi {
     private esercizioService: EsercizioService,
     private router: Router,
     private acroute: ActivatedRoute,
+    private modalService: NgbModal,
     private cdr: ChangeDetectorRef) { };
 
   ngOnInit(): void {
@@ -46,15 +50,35 @@ export class Esercizi {
     this.router.navigate(['./dettagli-esercizio'],{ relativeTo: this.acroute });
   }
 
+  private loadEsercizi() {
+      this.esercizi$ = this.esercizioService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
+        map((esercizi: Page<Esercizio>) => {
+          return esercizi.content
+        })
+      );
+    }
+
   deleteEsercizio(id: number) {
-  if (confirm('Sei sicuro di voler eliminare questo esercizio?')) {
-    this.esercizioService.delete$(id).subscribe({
-      next: () => {
-      console.log(`Esercizio ${id} eliminato`);
+    // 2️⃣ Apre la modale di conferma
+    const modalRef = this.modalService.open(ModalConfirmation);
+    // 3️⃣ Gestisce il risultato della modale
+    modalRef.result.then(
+      (confirmed) => {
+        if (confirmed) {
+          // ✅ L'utente ha cliccato "Procedi" → elimina l'elemento
+          this.esercizioService.delete$(id).subscribe(() => {
+            this.loadEsercizi(); // ricarica la lista aggiornata
+          });
+        } else {
+          // ⚠️ opzionale: log annullamento
+          console.log('Eliminazione annullata');
+        }
       },
-      error: err => console.error('Errore eliminazione', err)
-    });
-  }
+      (dismissed) => {
+        // Chiusura tramite "Cross" o clic fuori dalla modale
+        console.log('Eliminazione annullata');
+      }
+    );
   }
 
 }

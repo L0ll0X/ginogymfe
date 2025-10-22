@@ -4,6 +4,8 @@ import { UtenteService } from './services/utente.service';
 import { Utente } from './models/utenti.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalConfirmation } from '../../modale/modale';
 
 @Component({
   selector: 'app-utenti',
@@ -18,7 +20,7 @@ export class UtentiComponent implements OnInit {
   currentPage = 0;
   totalPages = 1;
 
-  constructor(private utenteService: UtenteService, private router: Router) {}
+  constructor(private utenteService: UtenteService, private modalService: NgbModal, private router: Router) {}
 
   ngOnInit(): void {
     this.caricaUtenti();
@@ -56,16 +58,27 @@ export class UtentiComponent implements OnInit {
   }
 
   // 🔹 Elimina utente
-  eliminaUtente(id: number): void {
-    if (confirm('Sei sicuro di voler eliminare questo utente?')) {
-      this.utenteService.delete$(id).subscribe({
-        next: () => {
-          alert('Utente eliminato con successo!');
-          this.caricaUtenti();
+  eliminaUtente(id: number) {
+    // 2️⃣ Apre la modale di conferma
+    const modalRef = this.modalService.open(ModalConfirmation);
+    // 3️⃣ Gestisce il risultato della modale
+     modalRef.result.then(
+        (confirmed) => {
+        if (confirmed) {
+          // ✅ L'utente ha cliccato "Procedi" → elimina l'elemento
+          this.utenteService.delete$(id).subscribe(() => {
+          this.caricaUtenti(); // ricarica la lista aggiornata
+          });
+        } else {
+          // ⚠️ opzionale: log annullamento
+          console.log('Eliminazione annullata');
+        }
         },
-        error: (err) => console.error('Errore durante l\'eliminazione:', err)
-      });
-    }
+        (dismissed) => {
+          // Chiusura tramite "Cross" o clic fuori dalla modale
+          console.log('Eliminazione annullata');
+        }
+    );
   }
 
   // 🔹 Paginazione
