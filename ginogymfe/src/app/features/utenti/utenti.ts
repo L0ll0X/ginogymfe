@@ -4,13 +4,10 @@ import { UtenteService } from './services/utente.service';
 import { Utente } from './models/utenti.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-<<<<<<< HEAD
 import { map, Observable } from 'rxjs';
 import { Page } from '../macchinario/services/macchinario.service';
-=======
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalConfirmation } from '../../modale/modale';
->>>>>>> origin/develop_martina
 
 @Component({
   selector: 'app-utenti',
@@ -37,9 +34,6 @@ export class UtentiComponent implements OnInit {
     )
 
   }
-
- 
-
   goToCreate(): void {
     this.router.navigate(['/utenti/detail']);
   }
@@ -49,37 +43,19 @@ export class UtentiComponent implements OnInit {
   }
 
   // 🔹 Elimina utente
-<<<<<<< HEAD
   delete(id: number): void {
     if (confirm('Sei sicuro di voler eliminare questo utente?')) {
       this.utenteService.delete$(id).subscribe({
         next: () => {
-          alert('Utente eliminato con successo!');
           this.load();
-=======
-  eliminaUtente(id: number) {
-    // 2️⃣ Apre la modale di conferma
-    const modalRef = this.modalService.open(ModalConfirmation);
-    // 3️⃣ Gestisce il risultato della modale
-     modalRef.result.then(
-        (confirmed) => {
-        if (confirmed) {
-          // ✅ L'utente ha cliccato "Procedi" → elimina l'elemento
-          this.utenteService.delete$(id).subscribe(() => {
-          this.caricaUtenti(); // ricarica la lista aggiornata
-          });
-        } else {
-          // ⚠️ opzionale: log annullamento
-          console.log('Eliminazione annullata');
-        }
->>>>>>> origin/develop_martina
         },
-        (dismissed) => {
+        error: (dismissed) => {
           // Chiusura tramite "Cross" o clic fuori dalla modale
           console.log('Eliminazione annullata');
         }
-    );
+      })
   }
+}
 
   // 🔹 Paginazione
   paginaPrecedente(): void {
