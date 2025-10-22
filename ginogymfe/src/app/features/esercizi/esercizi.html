@@ -15,7 +15,7 @@
         <th scope="col">Nome</th>
         <th scope="col">Gruppo Muscolare</th>
         <th scope="col">Macchinario</th>
-         <th scope="col" style="width: 120px;"></th>
+        <th scope="col" style="width: 180px;"></th>
       </tr>
     </thead>
     <tbody>
@@ -25,11 +25,13 @@
         <td scope="row">{{esercizio.muscleGroup.name}}</td>
         <td scope="row">{{esercizio.machine.name}}</td>
         <td class="action-buttons">
-          <button class="Modifica" (click)="goToDetail(esercizio.id)">
+          <button class="button-modifica" (click)="goToDetail(esercizio.id)">
             <i class="fas fa-edit"></i>
           </button>
-          <button class="Dettagli" (click)="goToExerciseDetails()">Inserisci Dettagli Esercizio</button>
-          <button class="Elimina" (click)="deleteEsercizio(esercizio.id)">
+          <button class="button-modifica" (click)="goToExerciseDetails()">
+            Inserisci Dettagli
+          </button>
+          <button class="button-elimina" (click)="deleteEsercizio(esercizio.id)">
             <i class="fas fa-trash"></i>
           </button>
         </td>
