@@ -8,8 +8,7 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     AppModule,
-    FormsModule,
-  
+    FormsModule
   ],
   providers: [provideServerRendering(withRoutes(serverRoutes))],
   bootstrap: [App],
