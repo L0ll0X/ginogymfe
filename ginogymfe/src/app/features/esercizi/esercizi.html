@@ -20,10 +20,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let esercizio of (esercizi$ | async)">
-        <th scope="row">{{esercizio.id}}</th>
-        <th scope="row">{{esercizio.name}}</th>
-        <th scope="row">{{esercizio.muscleGroup.name}}</th>
-        <th scope="row">{{esercizio.machine.name}}</th>
+        <td scope="row">{{esercizio.id}}</td>
+        <td scope="row">{{esercizio.name}}</td>
+        <td scope="row">{{esercizio.muscleGroup.name}}</td>
+        <td scope="row">{{esercizio.machine.name}}</td>
         <td class="action-buttons">
           <button class="Modifica" (click)="goToDetail(esercizio.id)">
             <i class="fas fa-edit"></i>
