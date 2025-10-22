@@ -7,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.css'
 })
 export class Navbar {
+ 
+  menuOpen: boolean = false;
+
+   toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
 
 }
