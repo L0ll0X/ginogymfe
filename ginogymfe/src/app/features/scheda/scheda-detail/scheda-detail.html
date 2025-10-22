@@ -1,34 +1,26 @@
-<h2>Crea Scheda</h2>
+
+<h2>Aggiungi / Modifica Scheda</h2>
 
 <form #form="ngForm" (ngSubmit)="submit()">
-<!-- Nominativo (Dropdown) -->
-<div class="form-group">
-  <label for="utente">Seleziona Utente</label>
-  <select id="utente" name="utente" [(ngModel)]="scheda.userId" required
-          #utenteInput="ngModel" class="form-control">
-    <option value="" disabled>-- Scegli un utente --</option>
-    <option *ngFor="let u of utenti" [value]="u.id">{{ u.firstName }} {{ u.lastName }}</option>
-  </select>
-  <div *ngIf="utenteInput.invalid && (utenteInput.dirty || utenteInput.touched)" class="text-danger">
-    Selezionare un utente è obbligatorio.
-  </div>
-</div>
 
-
-  <!-- Data Inizio -->
+ <!-- Data Inizio -->
   <div class="form-group">
     <label for="startDate">Data Inizio</label>
     <input type="date" id="startDate" name="startDate"
-           [(ngModel)]="scheda.startDate" required
-           #startDateInput="ngModel" class="form-control">
+           [(ngModel)]="scheda.startDate" required #startDateInput="ngModel" class="form-control">
+    <div *ngIf="startDateInput.invalid && (startDateInput.dirty || startDateInput.touched)" class="text-danger">
+      <div *ngIf="startDateInput.errors?.['required']">La data inizio è obbligatoria.</div>
+    </div>
   </div>
 
   <!-- Data Fine -->
   <div class="form-group">
     <label for="endDate">Data Fine</label>
     <input type="date" id="endDate" name="endDate"
-           [(ngModel)]="scheda.endDate" required
-           #endDateInput="ngModel" class="form-control">
+           [(ngModel)]="scheda.endDate" required #endDateInput="ngModel" class="form-control">
+    <div *ngIf="endDateInput.invalid && (endDateInput.dirty || endDateInput.touched)" class="text-danger">
+      <div *ngIf="endDateInput.errors?.['required']">La data fine è obbligatoria.</div>
+    </div>
   </div>
 
   <!-- Pulsanti -->
@@ -42,3 +34,4 @@
   </div>
 
 </form>
+
