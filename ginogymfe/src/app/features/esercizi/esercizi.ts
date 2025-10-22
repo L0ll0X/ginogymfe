@@ -18,7 +18,7 @@ export class Esercizi {
   totalElements = 0;
   totalPages = 0;
   page = 0;
-  size = 10;
+  size = 15;
   sort = 'name,asc';
 
   constructor(
