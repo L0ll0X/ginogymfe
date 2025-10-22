@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Utente } from '../models/utenti.model';
 import { url } from '../../../../environments/environment.dev';
+import { Page } from '../../macchinario/services/macchinario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,21 @@ private readonly baseUrl = url.baseUrl + url.utenti.base;
     return this.http.get<Utente>(`${url.baseUrl + url.utenti.base}/${id}`);
   }
 
-  get$(page: number, size: number): Observable<{ content: Utente[], totalPages: number }> {
-  return this.http.get<{ content: Utente[], totalPages: number }>(
-    `${url.baseUrl + url.utenti.base}?page=${page}&size=${size}`
-  );
-}
+
+
+get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<Utente>> {
+    let params = new HttpParams()
+      .set('page', pageable.page.toString())
+      .set('size', pageable.size.toString())
+      .set('sort', pageable.sort);
+      return this.http.get<any>(`${url.baseUrl}${url.utenti.base}`, { params })
+      //.pipe(
+    //   tap(data => {
+    //     this.macchinari = data.content;
+    //     this.macchinariSubject.next(this.macchinari); // aggiorna lo stream
+    //   })
+    // );
+  }
 
 
   create$(utente: Utente) {

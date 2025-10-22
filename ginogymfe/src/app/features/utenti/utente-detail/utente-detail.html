@@ -36,9 +36,9 @@
     </div>
   </div>
   
-  <input type="hidden" formControlName="role">
+  <!-- <input type="hidden" formControlName="role"> -->
 
-  <button type="submit" [disabled]="userForm.invalid">
+  <button type="submit" [disabled]="!userForm.valid">
     Aggiungi Utente
   </button>
 </form>
