@@ -49,7 +49,13 @@ export class UtenteDetail {
   onSubmit(): void {
     if (this.userForm.valid) {
       console.log('Form valido. Dati pronti per il backend:', this.userForm.value);
-      this.userService.create$(new Utente(this.userForm.controls['firstName'].value, this.userForm.controls['lastName'].value, this.userForm.controls['email'].value, this.userForm.controls['password'].value, this.userForm.controls['role'].value))
+      this.userService.create$(new Utente({
+        firstName:this.userForm.controls['firstName'].value, 
+        lastName:this.userForm.controls['lastName']?.value,  
+        email:this.userForm.controls['email'].value, 
+        password:this.userForm.controls['password'].value, 
+        role:this.userForm.controls['role'].value
+      }))
       .subscribe()
     } else {
       console.log('Form non valido. Compila tutti i campi richiesti.');

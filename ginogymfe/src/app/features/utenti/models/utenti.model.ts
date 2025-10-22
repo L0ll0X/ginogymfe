@@ -5,12 +5,14 @@ export class Utente {
   email!: string;
   password!: string;
   role?: string;
+  abbonato?: boolean;
+  cellulare?: string;    
 
-  constructor(nome: string, cognome: string, email: string, password: string, ruolo: string) {
-    this.firstName = nome;
-    this.lastName = cognome;
-    this.email = email;
-    this.password = password;
-    this.role = ruolo;
+  constructor(
+  data?:any
+    
+  ) {
+    Object.assign(this,data)
+   
   }
 }

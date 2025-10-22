@@ -1,42 +1,45 @@
-import {  NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { UtenteDetail } from './utente-detail/utente-detail';
-import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
-import { UtentiComponent } from './utenti';
-import { UserResolver } from './services/resolver-utente';
 
+import { UtentiComponent } from './utenti';
+import { UtenteDetail } from './utente-detail/utente-detail';
+import { UserResolver } from './services/resolver-utente';
 
 @NgModule({
   declarations: [
-    UtentiComponent,
-    UtenteDetail
+    UtenteDetail,
+    UtentiComponent
   ],
   imports: [
     CommonModule,
-    NgbModule,
-    ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild([
       {
         path: '',
         component: UtentiComponent,
-        children: [
-          {
-            path: 'details',
-            component: UtenteDetail,
-            resolve: {user: UserResolver}
-          }
-        ]
       },
+      {
+      path: 'details',
+      component: UtenteDetail,
+      resolve: {user: UserResolver}
+    }
+        
+      
     ]),
     HttpClientModule,
+    NgbModule,
+    ReactiveFormsModule,
+    RouterModule.forChild([
+      //creazione
+      { path: 'detail', component: UtenteDetail, resolve: { user: UserResolver } },
+    //modifica
+      { path: 'detail/:id', component: UtenteDetail, resolve: { user: UserResolver } },
+    ])
   ],
-  providers: [
-
-  ],
+  providers: [UserResolver]
 })
-export class UtentiModule { }
+export class UtentiModule {}
