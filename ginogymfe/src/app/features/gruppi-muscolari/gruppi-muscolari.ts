@@ -30,8 +30,7 @@ export class GruppiMuscolari {
     private acroute: ActivatedRoute) { };
 
   ngOnInit(): void {
-    this.gruppiMuscolari$ = this.gruppoMuscolareService.gruppiMuscolari$;
-    this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).subscribe();
+        this.loadGruppiMuscolari();
   }
 
   goToCreate() {
@@ -41,17 +40,41 @@ export class GruppiMuscolari {
   goToDetail(id: number) {
     this.router.navigate(['./details', id], { relativeTo: this.acroute });
   }
+
+  private loadGruppiMuscolari() {
+    this.gruppiMuscolari$ = this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
+      map((grupppi: Page<GruppoMuscolare>) => {
+        return grupppi.content
+      })
+    );
+  }
+  
   
   deleteGruppoMuscolare(id: number) {
-  if (confirm('Sei sicuro di voler eliminare questo gruppo muscolare?')) {
-    this.gruppoMuscolareService.delete$(id).subscribe({
-      next: () => {
-      console.log(`GruppoMuscolare ${id} eliminato`);
-      },
-      error: err => console.error('Errore eliminazione', err)
-    });
-  }
-  }
+    //apre la modale
+      // 2️⃣ Apre la modale di conferma
+  const modalRef = this.modalService.open(ModalConfirmation);
+
+  // 3️⃣ Gestisce il risultato della modale
+  modalRef.result.then(
+    (confirmed) => {
+      if (confirmed) {
+        // ✅ L'utente ha cliccato "Procedi" → elimina l'elemento
+        this.gruppoMuscolareService.delete$(id).subscribe(() => {
+          this.loadGruppiMuscolari(); // ricarica la lista aggiornata
+        });
+      } else {
+        // ⚠️ opzionale: log annullamento
+        console.log('Eliminazione annullata');
+      }
+    },
+    (dismissed) => {
+      // Chiusura tramite "Cross" o clic fuori dalla modale
+      console.log('Eliminazione annullata');
+    }
+  );
+}
+  
 }
 
 
