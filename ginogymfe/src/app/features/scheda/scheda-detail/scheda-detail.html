@@ -2,18 +2,8 @@
 <h2>Aggiungi / Modifica Scheda</h2>
 
 <form #form="ngForm" (ngSubmit)="submit()">
-s
-  <!-- ID Utente -->
-  <div class="form-group">
-    <label for="id">ID Utente</label>
-    <input type="number" id="id" name="id" placeholder="Inserisci utente"
-           [(ngModel)]="scheda.id" required #idInput="ngModel" class="form-control">
-    <div *ngIf="idInput.invalid && (idInput.dirty || idInput.touched)" class="text-danger">
-      <div *ngIf="idInput.errors?.['required']">L'ID è obbligatorio.</div>
-    </div>
-  </div>
 
-  <!-- Data Inizio -->
+ <!-- Data Inizio -->
   <div class="form-group">
     <label for="startDate">Data Inizio</label>
     <input type="date" id="startDate" name="startDate"

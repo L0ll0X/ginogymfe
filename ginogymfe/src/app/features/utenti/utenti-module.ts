@@ -17,9 +17,22 @@ import { UserResolver } from './services/resolver-utente';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: UtentiComponent,
+      },
+      {
+      path: 'details',
+      component: UtenteDetail,
+      resolve: {user: UserResolver}
+    }
+        
+      
+    ]),
     HttpClientModule,
     NgbModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       //creazione
       { path: 'detail', component: UtenteDetail, resolve: { user: UserResolver } },
