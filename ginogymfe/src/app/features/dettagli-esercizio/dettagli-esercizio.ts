@@ -28,12 +28,6 @@ export const GiorniSettimana = [
 export class DettagliEsercizio {
 
    dettaglioEsercizio!: DettaglioEsercizio;
-    esercizi: SelectItem[] = []; 
-    totalElements = 0;
-    totalPages = 0;
-    page = 0;
-    size = 10;
-    sort = 'name,asc';
    
     constructor(
       private dettaglioEsercizioService: DettaglioEsercizioService, 
@@ -41,53 +35,40 @@ export class DettagliEsercizio {
       private router: Router,
       private acRoute: ActivatedRoute
     ) {
-  
+      this.dettaglioEsercizio = {} as DettaglioEsercizio;
     }
 
  ngOnInit(): void {
      this.acRoute.data.pipe(
        tap(({dettaglioEsercizio}) =>{
+        if (dettaglioEsercizio) {
          this.dettaglioEsercizio =dettaglioEsercizio;
+        }
        })
      ).subscribe();
- 
-     this.esercizioService.get$().pipe(
-       tap((esercizi: Page<Esercizio>) =>{
-         this.esercizi = esercizi.content.map(x => new SelectItem({id: x.id, name:x.name}))
-       })
-     ).subscribe()
    }
 
 goBack() {
-    this.router.navigate(['./esercizi']);
+    this.router.navigate(['../esercizi-scheda']);
 }
 
 
 submit(){
 if (this.dettaglioEsercizio.id) {
-      this.dettaglioEsercizioService.put$(new DettaglioEsercizio({
-        id: this.dettaglioEsercizio.id,
-        serie: this.dettaglioEsercizio.serie,
-        ripetizioni: this.dettaglioEsercizio.ripetizioni,
-        recupero: this.dettaglioEsercizio.recupero,
-      } as DettaglioEsercizio)).subscribe({
+      this.dettaglioEsercizioService.put$(this.dettaglioEsercizio).subscribe({
         next: (response) => {
           console.log('DettaglioEsercizio aggiornato:', response);
-          this.router.navigate(['.esercizi']);
+          this.router.navigate(['../eserciziScheda']);
         },
         error: (err) => {
           console.error('Errore: ')
         }
       });
     } else {
-      this.dettaglioEsercizioService.create$(new DettaglioEsercizio({
-        serie: this.dettaglioEsercizio.serie,
-        ripetizioni: this.dettaglioEsercizio.ripetizioni,
-        recupero: this.dettaglioEsercizio.recupero,
-      } as DettaglioEsercizio)).subscribe({
+      this.dettaglioEsercizioService.create$(this.dettaglioEsercizio).subscribe({
         next: (response) => {
           console.log('DettaglioEsercizio aggiunto:', response);
-          this.router.navigate(['.esercizi']);
+          this.router.navigate(['../eserciziScheda']);
         },
         error: (err) => {
           console.error('Errore: ')

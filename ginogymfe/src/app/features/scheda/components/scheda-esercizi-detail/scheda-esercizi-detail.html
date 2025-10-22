@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <h5 class="title" id="basic-title">Aggiungi Nuovo Esercizio:</h5>
+</div>
+
+<div class="modal-body">
+   <form #form="ngForm">
+    <div class="mb-3">
+      <div class="input-group">
+        <select id="exercise" class="form-control" name="exercise" placeholder="Scegli" (change)="selectExercise($any($event).target.value)" [(ngModel)]="esercizioIdSelected" required>
+         <option [value]="''" disabled>-- Scegli Esercizio --</option> 
+    
+         <option *ngIf="esercizi.length === 0" disabled>Non ci sono elementi</option> 
+    
+         <option *ngFor="let exercise of esercizi" [value]="exercise.id">
+         {{exercise.name}}
+         </option>
+        </select>
+        <button class="Dettagli" (click)="goToExerciseDetails()">Inserisci Dettagli Esercizio</button>
+      </div>   
+      <div class="form-buttons d-flex gap-2">
+      <button class="btn-goBack" type="button" (click)="goBack()">
+        <i class="fa-solid fa-house"></i> Torna alla Lista
+      </button>
+      <button class="btn-salva" type="submit" [disabled]="form.invalid" (click)="submit()">
+        <i class="fa-solid fa-bookmark"></i> Salva
+      </button>
+       </div>

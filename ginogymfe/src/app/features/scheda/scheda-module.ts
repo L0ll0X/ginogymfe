@@ -6,9 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { SchedaResolver } from './services/scheda.resolver';
 import {  Schede } from './schede';
 import { SchedaDetail } from './scheda-detail/scheda-detail';
+import { EserciziScheda } from './components/esercizi-scheda/esercizi-scheda';
+import { SchedaEserciziDetail } from './components/scheda-esercizi-detail/scheda-esercizi-detail';
+
 
 @NgModule({
-    declarations: [Schede, SchedaDetail],
+    declarations: [Schede, SchedaDetail, EserciziScheda, SchedaEserciziDetail],
     imports: [
         CommonModule,
         FormsModule,
@@ -27,10 +30,27 @@ import { SchedaDetail } from './scheda-detail/scheda-detail';
                 path: 'detail/:id',
                 component: SchedaDetail,
                 resolve: { scheda: SchedaResolver }
-            }
+            },
+            // {
+            //     path: 'esercizi-scheda',
+            //     component: EserciziScheda,
+            //     resolve: { scheda: EsercizioSchedaResolver }
+            // },
+            // {
+            //     path: 'dettagli-esercizio',
+            //     component: DettagliEsercizio,
+            //     resolve: { dettaglioEsercizio: DettaglioEsercizioResolver }
+            // },
+            // {
+            //     path: 'scheda-esercizi-details',
+            //     component: SchedaEserciziDetail,
+            //     resolve: { scheda: EsercizioSchedaResolver }
+            // }
         ])
-    ]
+    ]    
 })
+
+
 export class SchedaModule {
 
     constructor(){ console.log("modulo scheda creato")}

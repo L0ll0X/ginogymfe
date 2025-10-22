@@ -90,6 +90,10 @@ export class Schede implements OnInit {
   //     error: err => console.error('Errore eliminazione', err)
   //   });
   // }
+
+  goToEserciziScheda(){
+    this.router.navigate(['./eserciziScheda'], { relativeTo: this.acroute });
+  }
 }
 
 

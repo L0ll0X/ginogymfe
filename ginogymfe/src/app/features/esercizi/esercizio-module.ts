@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { DettagliEsercizio } from '../dettagli-esercizio/dettagli-esercizio';
-import { DettaglioEsercizioResolver } from '../dettagli-esercizio/service/dettaglio-esercizio.resolver';
+
 
 
 
@@ -33,15 +33,11 @@ import { DettaglioEsercizioResolver } from '../dettagli-esercizio/service/dettag
         resolve: { esercizio: EsercizioResolver }
       },
       {
-        path: 'dettagli-esercizio',
-        component: DettagliEsercizio,
-        resolve: { dettaglioEsercizio: DettaglioEsercizioResolver }
-      },
-      {
         path: 'details/:id', 
         component: EsercizioDetails,
         resolve: { esercizio: EsercizioResolver }
       }
+      
     ]),
     HttpClientModule,
     NgbModule,
