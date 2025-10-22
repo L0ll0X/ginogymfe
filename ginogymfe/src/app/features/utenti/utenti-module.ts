@@ -24,14 +24,14 @@ import { UserResolver } from './services/resolver-utente';
       {
         path: '',
         component: UtentiComponent,
-        children: [
-          {
+                },
+                          {
             path: 'details',
             component: UtenteDetail,
             resolve: {user: UserResolver}
           }
-        ]
-      },
+        
+      
     ]),
     HttpClientModule,
   ],
