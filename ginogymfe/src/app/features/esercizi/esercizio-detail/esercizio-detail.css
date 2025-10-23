@@ -79,7 +79,8 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="password"],
-.form-control {
+.form-control,
+select.form-control {
   width: 100%;
   padding: 12px;
   border: 1px solid #ff1e1e;
@@ -92,14 +93,15 @@ input[type="password"],
 }
 
 input:focus,
-.form-control:focus {
+.form-control:focus,
+select.form-control:focus {
   border-color: #ff1e1e;
   box-shadow: 0 0 8px rgba(255,30,30,0.5);
   outline: none;
 }
 
 /* ERRORI */
-div[style="color: red;"],
+.error-message,
 input.ng-touched.ng-invalid {
   color: #ff4d4d !important;
   font-style: italic;
@@ -165,19 +167,35 @@ button,
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
+  .modal-header {
+    padding: 15px 10px;
+    border-bottom-width: 1px;
+  }
+
+  .modal-header .title {
+    font-size: 20px;
+    text-align: center;
+  }
+
   .modal-body {
-    padding: 20px;
+    padding: 15px 10px;
   }
 
   form {
     width: 100%;
-    padding: 20px;
-    margin: 20px 10px;
+    padding: 15px;
+    margin: 10px auto;
+  }
+
+  .input-group input,
+  .input-group select {
+    font-size: 14px;
+    padding: 10px;
   }
 
   .form-buttons {
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
 
   button,
@@ -186,5 +204,7 @@ button,
   .btn-cancella,
   .btn-modifica {
     width: 100%;
+    font-size: 14px;
+    padding: 10px;
   }
 }
