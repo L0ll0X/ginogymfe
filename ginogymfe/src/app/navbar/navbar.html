@@ -13,14 +13,30 @@
 
   <!-- Link di navigazione e pulsanti auth -->
   <nav [class.active]="menuOpen" class="nav-links">
-    <a routerLink="/home" routerLinkActive="active" (click)="menuOpen = false">Home</a>
+   <ng-container *ngIf="isLoggedIn()">
     <a routerLink="/esercizi" routerLinkActive="active" (click)="menuOpen = false">Esercizi</a>
     <a routerLink="/gruppi-muscolari" routerLinkActive="active" (click)="menuOpen = false">Gruppi Muscolari</a>
     <a routerLink="/macchinari" routerLinkActive="active" (click)="menuOpen = false">Macchinari</a>
+  </ng-container>
 
     <div class="auth-buttons">
+    <!-- Se non loggato -->
+    <ng-container *ngIf="!isLoggedIn()">
+      <a routerLink="/home" routerLinkActive="active" (click)="menuOpen = false">Home</a>
       <button class="login" routerLink="/login" (click)="menuOpen = false">Login</button>
       <button class="register" routerLink="/register" (click)="menuOpen = false">Registrati</button>
-    </div>
+    </ng-container>
+
+    <!-- Se loggato e admin -->
+    <button *ngIf="isAdmin()" routerLink="/admin/dashboard" (click)="menuOpen = false">
+      Admin Panel
+    </button>
+
+    <!-- Se loggato e trainer -->
+    <button *ngIf="isTrainer()" routerLink="/trainer/dashboard" (click)="menuOpen = false">
+      Gestione Schede
+    </button>
+  </div>
+
   </nav>
 </header>

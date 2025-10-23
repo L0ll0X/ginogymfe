@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Home } from './home/home';
+import { UtenteDetail } from './utenti/utente-detail/utente-detail';
 
 const routes: Routes = [
+  {
+    path: 'home',
+    component: Home
+  },
   {
     path: 'macchinari',
     loadChildren: () => import('./macchinario/macchinario-module').then(m => m.MacchinarioModule)

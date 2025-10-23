@@ -3,15 +3,18 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 import { RouterModule } from '@angular/router';
 import { Navbar } from './navbar/navbar';
 import { App } from './app';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing-module';
+import { Login } from './login/login';
+import { JwtInterceptor } from './login/interceptor/jwt.interceptor';
 
 
 @NgModule({
   declarations: [
     App,
     Navbar,
+    Login
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,8 @@ import { AppRoutingModule } from './app-routing-module';
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [App]
 })
