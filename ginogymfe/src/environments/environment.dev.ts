@@ -16,7 +16,8 @@ export const url ={
         base: 'exerciseDetails'
     },
   schede: {         
-    base: 'workoutplan'  
+    base: 'workoutplans',
+    excercise_plan:'workoutplan-exercises' 
   }
 }
     

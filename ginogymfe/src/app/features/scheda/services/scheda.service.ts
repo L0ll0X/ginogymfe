@@ -17,7 +17,7 @@ export class SchedaService {
     return this.http.get<SchedaModel>(`${this.apiUrl}/${id}`);
   }
 
-  get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<SchedaModel>> {
+  get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'startDate,desc' }): Observable<Page<SchedaModel>> {
     let params = new HttpParams()
       .set('page', pageable.page.toString())
       .set('size', pageable.size.toString())
