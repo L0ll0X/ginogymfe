@@ -1,131 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@500&display=swap');
+
 :host {
-    /* Stile per l'Host/Pagina intera - Mantenuto */
-    display: block; 
-    padding: 20px;
-    background-color: #f4f7f6; 
+    display: block;
+    padding: 40px 20px;
+    /* Sfondo scuro con gradiente */
+    background: linear-gradient(180deg, #1e1e1e 0%, #2a2a2a 100%);
     min-height: 100vh;
+    font-family: 'Orbitron', sans-serif;
+    color: #f5f5f5;
+    position: relative;
+    overflow: hidden;
 }
-h2 {
-    
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-    font-family: Arial, sans-serif;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 10px;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* HEADER */
+.modal-header {
+  justify-content: center;
+  background-color: #1a1a1a;
+  border-bottom: 2px solid #ff1e1e;
+  padding: 20px 40px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 0 15px rgba(255,30,30,0.3);
 }
 
-/* Contenitore della tabella */
-.table-container {
-    background: #fff;
-    width: 100%;
-    max-width: 900px; /* Larghezza massima per desktop */
-    margin-left: auto;
-    margin-right: auto;
-    /* Puoi usare la forma abbreviata per centrare orizzontalmente con un margine verticale (sopra/sotto) di 20px */
-    margin: 20px auto; 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombra leggera e moderna */
-    border-radius: 10px;
-    overflow-x: auto; /* Permette lo scroll orizzontale su schermi piccoli */
-    background-color: #fff;
-    justify-content: center;
-    align-items: center;
-    overflow-x: auto;
+.modal-header .title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ff1e1e;
+  text-align: center;
+  margin: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(255,30,30,0.6);
+}
+/* --- HEADER --- */
+.page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
-/* Stili della tabella */
-table {
-    background: #fff;
-    width: 100%;
-    border-collapse: collapse; /* Rimuove lo spazio tra i bordi delle celle */
-    text-align: left;
-    margin: 0;
+.page-header h2 {
+  margin: 0 auto;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  text-transform: uppercase;
+  color: #ff1e1e;
+  text-shadow: 0 0 15px rgba(255, 30, 30, 0.8);
+  border-bottom: 2px solid rgba(255,30,30,0.5);
+  padding-bottom: 10px;
+  transition: transform 0.3s ease;
 }
 
-thead tr {
-    color: #ffffff; /* Testo bianco */
+.page-header h2:hover {
+  transform: scale(1.03);
 }
 
-th, td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd; /* Separatore sottile tra le righe */
+
+/* Contenitore vuoto per bilanciare il layout */
+.insert-container {
+    flex-shrink: 0;
+    width: 150px; 
 }
 
-/* Stili delle celle di intestazione (th) */
-th {
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.9em;
-}
-
-/* Effetto al passaggio del mouse (hover) sulle righe del corpo */
-tbody tr:hover {
-    background-color: #f1f1f1;
-    transition: background-color 0.3s ease;
-}
-
-/* Righe alternate (striping) per migliore leggibilità */
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-/* Riga in evidenza */
-.highlight {
-    background-color: #fff3cd !important;
-    font-weight: bold;
-    color: #856404;
-}
-
-button {
-    flex-grow: 1;
-    display: flex; 
-    gap: 10px; 
-    padding: 12px;
-    background-color: #007bff; 
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
+/* Stile per il bottone "Torna alla Lista" e Dettagli Esercizio */
+/* Modificato per assomigliare a un pulsante di azione, ma come bottone secondario */
+.back-button-style {
+    padding: 8px 14px;
+    /* Gradiente rosso per l'azione */
+    background: linear-gradient(135deg, #444, #333); 
+    color: #f5f5f5;
+    border: 1px solid #ff1e1e;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-left: 20px;
-    justify-content: center;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    z-index: 2;
+    display: flex;
     align-items: center;
+    gap: 5px;
+    /* Ombra neon più leggera */
+    box-shadow: 0 0 5px rgba(255, 30, 30, 0.3);
 }
 
-button:hover:not([disabled]) {
-    background-color: #0056
- }
+.back-button-style:hover {
+    /* Lo sfondo diventa rosso acceso al passaggio del mouse */
+    background: linear-gradient(135deg, #ff1e1e, #b30000);
+    box-shadow: 0 0 10px rgba(255, 30, 30, 0.6);
+}
 
+/* Bottone Inserisci Esercizio (il pulsante principale del collapse) */
+.insert-button {
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #ff1e1e, #b30000);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    gap: 5px;
+    box-shadow: 0 0 15px rgba(255,30,30,0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.insert-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: skewX(-45deg);
+    transition: left 0.5s ease;
+}
+
+.insert-button:hover::before {
+    left: 200%;
+}
+
+.insert-button:hover {
+    background: linear-gradient(135deg, #ff0000, #990000);
+    box-shadow: 0 0 20px rgba(255,0,0,0.6);
+    transform: translateY(-2px);
+}
+
+/* Stili per i pulsanti Bootstrap (Salva) */
+.btn-primary {
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #ff1e1e, #b30000);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(255,30,30,0.4);
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #ff0000, #990000);
+    box-shadow: 0 0 20px rgba(255,0,0,0.6);
+    transform: translateY(-2px);
+}
+
+/* Stile per i campi di input */
+.form-control {
+    background-color: #1a1a1a;
+    color: #f5f5f5; 
+    border: 1px solid #ff1e1e;
+    border-radius: 6px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.form-control:focus {
+    background-color: #1a1a1a;
+    color: #f5f5f5;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 8px rgba(255, 30, 30, 0.5);
+}
+
+/* Stile per i titoli all'interno della form (es. Dettagli esercizio) */
+h5 {
+    color: #ff6b6b;
+    font-family: 'Bebas Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    /* Adattamento del Bottone */
-    button {
-        /* 1. Forza il bottone a prendere l'intera larghezza disponibile */
-        width: 100%; 
-        
-        /* 2. Rimuovi i margini orizzontali e imposta solo il margine superiore */
-        /* Questo lo rende un blocco a tutta larghezza e allineato ai bordi */
-        margin: 20px 0 0 0; 
-        
-        /* 3. Aumenta leggermente il padding per un 'tocco' più facile su mobile */
-        padding: 15px; 
-        
-        /* 4. Rimuovi flex-grow se non è più necessario */
-        flex-grow: 0; 
-        
-        /* 5. Aumenta leggermente la dimensione del font, se necessario */
-        font-size: 17px;
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .page-header h2 {
+        position: static;
+        transform: none;
+        text-align: left;
+        font-size: 36px;
+    }
+    .insert-container {
+        display: none;
     }
 }

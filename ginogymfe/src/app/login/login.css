@@ -1,0 +1,137 @@
+/* ==========================
+   ⚡ LOGIN PAGE - GINO GYM ⚡
+   ========================== */
+
+.login-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top left, #1a0000, #000000);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effetto luce rotante */
+.login-page::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 180deg,
+    #ff1e00 0deg,
+    #ff3c00 90deg,
+    #000 180deg,
+    #ff1e00 270deg,
+    #000 360deg
+  );
+  animation: spin 12s linear infinite;
+  opacity: 0.08;
+  z-index: 0;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Box login */
+.login-container {
+  background-color: rgba(0, 0, 0, 0.85);
+  border: 2px solid #ff1e00;
+  box-shadow: 0 0 30px rgba(255, 30, 0, 0.4);
+  border-radius: 15px;
+  padding: 50px 40px;
+  width: 350px;
+  text-align: center;
+  color: white;
+  z-index: 1;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-family: "Bebas Neue", sans-serif;
+  color: white;
+  margin-bottom: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.logo span {
+  color: #ff1e00;
+  text-shadow: 0 0 12px #ff1e00;
+}
+
+h2 {
+  font-weight: 500;
+  color: #ff1e00;
+  text-shadow: 0 0 8px #ff1e00;
+  margin-bottom: 30px;
+}
+
+/* Input fields */
+.form-group {
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ff1e00;
+  border-radius: 8px;
+  background-color: #111;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #ff3c00;
+  box-shadow: 0 0 10px #ff1e00;
+}
+
+/* Button */
+.btn-login {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #ff1e00;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background-color: #ff3c00;
+  box-shadow: 0 0 15px #ff3c00;
+  transform: scale(1.05);
+}
+
+/* Link registrazione */
+.register-text {
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+.register-text a {
+  color: #ff3c00;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.register-text a:hover {
+  text-shadow: 0 0 8px #ff1e00;
+}

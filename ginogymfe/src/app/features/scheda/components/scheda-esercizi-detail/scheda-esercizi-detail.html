@@ -1,0 +1,49 @@
+<div class="form-buttons mb-2">
+  <!-- Bottone principale per Inserisci Esercizio con stile neon (insert-button) -->
+  <button type="button" class="insert-button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+    aria-controls="collapseExample">
+    <i class="fa-solid fa-plus-circle"></i>
+    Crea Esercizio:
+  </button>
+</div>
+<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+  <div class="modal-body">
+    <div class="p-4 rounded-lg" style="background-color: #1a1a1a; border: 1px solid rgba(255,30,30,0.5);">
+      <form #form="ngForm">
+        <div class="mt-3">
+           <div class="row">
+            <div class="col-12 col-md-6">
+          <div class="input-group">
+            <!-- La classe form-control è già stilata per il look dark -->
+            <select id="exercise" class="form-control" name="exercise" placeholder="Scegli"
+              (change)="selectExercise($any($event).target.value)"[(ngModel)]="esercizioIdSelected" required>
+              <option [value]="null" disabled>-- Scegli Esercizio --</option>
+              <option *ngIf="esercizi.length === 0" disabled>Non ci sono elementi</option>
+              <option *ngFor="let exercise of esercizi" [value]="exercise.id">
+                {{exercise.name}}
+              </option>
+            </select>
+          </div>
+            </div>
+           </div>
+          <hr class="my-4">
+          <!-- Bottone per Dettagli Esercizio con stile secondario neon (back-button-style) -->
+          <button type="button" class="back-button-style" (click)="isSecondCollapsed = !isSecondCollapsed"
+            [attr.aria-expanded]="!isSecondCollapsed" aria-controls="collapseExample">
+            <i class="fa-solid fa-angle-down"></i>
+            Dettagli Esercizio:
+          </button>
+        </div>
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="isSecondCollapsed">
+          <div class="mt-3">
+            <app-dettagli-esercizio (validityChange)="dettagliValid = $event"></app-dettagli-esercizio>
+          </div>
+        </div>
+        <div class="mt-3 d-flex justify-content-end">
+    <button type="submit" (click)="submit()" class="btn btn-primary btn-sm" [disabled]="!form.valid || !dettagliValid">
+      <i class="fa-solid fa-bookmark"></i> Inserisci
+    </button>
+   </div>
+      </form>
+    </div>
+  </div>

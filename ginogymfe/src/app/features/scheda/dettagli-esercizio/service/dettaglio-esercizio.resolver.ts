@@ -5,6 +5,7 @@ import { DettaglioEsercizioService } from "./dettaglio-esercizio.service";
 import { Observable, of } from "rxjs";
 import { DettaglioEsercizio } from "../models/dettaglio-esercizio.model";
 
+
 @Injectable({
   providedIn: 'root'
 })

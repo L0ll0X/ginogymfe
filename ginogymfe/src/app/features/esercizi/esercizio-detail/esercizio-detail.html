@@ -3,41 +3,39 @@
 </div>
 
 <div class="modal-body">
-   <form #form="ngForm">
+  <form #form="ngForm">
     <div class="mb-3">
+
       <div class="input-group">
         <input id="name" type="text" class="form-control" placeholder="Inserisci nome" name="name"
           [(ngModel)]="esercizio.name" required #nomeInput="ngModel" />
-        <div *ngIf="!esercizio.name" style="color: red;">
+        <div *ngIf="!esercizio.name" class="error-message">
           Il nome dell'esercizio è obbligatorio.
         </div>
-
-      </div>
-      <div class="input-group">
-        <select id="muscleGroup" class="form-control" name="muscleGroup" placeholder="Scegli" (change)="selectGroup($any($event).target.value)" [(ngModel)]="gruppoIdSelected" required>
-         <option [value]="''" disabled>-- Scegli Gruppo Muscolare --</option> 
-    
-         <option *ngIf="gruppi.length === 0" disabled>Non ci sono elementi</option> 
-    
-         <option *ngFor="let group of gruppi" [value]="group.id">
-         {{group.name}}
-         </option>
-        </select>
-
-
       </div>
 
       <div class="input-group">
-        <select id="machine" class="form-control" name="machine" placeholder="Scegli" (change)="selectMachine($any($event).target.value)" [(ngModel)]="macchinarioIdSelected">
-           <option [value]="''" disabled>-- Scegli Macchinario --</option> 
-    
-         <option *ngIf="macchinari.length === 0" disabled>Non ci sono elementi</option> 
-    
-         <option *ngFor="let machine of macchinari" [value]="machine.id">
-              {{machine.name}}
-            </option>
+        <select id="muscleGroup" class="form-control" name="muscleGroup" placeholder="Scegli" 
+          (change)="selectGroup($any($event).target.value)" [(ngModel)]="gruppoIdSelected" required>
+          <option [value]="''" disabled>-- Scegli Gruppo Muscolare --</option>
+          <option *ngIf="gruppi.length === 0" disabled>Non ci sono elementi</option>
+          <option *ngFor="let group of gruppi" [value]="group.id">
+            {{group.name}}
+          </option>
         </select>
       </div>
+
+      <div class="input-group">
+        <select id="machine" class="form-control" name="machine" placeholder="Scegli" 
+          (change)="selectMachine($any($event).target.value)" [(ngModel)]="macchinarioIdSelected">
+          <option [value]="''" disabled>-- Scegli Macchinario --</option>
+          <option *ngIf="macchinari.length === 0" disabled>Non ci sono elementi</option>
+          <option *ngFor="let machine of macchinari" [value]="machine.id">
+            {{machine.name}}
+          </option>
+        </select>
+      </div>
+
     </div>
 
     <div class="form-buttons d-flex gap-2">
@@ -48,5 +46,5 @@
         <i class="fa-solid fa-bookmark"></i> Salva
       </button>
     </div>
-  </form>
+   </form>
 </div>

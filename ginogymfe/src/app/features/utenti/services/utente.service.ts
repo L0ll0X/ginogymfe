@@ -19,7 +19,7 @@ private readonly baseUrl = url.baseUrl + url.utenti.base;
 
 
 
-get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<Utente>> {
+  get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<Utente>> {
     let params = new HttpParams()
       .set('page', pageable.page.toString())
       .set('size', pageable.size.toString())

@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@500&display=swap');
 
+/* STRUTTURA BASE */
 :host {
   display: block;
   background: linear-gradient(180deg, #1e1e1e 0%, #2a2a2a 100%);
-  padding: 0;
+  padding: 8vh 5vw;
+  min-height: 100vh;
   font-family: 'Orbitron', sans-serif;
   color: #f5f5f5;
+  position: relative;
+  overflow-y: auto;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* HEADER */
@@ -13,84 +18,80 @@
   justify-content: center;
   background-color: #1a1a1a;
   border-bottom: 2px solid #ff1e1e;
-  padding: 20px;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  box-shadow: 0 0 15px rgba(255,30,30,0.3);
+  padding: 4vh 5vw;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 0 12px rgba(255,30,30,0.3);
 }
 
-.modal-header .title {
-  font-size: 28px;
-  font-weight: 700;
+/* TITOLO */
+.modal-header .title,
+h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
   color: #ff1e1e;
   text-align: center;
-  margin: 0;
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 1px;
+  margin: 0 0 5vh 0;
   text-transform: uppercase;
-  text-shadow: 0 0 10px rgba(255,30,30,0.6);
+  text-shadow: 0 0 10px rgba(255,30,30,0.7);
+  border-bottom: 2px solid rgba(255,30,30,0.5);
+  padding-bottom: 0.5rem;
 }
 
 /* BODY */
 .modal-body {
-  background-color: #1a1a1a;
-  padding: 30px 25px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  padding: 4vh 3vw;
 }
 
-/* Form */
+/* FORM */
 form {
-  font-family: 'Orbitron', sans-serif;
   background: #1a1a1a;
-  width: 80%;
-  max-width: 400px;
-  padding: 30px;
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem;
   border-radius: 12px;
   border: 2px solid #ff1e1e;
-  box-shadow: 0 0 20px rgba(255,30,30,0.3);
+  box-shadow: 0 0 18px rgba(255,30,30,0.25);
   transition: transform 0.3s ease;
 }
 
-form:hover {
-  transform: scale(1.02);
+form:active {
+  transform: scale(1.01);
 }
 
-/* CAMPI INPUT */
-.input-group {
-  display: flex;
-  flex-direction: column;
-}
-
+/* LABEL */
 label {
-  margin-bottom: 8px;
+  display: block;
+  margin-bottom: 0.4rem;
   font-weight: 600;
   color: #f5f5f5;
-  font-size: 14px;
+  font-size: 0.9rem;
   text-transform: uppercase;
 }
 
+/* INPUT */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 .form-control {
   width: 100%;
-  padding: 10px 12px;
+  padding: 0.9rem;
   border: 1px solid #ff1e1e;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #2a2a2a;
   color: #f5f5f5;
-  box-sizing: border-box;
+  font-size: 1rem;
   transition: border-color 0.3s, box-shadow 0.3s;
-  font-size: 16px;
 }
 
 input:focus,
 .form-control:focus {
   border-color: #ff1e1e;
-  box-shadow: 0 0 8px rgba(255,30,30,0.5);
+  box-shadow: 0 0 6px rgba(255,30,30,0.4);
   outline: none;
 }
 
@@ -99,33 +100,28 @@ div[style="color: red;"],
 input.ng-touched.ng-invalid {
   color: #ff4d4d !important;
   font-style: italic;
-  font-size: 13px;
-  margin-top: 5px;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
   border-color: #ff4d4d;
 }
 
-/* BOTTONI SOTTO IL FORM */
+/* BOTTONI */
 .form-buttons {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  margin-top: 25px;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
   width: 100%;
 }
 
+button,
 .btn-goBack,
 .btn-salva {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px;
+  width: 100%;
+  padding: 1rem;
   border: none;
-  border-radius: 6px;
-  margin-top: 20px;
-  font-size: 16px;
+  border-radius: 8px;
+  font-size: 1rem;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s, transform 0.2s, opacity 0.3s;
@@ -137,46 +133,57 @@ input.ng-touched.ng-invalid {
   color: white;
 }
 
-.btn-goBack:hover {
+.btn-goBack:active {
   background-color: #218838;
-  transform: scale(1.05);
+  transform: scale(0.98);
 }
 
-/* Bottone rosso futuristico "Salva" */
-.btn-salva {
+/* Bottone rosso "Salva" */
+.btn-salva,
+button[type="submit"] {
   background-color: #ff1e1e;
   color: white;
 }
 
-.btn-salva:hover:not([disabled]) {
+.btn-salva:active:not([disabled]),
+button[type="submit"]:active:not([disabled]) {
   background-color: #cc1616;
-  transform: scale(1.05);
+  transform: scale(0.98);
 }
 
-.btn-salva:disabled {
+.btn-salva:disabled,
+button[type="submit"][disabled] {
   background-color: #660000;
   cursor: not-allowed;
   opacity: 0.6;
 }
 
 /* RESPONSIVE */
-@media (max-width: 600px) {
-  .modal-body {
-    padding: 15px;
+@media (max-width: 480px) {
+  :host {
+    padding: 5vh 4vw;
+  }
+
+  .modal-header .title,
+  h2 {
+    font-size: 1.8rem;
   }
 
   form {
-    width: 100%;
-    padding: 20px;
+    padding: 1.5rem;
   }
 
-  .form-buttons {
-    flex-direction: column;
-    gap: 10px;
+  label {
+    font-size: 0.85rem;
   }
 
-  .btn-goBack,
-  .btn-salva {
-    width: 100%;
+  input {
+    font-size: 0.95rem;
+  }
+
+  button {
+    font-size: 0.95rem;
   }
 }
+
+

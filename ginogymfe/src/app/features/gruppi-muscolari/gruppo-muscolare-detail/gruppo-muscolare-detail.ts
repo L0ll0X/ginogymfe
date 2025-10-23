@@ -26,14 +26,14 @@ constructor(
   }
   
   ngOnInit(): void {
-    this.acRoute.data.pipe(
-      tap(({gruppoMuscolare}) => {
+    this.acRoute.data.pipe(
+      tap(({gruppoMuscolare}) => {
           if (gruppoMuscolare) {
               this.gruppoMuscolare = gruppoMuscolare; 
           }
-      })
-    ).subscribe();
-  }
+      })
+   ).subscribe();
+  }
 
   goBack() {
   this.router.navigate(['/gruppi-muscolari']);

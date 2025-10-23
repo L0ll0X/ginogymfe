@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SchedaModel } from './models/scheda.model';
 import { SchedaService } from './services/scheda.service';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalConfirmation } from '../../modale/modale';
 import { Page } from '../macchinario/services/macchinario.service';
@@ -23,7 +23,7 @@ export class Schede implements OnInit {
   totalPages = 0;
   page = 0;
   size = 15;
-  sort = 'name,asc';
+  sort = 'startDate,desc';
 
   constructor(
     private schedaService: SchedaService,
@@ -90,6 +90,10 @@ export class Schede implements OnInit {
   //     error: err => console.error('Errore eliminazione', err)
   //   });
   // }
+
+  goToEserciziScheda(id:number){
+    this.router.navigate(['./esercizi-scheda'], { relativeTo: this.acroute });
+  }
 }
 
 

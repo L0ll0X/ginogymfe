@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { Page } from '../macchinario/services/macchinario.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalConfirmation } from '../../modale/modale';
 
 @Component({
   selector: 'app-utenti',
@@ -21,7 +23,7 @@ export class UtentiComponent implements OnInit {
   totalPages = 1;
   sort = 'id,asc';
 
-  constructor(private utenteService: UtenteService, private router: Router) {}
+  constructor(private utenteService: UtenteService, private modalService: NgbModal, private router: Router) {}
 
   ngOnInit(): void {
     this.load();
@@ -33,9 +35,6 @@ export class UtentiComponent implements OnInit {
     )
 
   }
-
- 
-
   goToCreate(): void {
     this.router.navigate(['/utenti/detail']);
   }
@@ -49,13 +48,15 @@ export class UtentiComponent implements OnInit {
     if (confirm('Sei sicuro di voler eliminare questo utente?')) {
       this.utenteService.delete$(id).subscribe({
         next: () => {
-          alert('Utente eliminato con successo!');
           this.load();
         },
-        error: (err) => console.error('Errore durante l\'eliminazione:', err)
-      });
-    }
+        error: (dismissed) => {
+          // Chiusura tramite "Cross" o clic fuori dalla modale
+          console.log('Eliminazione annullata');
+        }
+      })
   }
+}
 
   //  Paginazione
   paginaPrecedente(): void {

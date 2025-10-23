@@ -1,5 +1,3 @@
-import { DettagliEsercizio } from "../app/features/dettagli-esercizio/dettagli-esercizio";
-
 export const url ={
     baseUrl: 'http://localhost:8080/api/',
     gruppi_muscolari: {
@@ -18,7 +16,8 @@ export const url ={
         base: 'exerciseDetails'
     },
   schede: {         
-    base: 'workoutplan'  
+    base: 'workoutplans',
+    excercise_plan:'workoutplan-exercises' 
   }
 }
     
