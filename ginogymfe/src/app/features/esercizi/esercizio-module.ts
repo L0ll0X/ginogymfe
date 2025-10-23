@@ -7,7 +7,6 @@ import { EsercizioResolver } from './service/resolver-esercizio';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { DettagliEsercizio } from '../dettagli-esercizio/dettagli-esercizio';
 
 
 
@@ -16,7 +15,6 @@ import { DettagliEsercizio } from '../dettagli-esercizio/dettagli-esercizio';
   declarations: [
     Esercizi,
     EsercizioDetails,
-    DettagliEsercizio
   ],
   imports: [
     CommonModule,

@@ -22,7 +22,7 @@ export class EsercizioSchedaService {
           return this.http.get<EsercizioScheda>(`${url.baseUrl}${url.schede.base}/${id}`);
         }
     
-    get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<EsercizioScheda>> {
+    get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: '' }): Observable<Page<EsercizioScheda>> {
     let params = new HttpParams()
     .set('page', pageable.page.toString())
     .set('size', pageable.size.toString())

@@ -24,12 +24,9 @@
         <td style="padding-inline: 10px;" data-label="Nome">{{esercizio.name}}</td>
         <td style="padding-inline: 10px;" data-label="Gruppo Muscolare">{{esercizio.muscleGroup.name}}</td>
         <td style="padding-inline: 10px;" data-label="Macchinario">{{esercizio.machine.name}}</td>
-        <td style="padding-inline: 10px;" class="action-buttons" data-label="Azioni">
+        <td style="padding-inline: 10px;" class="action-buttons">
           <button class="button-modifica" (click)="goToDetail(esercizio.id)">
             <i class="fas fa-edit"></i>
-          </button>
-          <button class="button-modifica" (click)="goToExerciseDetails()">
-            Inserisci Dettagli
           </button>
           <button class="button-elimina" (click)="deleteEsercizio(esercizio.id)">
             <i class="fas fa-trash"></i>
