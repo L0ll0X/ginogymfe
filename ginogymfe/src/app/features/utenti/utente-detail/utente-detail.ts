@@ -54,29 +54,26 @@ export class UtenteDetail {
 
    onSubmit(): void {
     if (this.userForm.valid) {
-      console.log('Form valido. Dati pronti per il backend:', this.userForm.value);
-
       const nuovoUtente = new Utente({
-        firstName: this.userForm.controls['firstName'].value,
-        lastName: this.userForm.controls['lastName'].value,
-        email: this.userForm.controls['email'].value,
-        //password: this.userForm.controls['password'].value, // Se serve
-        role: this.userForm.controls['role'].value,
-        cellulare: this.userForm.controls['cellulare'].value
+        firstName: this.userForm.value.firstName,
+        lastName: this.userForm.value.lastName,
+        email: this.userForm.value.email,
+        cellulare: this.userForm.value.cellulare,
+        role: 'ABBONATO' // 👈 default, puoi cambiarlo
       });
 
-      // Se stiamo creando un nuovo utente
       this.userService.create$(nuovoUtente).subscribe({
         next: (response) => {
-          console.log('Utente aggiunto con successo:', response);
-          this.router.navigate(['/utenti']); // 🔹 Torna alla lista degli utenti
+          console.log('Registrazione completata:', response);
+          alert('Registrazione completata! Ora puoi accedere.');
+          this.router.navigate(['/login']); // 👈 torna al login
         },
         error: (err) => {
-          console.error('Errore durante la creazione dell\'utente:', err);
+          console.error('Errore durante la registrazione:', err);
+          alert('Errore durante la registrazione. Riprova.');
         }
       });
     } else {
-      console.log('Form non valido. Compila tutti i campi richiesti.');
       this.userForm.markAllAsTouched();
     }
   }
