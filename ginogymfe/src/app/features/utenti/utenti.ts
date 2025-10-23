@@ -13,6 +13,7 @@ import { Page } from '../macchinario/services/macchinario.service';
   templateUrl: './utenti.html',
   styleUrls: ['./utenti.css']
 })
+
 export class UtentiComponent implements OnInit {
   utenti$!: Observable<Utente[]>
   ruoloFiltro: string = 'Tutti';
@@ -43,7 +44,7 @@ export class UtentiComponent implements OnInit {
     this.router.navigate(['/utenti/detail', id]);
   }
 
-  // 🔹 Elimina utente
+  //  Elimina utente
   delete(id: number): void {
     if (confirm('Sei sicuro di voler eliminare questo utente?')) {
       this.utenteService.delete$(id).subscribe({
@@ -56,7 +57,7 @@ export class UtentiComponent implements OnInit {
     }
   }
 
-  // 🔹 Paginazione
+  //  Paginazione
   paginaPrecedente(): void {
     if (this.currentPage > 0) {
       this.currentPage--;
@@ -71,7 +72,7 @@ export class UtentiComponent implements OnInit {
     }
   }
 
-  // 🔹 Torna alla Home
+  //  Torna alla Home
   tornaHome(): void {
     this.router.navigate(['../home']);
   }

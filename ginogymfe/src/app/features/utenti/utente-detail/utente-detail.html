@@ -1,23 +1,16 @@
 <h2>Aggiungi Nuovo Utente</h2>
 
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  
+
   <div>
-    <label for="firstName">Nome:</label>
-    <input id="firstName" type="text" formControlName="firstName">
-    
-    <div *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched" style="color: red;">
+    <label for="username">Username:</label>
+    <input id="username" type="text" formControlName="username">
+
+    <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched" style="color: red;">
       Il nome è obbligatorio.
     </div>
   </div>
 
-  <div>
-    <label for="lastName">Cognome:</label>
-    <input id="lastName" type="text" formControlName="lastName">
-    <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched">
-      Il cognome è obbligatorio.
-    </div>
-  </div>
 
   <div>
     <label for="email">Email:</label>
@@ -28,14 +21,33 @@
     </div>
   </div>
 
- <div>
+  <div>
     <label for="cellulare">Cellulare:</label>
     <input id="cellulare" type="cellulare" formControlName="cellulare">
     <div *ngIf="userForm.get('cellulare')?.invalid && userForm.get('cellulare')?.touched">
-        <span *ngIf="userForm.get('cellulare')?.errors?.['required']">Il numero di Cellulare è obbligatorio.</span>
+      <span *ngIf="userForm.get('cellulare')?.errors?.['required']">Il numero di Cellulare è obbligatorio.</span>
     </div>
   </div>
-  
+  <div>
+    <div>
+      <label for="ruolo">Ruolo:</label>
+      <select id="ruolo" class="form-control" formControlName="roles" required
+        (change)="selectRole($event)">
+        <option value="" disabled>-- Scegli Ruolo --</option>
+        <option value="UTENTE">Utente</option>
+        <option value="PT">PT</option>
+        <option value="ADMIN">Admin</option>
+      </select>
+    </div>
+
+
+
+    <!-- <div *ngIf="userForm.get('cellulare')?.invalid && userForm.get('cellulare')?.touched">
+      <span *ngIf="userForm.get('cellulare')?.errors?.['required']">Il numero di Cellulare è obbligatorio.</span>
+    </div> -->
+  </div>
+
+
   <!-- <input type="hidden" formControlName="role"> -->
 
   <button type="submit" [disabled]="!userForm.valid">

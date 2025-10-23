@@ -1,10 +1,9 @@
 export class Utente {
   id!: number; 
-  firstName!: string;
-  lastName!: string;
+  username!: string;
   email!: string;
   password!: string;
-  role?: string;
+  roles?: string[];
   abbonato?: boolean;
   cellulare?: string;    
 

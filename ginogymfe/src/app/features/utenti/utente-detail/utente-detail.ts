@@ -1,11 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { Utente } from '../models/utenti.model';
 import { UtenteService } from '../services/utente.service';
-
 
 @Component({
   selector: 'app-utente-detail',
@@ -15,73 +13,77 @@ import { UtenteService } from '../services/utente.service';
 })
 export class UtenteDetail {
   userForm!: FormGroup;
-
-  constructor(private fb: FormBuilder, private acRoute: ActivatedRoute, private userService: UtenteService, private router: Router) { }
+  userId?: number; //  serve per capire se è modifica o creazione
+ruoloIdSelected!:number;
+  constructor(
+    private fb: FormBuilder,
+    private acRoute: ActivatedRoute,
+    private userService: UtenteService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.acRoute.data.pipe(
-      tap(({ user }) => {
-        this.populateForm(user);
-      })
-    ).subscribe();
+    this.acRoute.data
+      .pipe(
+        tap(({ user }) => {
+          this.populateForm(user);
+          if (user && user.id) {
+            this.userId = user.id; //  salva l'id se è modifica
+          }
+        })
+      )
+      .subscribe();
   }
 
+  private populateForm(user: Utente | null) {
+    this.userForm = this.fb.group({
+      username: [user?.username|| '', Validators.required],
+      email: [user?.email || '', [Validators.required, Validators.email]],
+      roles: [user?.roles || 'UTENTE', Validators.required],
+      cellulare: [user?.cellulare || '', Validators.required],
+    });
   
+  } selectRole(event: Event) {
+  const selectedValue = (event.target as HTMLSelectElement).value;
+  this.userForm.patchValue({ roles: [selectedValue] }); // ← array!
+}
 
-  private populateForm(user: Utente) {
-    if (!!user) {
-      this.userForm = this.fb.group({
-        firstName: [user.firstName , Validators.required],
-        lastName: [user.lastName, Validators.required],
-        email: [user.email, [Validators.required, Validators.email]],
-        // password: [user.password, [Validators.required, Validators.minLength(8)]],
-        role: ['utenti', Validators.required],
-        cellulare:[user.cellulare, Validators.required]
 
-      });
-    } else {
-      this.userForm = this.fb.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        // password: ['', [Validators.required, Validators.minLength(8)]],
-        role: ['utenti', Validators.required],
-        cellulare:['', Validators.required]
-      });
+
+  onSubmit(): void {
+    if (this.userForm.invalid) {
+      this.userForm.markAllAsTouched();
+      console.log('Form non valido. Compila tutti i campi richiesti.');
+      return;
     }
 
+    const utenteData = this.userForm.value;
+      if (typeof utenteData.roles === 'string') {
+    utenteData.roles = [utenteData.roles];
   }
-
-   onSubmit(): void {
-    if (this.userForm.valid) {
-      console.log('Form valido. Dati pronti per il backend:', this.userForm.value);
-
-      const nuovoUtente = new Utente({
-        firstName: this.userForm.controls['firstName'].value,
-        lastName: this.userForm.controls['lastName'].value,
-        email: this.userForm.controls['email'].value,
-        //password: this.userForm.controls['password'].value, // Se serve
-        role: this.userForm.controls['role'].value,
-        cellulare: this.userForm.controls['cellulare'].value
-      });
-
-      // Se stiamo creando un nuovo utente
-      this.userService.create$(nuovoUtente).subscribe({
-        next: (response) => {
-          console.log('Utente aggiunto con successo:', response);
-          this.router.navigate(['/utenti']); // 🔹 Torna alla lista degli utenti
+    console.log(utenteData);
+    if (this.userId) {
+      //  Se c’è un ID, stai modificando → UPDATE
+      this.userService.update$(this.userId, utenteData).subscribe({
+        next: () => {
+          console.log('Utente aggiornato con successo');
+          this.router.navigate(['/utenti']); //  Torna alla lista
         },
-        error: (err) => {
-          console.error('Errore durante la creazione dell\'utente:', err);
-        }
+        error: (err) => console.error('Errore aggiornamento utente:', err),
       });
     } else {
-      console.log('Form non valido. Compila tutti i campi richiesti.');
-      this.userForm.markAllAsTouched();
+      //  Se NON c’è un ID, stai creando → CREATE
+      this.userService.create$(utenteData).subscribe({
+        next: () => {
+          console.log('Utente creato con successo');
+          this.router.navigate(['/utenti']); //  Torna alla lista
+        },
+        error: (err) => console.error('Errore creazione utente:', err),
+      });
     }
   }
 
   goBack(): void {
-    this.router.navigate(['/utenti']); // 🔹 Se vuoi il pulsante di annullamento
+    this.router.navigate(['/utenti']);
   }
 }
