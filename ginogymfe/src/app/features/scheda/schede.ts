@@ -91,7 +91,7 @@ export class Schede implements OnInit {
   //   });
   // }
 
-  goToEserciziScheda(){
+  goToEserciziScheda(id:number){
     this.router.navigate(['./esercizi-scheda'], { relativeTo: this.acroute });
   }
 }

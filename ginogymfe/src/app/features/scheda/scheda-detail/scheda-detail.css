@@ -33,32 +33,30 @@
   text-transform: uppercase;
   text-shadow: 0 0 10px rgba(255,30,30,0.6);
 }
-/* Header con titolo centrato e bottone a sinistra */
+/* --- HEADER --- */
 .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 1;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
 .page-header h2 {
-    /* Il titolo è posizionato assolutamente per essere centrato nonostante gli elementi laterali */
-    margin: 0; 
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
-    text-transform: uppercase;
-    color: #ff1e1e; /* Rosso neon */
-    text-shadow: 0 0 15px rgba(255, 30, 30, 0.8);
-    letter-spacing: 2px;
-    border-bottom: 2px solid rgba(255,30,30,0.5);
-    padding-bottom: 10px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap; 
+  margin: 0 auto;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  text-transform: uppercase;
+  color: #ff1e1e;
+  text-shadow: 0 0 15px rgba(255, 30, 30, 0.8);
+  border-bottom: 2px solid rgba(255,30,30,0.5);
+  padding-bottom: 10px;
+  transition: transform 0.3s ease;
 }
+
+.page-header h2:hover {
+  transform: scale(1.03);
+}
+
 
 /* Contenitore vuoto per bilanciare il layout */
 .insert-container {

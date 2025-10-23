@@ -18,18 +18,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let s of (schede$ | async)">
-        <td>{{ s.id }}</td>
-        <td>{{ s.startDate}}</td>
-        <td>{{ s.endDate }}</td>
-        <td class="action-buttons">
-          <button class="button-modifica" (click)="goToDetail(s.id)">
+      <tr *ngFor="let s of (schede$ | async)" (click)="goToEserciziScheda(s.id)">
+        <td style="padding-inline: 10px;" data-label="Id">{{s.id}}</td>
+        <td style="padding-inline: 10px;" data-label="Gruppo Muscolare">{{s.startDate}}</td>
+        <td style="padding-inline: 10px;" data-label="Macchinario">{{s.endDate}}</td>
+        <td style="padding-inline: 10px;" class="action-buttons" (click)="$event.stopPropagation()">
+          <button class="button-modifica" (click)="goToDetail(s.id)" (click)="$event.stopPropagation()"> 
             <i class="fas fa-edit"></i>
           </button>
-          <button class="button-elimina" (click)="deleteScheda(s.id)">
+          <button class="button-elimina" (click)="deleteScheda(s.id)" (click)="$event.stopPropagation()">
             <i class="fas fa-trash"></i>
-          </button>
-           <button class="button-visualizza" (click)="goToEserciziScheda()">Visualizza scheda
           </button>
         </td>
       </tr>
@@ -42,5 +40,3 @@
     </tr>
   </ng-template>
 </div>
-
-

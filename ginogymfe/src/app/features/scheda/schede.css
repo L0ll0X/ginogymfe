@@ -1,131 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@500&display=swap');
+
+/* --- STRUTTURA BASE --- */
 :host {
-    /* Stile per l'Host/Pagina intera - Mantenuto */
-    display: block; 
-    padding: 20px;
-    background-color: #f4f7f6; 
-    min-height: 100vh;
-}
-h2 {
-    
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-    font-family: Arial, sans-serif;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 10px;
+  display: block;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #1e1e1e 0%, #2a2a2a 100%);
+  min-height: 100vh;
+  font-family: 'Orbitron', sans-serif;
+  color: #f5f5f5;
+  overflow-x: hidden;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* --- HEADER --- */
+.page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
-/* Contenitore della tabella */
+.page-header h2 {
+  margin: 0 auto;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  text-transform: uppercase;
+  color: #ff1e1e;
+  text-shadow: 0 0 15px rgba(255, 30, 30, 0.8);
+  border-bottom: 2px solid rgba(255,30,30,0.5);
+  padding-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.page-header h2:hover {
+  transform: scale(1.03);
+}
+
+/* --- BOTTONE INSERISCI --- */
+.insert-container {
+  flex-shrink: 0;
+}
+.insert-button {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #ff1e1e, #b30000);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 0 15px rgba(255,30,30,0.4);
+  transition: all 0.3s ease, transform 0.2s;
+}
+.insert-button:hover {
+  background: linear-gradient(135deg, #ff0000, #990000);
+  box-shadow: 0 0 20px rgba(255,0,0,0.6);
+  transform: translateY(-3px) scale(1.03);
+}
+
+/* --- TABELLA DESKTOP --- */
 .table-container {
-    background: #fff;
-    width: 100%;
-    max-width: 900px; /* Larghezza massima per desktop */
-    margin-left: auto;
-    margin-right: auto;
-    /* Puoi usare la forma abbreviata per centrare orizzontalmente con un margine verticale (sopra/sotto) di 20px */
-    margin: 20px auto; 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombra leggera e moderna */
-    border-radius: 10px;
-    overflow-x: auto; /* Permette lo scroll orizzontale su schermi piccoli */
-    background-color: #fff;
-    justify-content: center;
-    align-items: center;
-    overflow-x: auto;
+  background: #1a1a1a;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 0 25px rgba(255, 30, 30, 0.3);
+  border-radius: 12px;
+  overflow-x: auto;
+  transition: transform 0.3s ease;
 }
 
-/* Stili della tabella */
+.table-container:hover {
+  transform: scale(1.01);
+}
+
 table {
-    background: #fff;
-    width: 100%;
-    border-collapse: collapse; /* Rimuove lo spazio tra i bordi delle celle */
-    text-align: left;
-    margin: 0;
+  width: 100%;
+  border-collapse: collapse;
+  color: #f5f5f5;
 }
 
 thead tr {
-    color: #ffffff; /* Testo bianco */
+  background-color: #ff1e1e;
+  color: #fff;
 }
+
+/* td {
+  padding-inline: 10px;
+} */
 
 th, td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd; /* Separatore sottile tra le righe */
+  padding: 16px 20px; /* Aumentato per distanziare il testo dai bordi */
+  border-bottom: 2px solid rgba(255,30,30,0.3); /* Leggermente più spesso per visibilità */
 }
 
-/* Stili delle celle di intestazione (th) */
-th {
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.9em;
+tbody tr {
+    /* ... stili esistenti ... */
+    cursor: pointer; /* Aggiungi il cursore a puntatore */
 }
 
-/* Effetto al passaggio del mouse (hover) sulle righe del corpo */
 tbody tr:hover {
-    background-color: #f1f1f1;
+    background-color: #222;
     transition: background-color 0.3s ease;
+    border-left: 5px solid #ff1e1e;
 }
 
-/* Righe alternate (striping) per migliore leggibilità */
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+/* --- BOTTONI AZIONI --- */
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
-/* Riga in evidenza */
-.highlight {
-    background-color: #fff3cd !important;
-    font-weight: bold;
-    color: #856404;
+.button-modifica,
+.button-elimina {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease, transform 0.2s;
 }
 
-button {
-    flex-grow: 1;
-    display: flex; 
-    gap: 10px; 
-    padding: 12px;
-    background-color: #007bff; 
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-left: 20px;
-    justify-content: center;
-    align-items: center;
+.button-modifica {
+  background: linear-gradient(135deg, #ff6b6b, #ff1e1e);
+  box-shadow: 0 0 12px rgba(255,30,30,0.5);
+}
+.button-modifica:hover {
+  background: linear-gradient(135deg, #ff1e1e, #b30000);
+  transform: scale(1.05);
 }
 
-button:hover:not([disabled]) {
-    background-color: #0056
- }
+.button-elimina {
+  background: linear-gradient(135deg, #e31616, #990000);
+  box-shadow: 0 0 12px rgba(255,0,0,0.5);
+}
+.button-elimina:hover {
+  background: linear-gradient(135deg, #b30000, #800000);
+  transform: scale(1.05);
+}
 
+.button-visualizza{
+background: linear-gradient(135deg, #e31616, #990000);
+  box-shadow: 0 0 12px rgba(255,0,0,0.5);
+}
+.button-visualizza:hover{
+background: linear-gradient(135deg, #e31616, #990000);
+  box-shadow: 0 0 12px rgba(255,0,0,0.5);
+}
+
+/* --- 📱 MOBILE CARD LAYOUT --- */
 @media (max-width: 768px) {
-    /* Adattamento del Bottone */
-    button {
-        /* 1. Forza il bottone a prendere l'intera larghezza disponibile */
-        width: 100%; 
-        
-        /* 2. Rimuovi i margini orizzontali e imposta solo il margine superiore */
-        /* Questo lo rende un blocco a tutta larghezza e allineato ai bordi */
-        margin: 20px 0 0 0; 
-        
-        /* 3. Aumenta leggermente il padding per un 'tocco' più facile su mobile */
-        padding: 15px; 
-        
-        /* 4. Rimuovi flex-grow se non è più necessario */
-        flex-grow: 0; 
-        
-        /* 5. Aumenta leggermente la dimensione del font, se necessario */
-        font-size: 17px;
-    }
+  .page-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .page-header h2 {
+    font-size: 36px;
+  }
+
+  .insert-button {
+    width: 100%;
+  }
+
+  .table-container {
+    box-shadow: none;
+    background: transparent;
+    transform: none;
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody tr {
+    background: #1a1a1a;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    padding: 20px; /* Aumentato padding per mobile */
+    box-shadow: 0 0 15px rgba(255, 30, 30, 0.2);
+    transition: transform 0.2s ease;
+  }
+
+  tbody tr:hover {
+    transform: scale(1.02);
+  }
+
+  td {
+    border: none;
+    padding: 10px 0; /* Più spazio verticale tra testo e bordo virtuale */
+    display: flex;
+    justify-content: space-between;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #ff4c4c;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  .action-buttons {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .button-modifica,
+  .button-elimina
+  .button-visualizza {
+    flex: 1;
+    font-size: 12px;
+    padding: 8px;
+  }
 }
