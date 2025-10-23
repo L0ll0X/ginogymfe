@@ -19,7 +19,7 @@ export class EserciziScheda {
   totalPages = 0;
   page = 0;
   size = 15;
-  sort = 'name,asc';
+  sort = '';
 
   constructor(
     private esercizioSchedaService: EsercizioSchedaService,
@@ -28,10 +28,8 @@ export class EserciziScheda {
     private cdr: ChangeDetectorRef) { };
 
   ngOnInit(): void {
-    this.esercizioSchedaService.get$({ page: this.page, size: this.size, sort: this.sort }).subscribe(() => {
-      this.cdr.detectChanges();
-    });
     this.eserciziScheda$ = this.esercizioSchedaService.eserciziScheda$;
+    this.esercizioSchedaService.get$({ page: this.page, size: this.size, sort: this.sort }).subscribe();
   }
 
   goToCreate() {

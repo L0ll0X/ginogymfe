@@ -1,37 +1,40 @@
-
-<h2>Aggiungi / Modifica Scheda</h2>
-
+<div class="modal-header">
+<h2>Inserisci Scheda</h2>
+</div>
 <form #form="ngForm" (ngSubmit)="submit()">
-
- <!-- Data Inizio -->
+  <button type="button" class="btn btn-secondary btn-sm mt-3 mb-3 btn-back-small" (click)="goBack()">
+  <i class="fa-solid fa-list"></i> Torna alla Lista
+</button>
+  <!-- Data Inizio -->
   <div class="form-group">
+    <div class="row g-3 mb-4">    
+        <div class="col-md-4 col-sm-12">
     <label for="startDate">Data Inizio</label>
-    <input type="date" id="startDate" name="startDate"
-           [(ngModel)]="scheda.startDate" required #startDateInput="ngModel" class="form-control">
+    <input type="date" id="startDate" name="startDate" [(ngModel)]="scheda.startDate" required #startDateInput="ngModel"
+      class="form-control">
     <div *ngIf="startDateInput.invalid && (startDateInput.dirty || startDateInput.touched)" class="text-danger">
       <div *ngIf="startDateInput.errors?.['required']">La data inizio è obbligatoria.</div>
     </div>
   </div>
-
-  <!-- Data Fine -->
+    </div>
   <div class="form-group">
+    <div class="col-md-4 col-sm-12">
     <label for="endDate">Data Fine</label>
-    <input type="date" id="endDate" name="endDate"
-           [(ngModel)]="scheda.endDate" required #endDateInput="ngModel" class="form-control">
+    <input type="date" id="endDate" name="endDate" [(ngModel)]="scheda.endDate" required #endDateInput="ngModel"
+      class="form-control">
     <div *ngIf="endDateInput.invalid && (endDateInput.dirty || endDateInput.touched)" class="text-danger">
       <div *ngIf="endDateInput.errors?.['required']">La data fine è obbligatoria.</div>
     </div>
   </div>
-
-  <!-- Pulsanti -->
-  <div class="d-flex gap-2 mt-3">
-    <button type="button" class="btn btn-secondary" (click)="goBack()">
-      <i class="fa-solid fa-house"></i> Torna alla Home
-    </button>
+    </div>
+  </div>
+  <hr class="my-4">
+  <div class="mt-3">
+    <app-scheda-esercizi-detail></app-scheda-esercizi-detail>
+  </div>
+  <div class="mt-3 d-flex justify-content-end">
     <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
       <i class="fa-solid fa-bookmark"></i> Salva
     </button>
   </div>
-
 </form>
-

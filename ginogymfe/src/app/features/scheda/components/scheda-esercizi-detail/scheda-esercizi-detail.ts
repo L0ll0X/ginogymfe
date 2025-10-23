@@ -23,14 +23,17 @@ export class SchedaEserciziDetail {
   esercizioScheda!: EsercizioScheda;
   esercizi: Esercizio[] = [];
   schede: SchedaModel[] = [];
-  esercizioIdSelected!: number;
+  esercizioIdSelected!: number | null;
   schedaIdSelected!: number;
+  isCollapsed = false;
+  isSecondCollapsed=false;
+  dettagliValid: boolean = false; 
 
   totalElements = 0;
   totalPages = 0;
   page = 0;
   size = 15;
-  sort = 'name,asc';
+  sort = '';
 
   constructor(
     private esercizioSchedaService: EsercizioSchedaService, 
@@ -40,14 +43,22 @@ export class SchedaEserciziDetail {
     private acRoute: ActivatedRoute
   ) {
     this.esercizioScheda = {} as EsercizioScheda;
+    this.esercizioIdSelected = null;
   }
 
    ngOnInit(): void {
       this.acRoute.data.pipe(
         tap(({esercizioScheda}) =>{
+          if (esercizioScheda) {
           this.esercizioScheda =esercizioScheda;
-          this.esercizioIdSelected = esercizioScheda.exercise?.id ?? 0;
+          this.esercizioIdSelected = esercizioScheda.esercizio?.id ?? null;
           this.schedaIdSelected = esercizioScheda.scheda?.id ?? 0;
+          }else { 
+            console.warn('Resolver non ha restituito dati validi per esercizioScheda.');
+            this.esercizioScheda = {} as EsercizioScheda;
+           this.esercizioIdSelected = null;
+            this.schedaIdSelected = 0;
+         }
         }),
         switchMap((_) => this.esercizioService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
         tap((esercizi: Page<Esercizio>) =>{
@@ -71,7 +82,7 @@ export class SchedaEserciziDetail {
   }
 
  goToExerciseDetails() {
-    this.router.navigate(['./dettagli-esercizio']);
+    this.router.navigate(['../../dettagli-esercizio']);
   }
 
   submit() {
@@ -106,7 +117,7 @@ export class SchedaEserciziDetail {
     }
   
     goBack() {
-      this.router.navigate(['../../schede/esercizi-scheda']);
+      this.router.navigate(['../schede']);
     }
 
 }
