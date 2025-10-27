@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SchedaModel } from '../models/scheda.model';
 import { Page } from '../../macchinario/services/macchinario.service';
 import { url } from "../../../../environments/environment.dev";
+import { Esercizio } from '../../esercizi/models/esercizio-model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class SchedaService {
 
   constructor(private http: HttpClient) {}
 
-  getById(id: number): Observable<SchedaModel> {
+  getById$(id: number): Observable<SchedaModel> {
     return this.http.get<SchedaModel>(`${this.apiUrl}/${id}`);
   }
 

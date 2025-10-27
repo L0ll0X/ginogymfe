@@ -14,7 +14,6 @@ import { Page } from '../macchinario/services/macchinario.service';
   styleUrls: ['./schede.css']
 })
 export class Schede implements OnInit {
-  scheda = new SchedaModel();
 
  schedeSubject = new BehaviorSubject<SchedaModel[]>([]);
   get schede$() { return this.schedeSubject.asObservable() }
@@ -82,17 +81,8 @@ export class Schede implements OnInit {
     );
   }
 
-  // deleteScheda(id: number): void {
-  //   this.SchedaService.delete$(id).subscribe({
-  //     next: () => {
-  //     console.log(`Scheda ${id} eliminata`);
-  //     },
-  //     error: err => console.error('Errore eliminazione', err)
-  //   });
-  // }
-
   goToEserciziScheda(id:number){
-    this.router.navigate(['./esercizi-scheda'], { relativeTo: this.acroute });
+    this.router.navigate(['esercizi-scheda', id], { relativeTo: this.acroute });
   }
 }
 
