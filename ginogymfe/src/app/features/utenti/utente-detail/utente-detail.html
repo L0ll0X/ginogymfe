@@ -51,6 +51,14 @@
         <span *ngIf="userForm.get('password')?.errors?.['required']">La password è obbligatoria.</span>
     </div>
   </div>
+
+  <div>
+    <label for="roles">Ruolo:</label>
+    <input id="roles" type="roles" formControlName="roles">
+    <div *ngIf="userForm.get('roles')?.invalid && userForm.get('roles')?.touched" style="color: red;">
+        <span *ngIf="userForm.get('roles')?.errors?.['required']">Il ruolo è obbligatorio.</span>
+    </div>
+  </div>
   
   <!-- <input type="hidden" formControlName="role"> -->
 

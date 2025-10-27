@@ -5,15 +5,17 @@ export class Utente {
   username!: string;
   email!: string;
   password!: string;
-  role?: string;
-  abbonato?: boolean;
-  cellulare?: string;    
+  roles!: string [];
+  // abbonato?: boolean;
+  cellulare!: string;  
 
-  constructor(
-  data?:any
-    
-  ) {
-    Object.assign(this,data)
-   
+  constructor(data?: any) {
+    Object.assign(this, data);
+    this.roles = data?.roles || [];
   }
+
+  get role(): string {
+    return this.roles.length ? this.roles[0] : '';
+  }
+
 }

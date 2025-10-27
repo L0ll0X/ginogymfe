@@ -26,8 +26,6 @@ export class UtenteDetail {
     ).subscribe();
   }
 
-  
-
   private populateForm(user: Utente) {
     if (!!user) {
       this.userForm = this.fb.group({
@@ -36,7 +34,7 @@ export class UtenteDetail {
         email: [user.email, [Validators.required, Validators.email]],
         username: [user.username, [Validators.required]],
         password: [user.password, [Validators.required, Validators.minLength(8)]],
-        role: ['utenti', Validators.required],
+        roles: [user.roles, Validators.required],
         cellulare:[user.cellulare, Validators.required]
 
       });
@@ -47,7 +45,7 @@ export class UtenteDetail {
         email: ['', [Validators.required, Validators.email]],
         username: ['', [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(8)]],
-        role: ['utenti', Validators.required],
+        roles: ['', Validators.required],
         cellulare:['', Validators.required]
       });
     }
@@ -63,7 +61,7 @@ export class UtenteDetail {
         username: this.userForm.value.username,
         password: this.userForm.value.password,
         cellulare: this.userForm.value.cellulare,
-        role: 'ABBONATO' // 👈 default, puoi cambiarlo
+        roles: [this.userForm.value.roles] // 🔹 array di ruoli
       });
 
       this.userService.create$(nuovoUtente).subscribe({
@@ -85,4 +83,5 @@ export class UtenteDetail {
   goBack(): void {
     this.router.navigate(['/utenti']); // 🔹 Se vuoi il pulsante di annullamento
   }
+  
 }

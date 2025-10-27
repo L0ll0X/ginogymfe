@@ -10,7 +10,9 @@
       <option value="ADMIN">Admin</option>
     </select>
 
-    <button class="btn btn-success" (click)="goToCreate()">➕ Aggiungi Nuovo</button>
+    <button class="insert-button" (click)="goToCreate()">
+      <i class="fa-solid fa-plus"></i>
+    </button>
   </div>
 </div>
 
@@ -29,7 +31,7 @@
     <td>{{ u.id }}</td>
     <td>{{ u.firstName }} {{ u.lastName }}</td>
     <td>{{ u.email }}</td>
-    <td>{{ u.role }}</td>
+    <td>{{ u.roles }}</td>
     <td class="text-end">
       <button class="btn btn-primary btn-sm me-2" (click)="goToDetail(u.id!)">✏️ Modifica</button>
       <button class="btn btn-danger btn-sm" (click)="delete(u.id!)">🗑️ Elimina</button>
