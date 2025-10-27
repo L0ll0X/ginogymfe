@@ -13,8 +13,6 @@ import { UtenteService } from '../services/utente.service';
 })
 export class UtenteDetail {
   userForm!: FormGroup;
-  userId?: number; //  serve per capire se è modifica o creazione
-ruoloIdSelected!:number;
   constructor(
     private fb: FormBuilder,
     private acRoute: ActivatedRoute,
@@ -27,63 +25,66 @@ ruoloIdSelected!:number;
       .pipe(
         tap(({ user }) => {
           this.populateForm(user);
-          if (user && user.id) {
-            this.userId = user.id; //  salva l'id se è modifica
-          }
-        })
-      )
-      .subscribe();
+        
+    })
+      ).subscribe();
   }
 
-  private populateForm(user: Utente | null) {
-    this.userForm = this.fb.group({
-      username: [user?.username|| '', Validators.required],
-      email: [user?.email || '', [Validators.required, Validators.email]],
-      roles: [user?.roles || 'UTENTE', Validators.required],
-      cellulare: [user?.cellulare || '', Validators.required],
-    });
-  
-  } selectRole(event: Event) {
-  const selectedValue = (event.target as HTMLSelectElement).value;
-  this.userForm.patchValue({ roles: [selectedValue] }); // ← array!
-}
+  private populateForm(user: Utente) {
+    if (!!user) {
+      this.userForm = this.fb.group({
+        firstName: [user.firstName , Validators.required],
+        lastName: [user.lastName, Validators.required],
+        email: [user.email, [Validators.required, Validators.email]],
+        username: [user.username, [Validators.required]],
+        password: [user.password, [Validators.required, Validators.minLength(8)]],
+        roles: [user.roles, Validators.required],
+        cellulare:[user.cellulare, Validators.required]
 
-
-
-  onSubmit(): void {
-    if (this.userForm.invalid) {
-      this.userForm.markAllAsTouched();
-      console.log('Form non valido. Compila tutti i campi richiesti.');
-      return;
-    }
-
-    const utenteData = this.userForm.value;
-      if (typeof utenteData.roles === 'string') {
-    utenteData.roles = [utenteData.roles];
-  }
-    console.log(utenteData);
-    if (this.userId) {
-      //  Se c’è un ID, stai modificando → UPDATE
-      this.userService.update$(this.userId, utenteData).subscribe({
-        next: () => {
-          console.log('Utente aggiornato con successo');
-          this.router.navigate(['/utenti']); //  Torna alla lista
-        },
-        error: (err) => console.error('Errore aggiornamento utente:', err),
       });
     } else {
-      //  Se NON c’è un ID, stai creando → CREATE
-      this.userService.create$(utenteData).subscribe({
-        next: () => {
-          console.log('Utente creato con successo');
-          this.router.navigate(['/utenti']); //  Torna alla lista
-        },
-        error: (err) => console.error('Errore creazione utente:', err),
+      this.userForm = this.fb.group({
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        roles: ['', Validators.required],
+        cellulare:['', Validators.required]
       });
+    }
+  }
+
+   onSubmit(): void {
+    if (this.userForm.valid) {
+      const nuovoUtente = new Utente({
+        firstName: this.userForm.value.firstName,
+        lastName: this.userForm.value.lastName,
+        email: this.userForm.value.email,
+        username: this.userForm.value.username,
+        password: this.userForm.value.password,
+        cellulare: this.userForm.value.cellulare,
+        roles: [this.userForm.value.roles] // 🔹 array di ruoli
+      });
+
+      this.userService.create$(nuovoUtente).subscribe({
+        next: (response) => {
+          console.log('Registrazione completata:', response);
+          alert('Registrazione completata! Ora puoi accedere.');
+          this.router.navigate(['/login']); // 👈 torna al login
+        },
+        error: (err) =>{
+          console.error('Errore durante la registrazione :', err);
+        alert('Errore durante la registrazione. Riprova'); 
+        }
+        });
+    } else {
+    this.userForm.markAllAsTouched();
     }
   }
 
   goBack(): void {
     this.router.navigate(['/utenti']);
   }
+  
 }

@@ -1,7 +1,7 @@
 <header class="navbar">
   <!-- Logo -->
   <div class="logo">
-    Gino<span>Gym</span>
+      AKT<span>Fit</span>
   </div>
 
   <!-- Hamburger menu -->
@@ -14,9 +14,11 @@
   <!-- Link di navigazione e pulsanti auth -->
   <nav [class.active]="menuOpen" class="nav-links">
    <ng-container *ngIf="isLoggedIn()">
+    <a routerLink="/home" routerLinkActive="active" (click)="menuOpen = false">Home</a>
     <a routerLink="/esercizi" routerLinkActive="active" (click)="menuOpen = false">Esercizi</a>
     <a routerLink="/gruppi-muscolari" routerLinkActive="active" (click)="menuOpen = false">Gruppi Muscolari</a>
     <a routerLink="/macchinari" routerLinkActive="active" (click)="menuOpen = false">Macchinari</a>
+    <a routerLink="/login" routerLinkActive="active" (click)="onLogout()">Logout</a>
   </ng-container>
 
     <div class="auth-buttons">
@@ -28,14 +30,19 @@
     </ng-container>
 
     <!-- Se loggato e admin -->
-    <button *ngIf="isAdmin()" routerLink="/admin/dashboard" (click)="menuOpen = false">
-      Admin Panel
-    </button>
+    <a *ngIf="isAdmin()" routerLink="/utenti" routerLinkActive="active" (click)="menuOpen = false">
+      Lista Utenti
+    </a>
 
     <!-- Se loggato e trainer -->
-    <button *ngIf="isTrainer()" routerLink="/trainer/dashboard" (click)="menuOpen = false">
+    <a *ngIf="isTrainer()" routerLink="/schede" routerLinkActive="active" (click)="menuOpen = false">
       Gestione Schede
-    </button>
+    </a>
+
+    <!-- Se loggato e utente -->
+    <a *ngIf="isAbbonato()" routerLink="/" routerLinkActive="active" (click)="menuOpen = false">
+      Visualizza Scheda
+    </a>
   </div>
 
   </nav>

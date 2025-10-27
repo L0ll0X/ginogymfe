@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Login } from './login/login';
 import { UtenteDetail } from './features/utenti/utente-detail/utente-detail';
+import { Home } from './features/home/home';
+import { Utente } from './features/utenti/models/utenti.model';
 
 const routes: Routes = [
   {
@@ -9,8 +11,12 @@ const routes: Routes = [
     component: Login
   },
   {
-    path: 'register', // 👈 aggiungi questa
+    path: 'register',
     component: UtenteDetail
+  },
+  {
+    path: '',
+    component: Home
   },
   {
     path: '',

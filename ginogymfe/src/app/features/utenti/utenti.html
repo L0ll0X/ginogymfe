@@ -1,12 +1,28 @@
+<<<<<<< HEAD
 <div class="page-header">
   <h2>Lista Utenti e Personal Trainer</h2>
   <div class="insert-container">
+=======
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Lista Utenti e PersonalTrainer</h2>
+
+  <div class="d-flex align-items-center gap-2">
+    <!-- (change)="filtraPerRuolo()" -->
+    <select [(ngModel)]="ruoloFiltro"  class="form-select w-auto">
+      <option value="Tutti">Tutti</option>
+      <option value="UTENTE">Utenti</option>
+      <option value="ISTRUTTORE">Istruttori</option>
+      <option value="ADMIN">Admin</option>
+    </select>
+
+>>>>>>> develop
     <button class="insert-button" (click)="goToCreate()">
       <i class="fa-solid fa-plus"></i>
     </button>
   </div>
 </div>
 
+<<<<<<< HEAD
 <div class="table-container">
   <table class="table table-striped">
     <thead class="table-light">
@@ -19,6 +35,29 @@
         <th scope="col" style="width: 120px;"></th>
       </tr>
     </thead>
+=======
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Ruolo</th>
+      <th>Azioni</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let u of (utenti$| async)">
+    <td>{{ u.id }}</td>
+    <td>{{ u.firstName }} {{ u.lastName }}</td>
+    <td>{{ u.email }}</td>
+    <td>{{ u.roles }}</td>
+    <td class="text-end">
+      <button class="btn btn-primary btn-sm me-2" (click)="goToDetail(u.id!)">✏️ Modifica</button>
+      <button class="btn btn-danger btn-sm" (click)="delete(u.id!)">🗑️ Elimina</button>
+    </td>
+  </tr>
+>>>>>>> develop
 
     <tbody>
       <tr *ngFor="let u of (utenti$ | async)">
