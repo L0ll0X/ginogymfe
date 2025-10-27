@@ -34,7 +34,8 @@ export class UtenteDetail {
         firstName: [user.firstName , Validators.required],
         lastName: [user.lastName, Validators.required],
         email: [user.email, [Validators.required, Validators.email]],
-        // password: [user.password, [Validators.required, Validators.minLength(8)]],
+        username: [user.username, [Validators.required]],
+        password: [user.password, [Validators.required, Validators.minLength(8)]],
         role: ['utenti', Validators.required],
         cellulare:[user.cellulare, Validators.required]
 
@@ -44,7 +45,8 @@ export class UtenteDetail {
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        // password: ['', [Validators.required, Validators.minLength(8)]],
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
         role: ['utenti', Validators.required],
         cellulare:['', Validators.required]
       });
@@ -58,6 +60,8 @@ export class UtenteDetail {
         firstName: this.userForm.value.firstName,
         lastName: this.userForm.value.lastName,
         email: this.userForm.value.email,
+        username: this.userForm.value.username,
+        password: this.userForm.value.password,
         cellulare: this.userForm.value.cellulare,
         role: 'ABBONATO' // 👈 default, puoi cambiarlo
       });

@@ -35,7 +35,7 @@ private readonly baseUrl = url.baseUrl + url.utenti.base;
 
 
   create$(utente: Utente) {
-    return this.http.post(url.baseUrl + url.utenti.base, utente );
+    return this.http.post(url.baseUrl + 'auth/register', utente );
 
   }
   delete$(userId: number): Observable<void> {
