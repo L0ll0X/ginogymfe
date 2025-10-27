@@ -78,7 +78,7 @@ h2 {
 
 /* Input fields */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 input {
@@ -96,6 +96,49 @@ input {
 input:focus {
   border-color: #ff3c00;
   box-shadow: 0 0 10px #ff1e00;
+}
+
+/* 🔑 Contenitore per il posizionamento relativo dell'icona */
+.password-container {
+    position: relative;
+    /* Eredita la larghezza completa del .login-container */
+    width: 100%; 
+}
+
+/* 🔑 Regola l'input all'interno del contenitore */
+/* Questo selettore è più specifico per garantire che abbia priorità, ma puoi usare il selettore 'input' generico se non ci sono conflitti */
+.password-container input {
+    /* Aggiunge spazio a destra per l'icona e previene che il testo vada sotto l'occhio */
+    padding-right: 40px; 
+}
+
+/* 🔑 Stile per l'icona toggle "Occhietto" */
+.toggle-password {
+    /* Posizionamento assoluto rispetto a .password-container */
+    position: absolute;
+    top: 50%; 
+    right: 15px; /* Distanza dal bordo destro dell'input */
+    
+    /* Centra perfettamente verticalmente */
+    transform: translateY(-50%); 
+    
+    /* Colore che si abbini al tema (Rosso/Arancione) */
+    color: #ff3c00; 
+    
+    /* Rende l'icona cliccabile */
+    cursor: pointer;
+    font-size: 1.1rem;
+    
+    /* Garantisce che l'icona sia sopra l'input */
+    z-index: 2; 
+    
+    /* Effetto hover in linea con il tema */
+    transition: color 0.2s, text-shadow 0.2s;
+}
+
+.toggle-password:hover {
+    color: #ff1e00;
+    text-shadow: 0 0 5px #ff1e00; /* Effetto neon sottile */
 }
 
 /* Button */
@@ -121,7 +164,7 @@ input:focus {
 
 /* Link registrazione */
 .register-text {
-  margin-top: 20px;
+  margin-top: 25px;
   font-size: 0.9rem;
 }
 

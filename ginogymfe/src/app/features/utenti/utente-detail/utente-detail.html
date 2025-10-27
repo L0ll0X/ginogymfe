@@ -14,7 +14,7 @@
   <div>
     <label for="lastName">Cognome:</label>
     <input id="lastName" type="text" formControlName="lastName">
-    <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched">
+    <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched" style="color: red;">
       Il cognome è obbligatorio.
     </div>
   </div>
@@ -22,7 +22,7 @@
   <div>
     <label for="email">Email:</label>
     <input id="email" type="email" formControlName="email">
-    <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+    <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" style="color: red;">
       <span *ngIf="userForm.get('email')?.errors?.['required']">L'Email è obbligatoria.</span>
       <span *ngIf="userForm.get('email')?.errors?.['email']">Inserisci un'email valida.</span>
     </div>
@@ -31,14 +31,30 @@
  <div>
     <label for="cellulare">Cellulare:</label>
     <input id="cellulare" type="cellulare" formControlName="cellulare">
-    <div *ngIf="userForm.get('cellulare')?.invalid && userForm.get('cellulare')?.touched">
+    <div *ngIf="userForm.get('cellulare')?.invalid && userForm.get('cellulare')?.touched" style="color: red;">
         <span *ngIf="userForm.get('cellulare')?.errors?.['required']">Il numero di Cellulare è obbligatorio.</span>
+    </div>
+  </div>
+
+  <div>
+    <label for="username">Username:</label>
+    <input id="username" type="username" formControlName="username">
+    <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched" style="color: red;">
+        <span *ngIf="userForm.get('username')?.errors?.['required']">L'username è obbligatorio.</span>
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input id="password" type="password" formControlName="password">
+    <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" style="color: red;">
+        <span *ngIf="userForm.get('password')?.errors?.['required']">La password è obbligatoria.</span>
     </div>
   </div>
   
   <!-- <input type="hidden" formControlName="role"> -->
 
-  <button type="submit" [disabled]="!userForm.valid">
+  <button type="submit" [disabled]="!userForm.valid" >
     Registrati
   </button>
 </form>

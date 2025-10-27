@@ -9,16 +9,16 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly baseUrl = url.baseUrl + '/auth';
+  private readonly baseUrl = url.baseUrl + 'auth';
   private tokenKey = 'auth_token';
 
   constructor(private http: HttpClient) {}
 
-  login$(email: string, password: string): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(`${this.baseUrl}/login`, { usernameOrEmail: email, password })
+  login$(username: string, password: string): Observable<string> {
+    return this.http.post<string>(`${this.baseUrl}/login`, { usernameOrEmail: username, password }, { responseType: 'text' as 'json' } )
       .pipe(
-        tap(res => localStorage.setItem(this.tokenKey, res.token)) // salvo token in localStorage
-      );
+          tap((token: string) => { localStorage.setItem(this.tokenKey, token); })
+    ) as Observable<string>;
   }
 
   getToken(): string | null {
@@ -40,8 +40,27 @@ export class AuthService {
   getRoles(): string[] {
   const token = this.getToken();
   if (!token) return [];
-  const payload: any = jwtDecode(token); // decodifica il token
-  return payload.roles || [];
-}
+    try {
+          // decodifica il token. Assicurati che il token sia valido
+          const payload: any = jwtDecode(token); 
+          // Si assume che il BE passi un array di ruoli sotto la chiave 'roles'
+          return payload.roles || [];
+        } catch (error) {
+          console.error('Errore durante la decodifica del token:', error);
+          return [];
+        }
+  }
+
+  // 🔑 LOGICA AGGIUNTA: Controlla se l'array di ruoli include 'ADMIN'
+  isAdmin(): boolean {
+    // Si assume che il ruolo nel token sia in maiuscolo, e sia 'ADMIN'
+    return this.getRoles().includes('ADMIN'); 
+  }
+
+  // 🔑 LOGICA AGGIUNTA: Controlla se l'array di ruoli include 'TRAINER'
+  isTrainer(): boolean {
+    // Si assume che il ruolo nel token sia in maiuscolo, e sia 'TRAINER'
+    return this.getRoles().includes('TRAINER');
+  }
 
 }

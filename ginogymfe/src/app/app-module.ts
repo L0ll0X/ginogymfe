@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing-module';
 import { Login } from './login/login';
 import { JwtInterceptor } from './login/interceptor/jwt.interceptor';
+import { Home } from './features/home/home';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { JwtInterceptor } from './login/interceptor/jwt.interceptor';
     RouterModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
