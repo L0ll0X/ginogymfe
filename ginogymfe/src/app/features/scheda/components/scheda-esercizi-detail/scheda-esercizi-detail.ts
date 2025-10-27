@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
-import { EsercizioScheda } from '../esercizi-scheda/models/esercizio-scheda.model';
-import { Esercizio } from '../../../esercizi/models/esercizio-model';
-import { SchedaModel } from '../../models/scheda.model';
-import { EsercizioSchedaService } from '../esercizi-scheda/service/esercizio-scheda.service';
+
 import { SchedaService } from '../../services/scheda.service';
 import { EsercizioService } from '../../../esercizi/service/esercizio.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, tap } from 'rxjs';
+import { EMPTY, switchMap, tap } from 'rxjs';
 import { Page } from '../../../macchinario/services/macchinario.service';
 import { SelectItem } from '../../../../select-item.model';
-import { ModificaEsercizioScheda } from '../esercizi-scheda/models/modifica-esercizio-scheda.model';
-import { CreaEsercizioScheda } from '../esercizi-scheda/models/crea-esercizio-scheda.model';
+
+import { DettaglioEsercizio } from '../../models/dettaglio-esercizio.model';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { Esercizio } from '../../../esercizi/models/esercizio-model';
+import { CreaEsercizioScheda } from '../../lista-esercizi-scheda-utente/models/crea-esercizio-scheda.model';
+import { EsercizioSchedaService } from '../../lista-esercizi-scheda-utente/service/esercizio-scheda.service';
 
 @Component({
   selector: 'app-scheda-esercizi-detail',
@@ -19,16 +19,15 @@ import { CreaEsercizioScheda } from '../esercizi-scheda/models/crea-esercizio-sc
   styleUrl: './scheda-esercizi-detail.css'
 })
 export class SchedaEserciziDetail {
+  @Output() onSchedaDetailSubmitted = new EventEmitter<CreaEsercizioScheda>();
 
-  esercizioScheda!: EsercizioScheda;
+  dettagliEsercizioForm: any[] = [];
+  dettaglioEsercizio!: DettaglioEsercizio;
   esercizi: Esercizio[] = [];
-  schede: SchedaModel[] = [];
-  esercizioIdSelected!: number | null;
-  schedaIdSelected!: number;
+  esercizioIdSelected!: number;
+  schedaIdSelected!: number | undefined
   isCollapsed = false;
-  isSecondCollapsed=false;
-  dettagliValid: boolean = false; 
-
+  isSecondCollapsed = false;
   totalElements = 0;
   totalPages = 0;
   page = 0;
@@ -36,88 +35,66 @@ export class SchedaEserciziDetail {
   sort = '';
 
   constructor(
-    private esercizioSchedaService: EsercizioSchedaService, 
-    private schedaService: SchedaService,
     private esercizioService: EsercizioService,
     private router: Router,
     private acRoute: ActivatedRoute
   ) {
-    this.esercizioScheda = {} as EsercizioScheda;
-    this.esercizioIdSelected = null;
+    this.dettaglioEsercizio = new DettaglioEsercizio();
+    this.dettagliEsercizioForm.push(this.dettaglioEsercizio)
   }
 
-   ngOnInit(): void {
-      this.acRoute.data.pipe(
-        tap(({esercizioScheda}) =>{
-          if (esercizioScheda) {
-          this.esercizioScheda =esercizioScheda;
-          this.esercizioIdSelected = esercizioScheda.esercizio?.id ?? null;
-          this.schedaIdSelected = esercizioScheda.scheda?.id ?? 0;
-          }else { 
-            console.warn('Resolver non ha restituito dati validi per esercizioScheda.');
-            this.esercizioScheda = {} as EsercizioScheda;
-           this.esercizioIdSelected = null;
-            this.schedaIdSelected = 0;
-         }
-        }),
-        switchMap((_) => this.esercizioService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
-        tap((esercizi: Page<Esercizio>) =>{
-          this.esercizi = esercizi.content.map(x => new SelectItem({id: x.id, name:x.name, machine:x.machine, muscleGroup:x.muscleGroup}))
-        })
-      ))
-      ).subscribe();
-      this.schedaService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
-        tap((schede: Page<SchedaModel>) =>{
-          this.schede = schede.content.map(x => new SelectItem({id: x.id, userId:x.userId, startDate:x.startDate, endDate:x.endDate}))
-        })
-      ).subscribe();
-    }
+  getClass(): string{
+    if(this.isCollapsed) return 'fa-solid fa-angle-up'
+    else return 'fa-solid fa-angle-down'
+  }
 
-    selectExercise(option: any){
+  ngOnInit(): void {
+    this.esercizioService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
+      tap((esercizi: Page<Esercizio>) => {
+        this.esercizi = esercizi.content.map(x => new SelectItem({ id: x.id, name: x.name, machine: x.machine, muscleGroup: x.muscleGroup }))
+      })
+    ).subscribe();
+    this.acRoute.queryParamMap.pipe(
+      tap((params) => {
+        const schedaIdParam = params.get('id');
+        if (schedaIdParam) {
+          this.schedaIdSelected = +schedaIdParam;
+        }
+      })
+    ).subscribe();
+
+  }
+
+  addNewEsercizioPanel(){
+    this.dettagliEsercizioForm.push(new DettaglioEsercizio())
+  }
+
+  selectExercise(option: any) {
     this.esercizioIdSelected = option
   }
 
-   selectScheda(option: any){
+  selectScheda(option: any) {
     this.schedaIdSelected = option
   }
 
- goToExerciseDetails() {
-    this.router.navigate(['../../dettagli-esercizio']);
+  submit(dettaglioEsercizio: DettaglioEsercizio) {
+    if (this.schedaIdSelected === 0) {
+      console.error("Errore: ID Scheda non valido (0). Impossibile salvare o navigare.");
+      return;
+    }
+    this.onSchedaDetailSubmitted.emit(new CreaEsercizioScheda({
+      exerciseId: this.esercizioIdSelected,
+      workoutPlanId: this.schedaIdSelected,
+      peso: 0,
+      recupero: dettaglioEsercizio.recupero,
+      ripetizioni: dettaglioEsercizio.ripetizioni,
+      serie:dettaglioEsercizio.serie
+    } as CreaEsercizioScheda))
+    this.isSecondCollapsed = true;
   }
 
-  submit() {
-      if (this.esercizioScheda.id) {
-        this.esercizioSchedaService.put$(new ModificaEsercizioScheda({
-          id: this.esercizioScheda.id,
-          idEsercizio: this.esercizioIdSelected,
-          idScheda:this.schedaIdSelected
-        } as ModificaEsercizioScheda)).subscribe({
-          next: (response) => {
-            console.log('Esercizio aggiornato:', response);
-             this.router.navigate(['../../schede/esercizi-scheda']);
-          },
-          error: (err) => {
-            console.error('Errore: ', err)
-          }
-        });
-      } else {
-        this.esercizioSchedaService.create$(new CreaEsercizioScheda({
-        idEsercizio: this.esercizioIdSelected,
-        idScheda:this.schedaIdSelected
-        } as CreaEsercizioScheda)).subscribe({
-          next: (response) => {
-            console.log('Esercizio aggiunto:', response);
-             this.router.navigate(['../../schede/esercizi-scheda']);
-          },
-          error: (err) => {
-            console.error('Errore: ', err)
-          }
-        });
-      }
-    }
-  
-    goBack() {
-      this.router.navigate(['../schede']);
-    }
+  goBack() {
+    this.router.navigate(['../schede']);
+  }
 
 }
