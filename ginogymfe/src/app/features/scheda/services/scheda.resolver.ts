@@ -18,6 +18,6 @@ export class SchedaResolver implements Resolve<SchedaModel> {
       return of(new SchedaModel()); // restituisce una Scheda vuota
     }
 
-    return this.schedaService.getById(+schedaId); // usa il modello, non il componente
+    return this.schedaService.getById$(+schedaId); // usa il modello, non il componente
   }
 }
