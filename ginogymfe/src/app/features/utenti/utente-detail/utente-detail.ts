@@ -56,8 +56,9 @@ export class UtenteDetail {
   }
 
    onSubmit(): void {
-    if (this.userForm.valid) {
+    // if (this.userForm.valid) {
       const nuovoUtente = new Utente({
+        id:0,
         firstName: this.userForm.value.firstName,
         lastName: this.userForm.value.lastName,
         email: this.userForm.value.email,
@@ -78,9 +79,9 @@ export class UtenteDetail {
         alert('Errore durante la registrazione. Riprova'); 
         }
         });
-    } else {
-    this.userForm.markAllAsTouched();
-    }
+    // } else {
+    // this.userForm.markAllAsTouched();
+    // }
   }
 
   goBack(): void {
