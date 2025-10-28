@@ -28,17 +28,20 @@
   </thead>
 
   <tbody>
-    <!-- Primo elenco utenti -->
-    <tr *ngFor="let u of (utenti$ | async)">
-      <td>{{ u.id }}</td>
-      <td>{{ u.firstName }} {{ u.lastName }}</td>
-      <td>{{ u.email }}</td>
-      <td>{{ u.roles }}</td>
-      <td class="text-end">
-        <button class="btn btn-primary btn-sm me-2" (click)="goToDetail(u.id!)">✏️ Modifica</button>
-        <button class="btn btn-danger btn-sm" (click)="delete(u.id!)">🗑️ Elimina</button>
-      </td>
-    </tr>
+  <tr *ngFor="let u of (utenti$| async)">
+    <td>{{ u.id }}</td>
+    <td>{{ u.firstName }} {{ u.lastName }}</td>
+    <td>{{ u.email }}</td>
+    <td>{{ u.roles }}</td>
+    <td class="text-end">
+      <button class="btn btn-primary btn-sm me-2" (click)="goToDetail(u.id!)">
+         <i class="fas fa-edit"></i>
+      </button>
+      <button class="btn btn-danger btn-sm" (click)="delete(u.id!)">
+        <i class="fas fa-trash"></i>
+      </button>
+    </td>
+  </tr>
 
     <!-- Secondo elenco utenti (PersonalTrainer o altri) -->
     <tr *ngFor="let u of (utenti$ | async)">
