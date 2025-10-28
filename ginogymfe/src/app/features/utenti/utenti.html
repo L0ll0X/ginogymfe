@@ -1,8 +1,7 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
-  <h2>Lista Utenti e PersonalTrainer</h2>
+  <h2>Lista Utenti e Personal Trainer</h2>
 
   <div class="d-flex align-items-center gap-2">
-    <!-- (change)="filtraPerRuolo()" -->
     <select [(ngModel)]="ruoloFiltro" class="form-select w-auto">
       <option value="Tutti">Tutti</option>
       <option value="UTENTE">Utenti</option>
@@ -16,56 +15,48 @@
   </div>
 </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Ruolo</th>
-      <th>Azioni</th>
-    </tr>
-  </thead>
+<div class="table-container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Ruolo</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of (utenti$| async)">
+          <td data-label="ID">{{ u.id }}</td>
+          <td data-label="Nome">{{ u.firstName }} {{ u.lastName }}</td>
+          <td data-label="Email">{{ u.email }}</td>
+          <td data-label="Ruolo">{{ u.roles }}</td>
+          <td data-label="Azioni" class="text-end">
+  <button class="btn btn-primary btn-sm me-2" (click)="goToDetail(u.id!)" title="Modifica">
+    <i class="fa-solid fa-pen"></i>
+  </button>
+  <button class="btn btn-danger btn-sm" (click)="delete(u.id!)" title="Elimina">
+    <i class="fa-solid fa-trash"></i>
+  </button>
+</td>
 
-  <tbody>
-  <tr *ngFor="let u of (utenti$| async)">
-    <td>{{ u.id }}</td>
-    <td>{{ u.firstName }} {{ u.lastName }}</td>
-    <td>{{ u.email }}</td>
-    <td>{{ u.roles }}</td>
-    <td class="text-end">
-      <button class="btn btn-primary btn-sm me-2" (click)="goToDetail(u.id!)">
-         <i class="fas fa-edit"></i>
-      </button>
-      <button class="btn btn-danger btn-sm" (click)="delete(u.id!)">
-        <i class="fas fa-trash"></i>
-      </button>
-    </td>
-  </tr>
+        </tr>
 
-    <!-- Secondo elenco utenti (PersonalTrainer o altri) -->
-    <tr *ngFor="let u of (utenti$ | async)">
-      <td>{{ u.id }}</td>
-      <td>{{ u.username }}</td>
-      <td>{{ u.email }}</td>
-      <td>{{ u.cellulare }}</td>
-      <td>{{ u.roles.join(', ') }}</td>
-      <td class="action-buttons">
-        <button class="button-modifica" (click)="goToDetail(u.id)">
-          <i class="fas fa-edit"></i>
-        </button>
-        <button class="button-elimina" (click)="delete(u.id)">
-          <i class="fas fa-trash"></i>
-        </button>
-      </td>
-    </tr>
+        <tr *ngIf="(utenti$| async)?.length === 0">
+          <td colspan="5" class="text-center">Nessun utente trovato.</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
 
-    <tr *ngIf="(utenti$ | async)?.length === 0">
-      <td colspan="6" class="text-center">Nessun utente presente</td>
-    </tr>
-  </tbody>
-</table>
+<div class="d-flex justify-content-between flex-row  align-items-center mt-3">
+  <button class="btn btn-light" (click)="paginaPrecedente()" [disabled]="currentPage === 0">← Precedente</button>
+  <small style="    text-align: center;">Pagina {{ currentPage + 1 }} / {{ totalPages || 1 }}</small>
+  <button class="btn btn-light" (click)="paginaSuccessiva()" [disabled]="currentPage >= totalPages - 1">Successiva →</button>
+</div>
+
 
 <div class="text-center mt-4">
-  <button class="btn btn-secondary" (click)="tornaHome()">Torna alla Home</button>
+  <button class="btn btn-secondary" (click)="tornaHome()">🏠 Torna alla Home</button>
 </div>
