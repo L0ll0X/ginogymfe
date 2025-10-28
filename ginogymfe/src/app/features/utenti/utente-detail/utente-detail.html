@@ -37,7 +37,7 @@
   </div>
 
   <div>
-    <label for="username">Username:</label>
+    <label for="username">Name:</label>
     <input id="username" type="username" formControlName="username">
     <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched" style="color: red;">
         <span *ngIf="userForm.get('username')?.errors?.['required']">L'username è obbligatorio.</span>

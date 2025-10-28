@@ -1,41 +1,21 @@
-<<<<<<< HEAD
-<div class="page-header">
-  <h2>Lista Utenti e Personal Trainer</h2>
-  <div class="insert-container">
-=======
 <div class="d-flex justify-content-between align-items-center mb-3">
   <h2>Lista Utenti e PersonalTrainer</h2>
 
   <div class="d-flex align-items-center gap-2">
     <!-- (change)="filtraPerRuolo()" -->
-    <select [(ngModel)]="ruoloFiltro"  class="form-select w-auto">
+    <select [(ngModel)]="ruoloFiltro" class="form-select w-auto">
       <option value="Tutti">Tutti</option>
       <option value="UTENTE">Utenti</option>
       <option value="ISTRUTTORE">Istruttori</option>
       <option value="ADMIN">Admin</option>
     </select>
 
->>>>>>> develop
     <button class="insert-button" (click)="goToCreate()">
       <i class="fa-solid fa-plus"></i>
     </button>
   </div>
 </div>
 
-<<<<<<< HEAD
-<div class="table-container">
-  <table class="table table-striped">
-    <thead class="table-light">
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Username</th>
-        <th scope="col">Email</th>
-        <th scope="col">Cellulare</th>
-        <th scope="col">Ruolo</th>
-        <th scope="col" style="width: 120px;"></th>
-      </tr>
-    </thead>
-=======
 <table class="table table-striped">
   <thead>
     <tr>
@@ -46,42 +26,42 @@
       <th>Azioni</th>
     </tr>
   </thead>
+
   <tbody>
-  <tr *ngFor="let u of (utenti$| async)">
-    <td>{{ u.id }}</td>
-    <td>{{ u.firstName }} {{ u.lastName }}</td>
-    <td>{{ u.email }}</td>
-    <td>{{ u.roles }}</td>
-    <td class="text-end">
-      <button class="btn btn-primary btn-sm me-2" (click)="goToDetail(u.id!)">✏️ Modifica</button>
-      <button class="btn btn-danger btn-sm" (click)="delete(u.id!)">🗑️ Elimina</button>
-    </td>
-  </tr>
->>>>>>> develop
+    <!-- Primo elenco utenti -->
+    <tr *ngFor="let u of (utenti$ | async)">
+      <td>{{ u.id }}</td>
+      <td>{{ u.firstName }} {{ u.lastName }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.roles }}</td>
+      <td class="text-end">
+        <button class="btn btn-primary btn-sm me-2" (click)="goToDetail(u.id!)">✏️ Modifica</button>
+        <button class="btn btn-danger btn-sm" (click)="delete(u.id!)">🗑️ Elimina</button>
+      </td>
+    </tr>
 
-    <tbody>
-      <tr *ngFor="let u of (utenti$ | async)">
-        <td>{{ u.id }}</td>
-        <td>{{ u.username }}</td>
-        <td>{{ u.email }}</td>
-        <td>{{ u.cellulare }}</td>
-        <td>{{ u.roles?.join(', ') }}</td> 
-        <td class="action-buttons">
-          <button class="button-modifica" (click)="goToDetail(u.id)">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="button-elimina" (click)="delete(u.id)">
-            <i class="fas fa-trash"></i>
-          </button>
-        </td>
-      </tr>
+    <!-- Secondo elenco utenti (PersonalTrainer o altri) -->
+    <tr *ngFor="let u of (utenti$ | async)">
+      <td>{{ u.id }}</td>
+      <td>{{ u.username }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.cellulare }}</td>
+      <td>{{ u.roles.join(', ') }}</td>
+      <td class="action-buttons">
+        <button class="button-modifica" (click)="goToDetail(u.id)">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="button-elimina" (click)="delete(u.id)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>
+    </tr>
 
-      <tr *ngIf="(utenti$ | async)?.length === 0">
-        <td colspan="6" class="text-center">Nessun utente presente</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <tr *ngIf="(utenti$ | async)?.length === 0">
+      <td colspan="6" class="text-center">Nessun utente presente</td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="text-center mt-4">
   <button class="btn btn-secondary" (click)="tornaHome()">Torna alla Home</button>
