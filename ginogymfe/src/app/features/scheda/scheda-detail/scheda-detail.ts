@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SchedaModel } from '../models/scheda.model';
+import { CreateSchedaWithDetailRequest, CreateSchedaWithDetailRequest as ModifySchedaWithDetailRequest, SchedaModel } from '../models/scheda.model';
 import { SchedaService } from '../services/scheda.service';
 import { Utente } from '../../utenti/models/utenti.model';
 import { UtenteService } from '../../utenti/services/utente.service';
+import { tap } from 'rxjs/operators';
+import { EsercizioScheda } from '../lista-esercizi-scheda-utente/models/esercizio-scheda-utente.model';
+import { Esercizio } from '../../esercizi/models/esercizio-model';
+import { CreaEsercizioScheda } from '../lista-esercizi-scheda-utente/models/crea-esercizio-scheda.model';
+
 
 @Component({
   standalone: false,
@@ -12,9 +17,9 @@ import { UtenteService } from '../../utenti/services/utente.service';
   styleUrls: ['./scheda-detail.css']
 })
 export class SchedaDetail implements OnInit {
-  scheda = new SchedaModel();
+  scheda!:SchedaModel;
   utenti: Utente[] = []; 
-
+  eserciziScheda: EsercizioScheda[] = []
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -23,27 +28,35 @@ export class SchedaDetail implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.caricaUtenti();
-
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.schedaService.getById(+id).subscribe({
-        next: (data) => (this.scheda = data),
-        error: (err) => console.error('Errore nel caricamento della scheda:', err)
-      });
-    }
+    this.route.params.pipe(
+      tap(({scheda}) => { 
+        if(!scheda) this.scheda = new SchedaModel({endDate:'',id: scheda?.id, startDate:'', userId:0} as SchedaModel);
+        else{this.scheda = scheda}
+        
+      })
+    ).subscribe()
   }
 
-  caricaUtenti(): void {
-    // this.utenteService.get$().subscribe({
-    //   next: (data) => (this.utenti = data),
-    //   error: (err) => console.error('Errore nel caricamento utenti:', err)
-    // });
+  bindSchedaEsercizio(schedaEsercizio: CreaEsercizioScheda){
+    this.eserciziScheda.push(new EsercizioScheda({
+      exercise: new Esercizio({id: schedaEsercizio.exerciseId}),
+      peso:0,
+      recupero: schedaEsercizio.recupero,
+      serie: schedaEsercizio.serie,
+      id: schedaEsercizio.workoutPlanId,
+      ripetizioni: schedaEsercizio.ripetizioni
+    }as EsercizioScheda));
   }
 
   submit(): void {
     if (this.scheda.id) {
-      this.schedaService.put$(this.scheda).subscribe({
+      this.schedaService.put$(new ModifySchedaWithDetailRequest({
+        endDate : this.scheda.endDate,
+        startDate: this.scheda.startDate,
+        userId:0,
+        exerciseDetails: this.eserciziScheda,
+        id: this.scheda.id
+      } as ModifySchedaWithDetailRequest)).subscribe({
         next: () => {
           alert('Scheda aggiornata con successo!');
           this.router.navigate(['/schede']);
@@ -54,7 +67,13 @@ export class SchedaDetail implements OnInit {
         }
       });
     } else {
-      this.schedaService.create$(this.scheda).subscribe({
+      this.schedaService.create$(new CreateSchedaWithDetailRequest({
+        endDate : this.scheda.endDate,
+        startDate: this.scheda.startDate,
+        userId:0,
+        exerciseDetails: this.eserciziScheda,
+        id: this.scheda.id
+      } as CreateSchedaWithDetailRequest)).subscribe({
         next: (response) => {
           alert('Scheda creata con successo!');
           this.router.navigate(['/schede']);

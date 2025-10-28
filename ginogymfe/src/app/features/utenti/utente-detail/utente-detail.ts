@@ -1,11 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { Utente } from '../models/utenti.model';
 import { UtenteService } from '../services/utente.service';
-
 
 @Component({
   selector: 'app-utente-detail',
@@ -15,15 +13,21 @@ import { UtenteService } from '../services/utente.service';
 })
 export class UtenteDetail {
   userForm!: FormGroup;
-
-  constructor(private fb: FormBuilder, private acRoute: ActivatedRoute, private userService: UtenteService, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private acRoute: ActivatedRoute,
+    private userService: UtenteService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.acRoute.data.pipe(
-      tap(({ user }) => {
-        this.populateForm(user);
-      })
-    ).subscribe();
+    this.acRoute.data
+      .pipe(
+        tap(({ user }) => {
+          this.populateForm(user);
+        
+    })
+      ).subscribe();
   }
 
   private populateForm(user: Utente) {
@@ -49,12 +53,12 @@ export class UtenteDetail {
         cellulare:['', Validators.required]
       });
     }
-
   }
 
    onSubmit(): void {
-    if (this.userForm.valid) {
+    // if (this.userForm.valid) {
       const nuovoUtente = new Utente({
+        id:0,
         firstName: this.userForm.value.firstName,
         lastName: this.userForm.value.lastName,
         email: this.userForm.value.email,
@@ -70,18 +74,18 @@ export class UtenteDetail {
           alert('Registrazione completata! Ora puoi accedere.');
           this.router.navigate(['/login']); // 👈 torna al login
         },
-        error: (err) => {
-          console.error('Errore durante la registrazione:', err);
-          alert('Errore durante la registrazione. Riprova.');
+        error: (err) =>{
+          console.error('Errore durante la registrazione :', err);
+        alert('Errore durante la registrazione. Riprova'); 
         }
-      });
-    } else {
-      this.userForm.markAllAsTouched();
-    }
+        });
+    // } else {
+    // this.userForm.markAllAsTouched();
+    // }
   }
 
   goBack(): void {
-    this.router.navigate(['/utenti']); // 🔹 Se vuoi il pulsante di annullamento
+    this.router.navigate(['/utenti']);
   }
   
 }
