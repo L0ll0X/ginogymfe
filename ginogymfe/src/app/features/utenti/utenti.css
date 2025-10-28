@@ -3,101 +3,161 @@
 :host {
   display: block;
   padding: 40px 20px;
-  background: linear-gradient(180deg, #1e1e1e 0%, #2a2a2a 100%);
   min-height: 100vh;
   font-family: 'Orbitron', sans-serif;
   color: #f5f5f5;
+  background: linear-gradient(180deg, #1e1e1e 0%, #2a2a2a 100%);
 }
 
 /* Titolo */
 h2 {
-  color: #ff1e1e;
-  text-align: center;
-  margin-bottom: 40px;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 48px;
-  letter-spacing: 2px;
+  text-align: center;
   text-transform: uppercase;
+  color: #ff1e1e;
   text-shadow: 0 0 15px rgba(255, 30, 30, 0.8);
+  letter-spacing: 2px;
   border-bottom: 2px solid rgba(255,30,30,0.5);
   padding-bottom: 10px;
+  margin-bottom: 25px;
 }
 
-/* Tabelle */
+/* Header con filtro e bottone */
+.d-flex.justify-content-between.align-items-center.mb-3 {
+  flex-wrap: wrap;
+  justify-content: center !important;
+  gap: 15px;
+}
+
+/* Bottone inserisci */
+.insert-button {
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #ff1e1e, #b30000);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  gap: 5px;
+  box-shadow: 0 0 15px rgba(255,30,30,0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.insert-button:hover {
+  background: linear-gradient(135deg, #ff0000, #990000);
+  box-shadow: 0 0 20px rgba(255,0,0,0.6);
+  transform: translateY(-2px);
+}
+
+/* Contenitore tabella */
+.table-container {
+  background: #1a1a1a;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 0 25px rgba(255, 30, 30, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Tabella */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0 auto;
-  background-color: #1a1a1a;
-  box-shadow: 0 0 25px rgba(255, 30, 30, 0.2);
-  border-radius: 12px;
-  overflow: hidden;
-  max-width: 800px;
-}
-
-table th {
-  background-color: #ff1e1e;
   color: #f5f5f5;
-  padding: 15px;
   text-align: left;
-  font-weight: bold;
-  font-size: 16px;
+  table-layout: auto;
 }
 
-table td {
-  padding: 15px;
-  border-bottom: 1px solid #333;
-  color: #0c0c0c;
-  font-size: 15px;
+thead tr {
+  background-color: #ff1e1e;
+  color: #fff;
 }
 
-table tbody tr:nth-child(even) {
+th, td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,30,30,0.3);
+  vertical-align: middle;
+}
+
+/* Alternanza e hover */
+tbody tr:nth-child(even) {
+  background-color: #111;
+}
+tbody tr:hover {
   background-color: #222;
+  transition: background-color 0.3s ease;
 }
 
-table tbody tr:hover {
-  background-color: #330000;
-  transition: background-color 0.3s;
+/* Bottoni azione */
+.btn-primary.btn-sm {
+  background: linear-gradient(135deg, #ff6b6b, #ff1e1e);
+  border: none;
+  box-shadow: 0 0 12px rgba(255,30,30,0.5);
+  transition: all 0.3s ease;
+}
+.btn-primary.btn-sm:hover {
+  background: linear-gradient(135deg, #ff1e1e, #b30000);
+}
+.btn-danger.btn-sm {
+  background: linear-gradient(135deg, #e31616, #990000);
+  border: none;
+  box-shadow: 0 0 12px rgba(255,0,0,0.5);
+}
+.btn-danger.btn-sm:hover {
+  background: linear-gradient(135deg, #b30000, #800000);
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
-    display: block;
+/* 🔹 Paginazione (più compatti e coerenti) */
+.btn-light {
+  background: #333;
+  color: #f5f5f5;
+  border: 1px solid #555;
+  font-size: 13px;
+  padding: 6px 10px; /* ridotto */
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+.btn-light:hover {
+  background: #444;
+  transform: translateY(-1px);
+}
+
+/* Scroll orizzontale su mobile */
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+  }
+
+  table {
+    min-width: 700px;
     width: 100%;
   }
 
-  thead {
-    display: none;
-  }
-
-  tr {
-    margin-bottom: 15px;
-    background: #1a1a1a;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(255, 30, 30, 0.2);
-    padding: 10px;
-  }
-
-  td {
-    position: relative;
-    padding-left: 50%;
-    text-align: left;
-    border: none;
-  }
-
-  td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 15px;
-    top: 15px;
-    font-weight: bold;
-    color: #ff1e1e;
+  th, td {
     font-size: 13px;
+    padding: 8px;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  .insert-button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .btn-light {
+    font-size: 12px;
+    padding: 5px 9px;
   }
 }

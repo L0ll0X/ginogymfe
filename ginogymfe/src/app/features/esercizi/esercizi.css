@@ -142,6 +142,16 @@ tbody tr:hover {
   background: linear-gradient(135deg, #b30000, #800000);
   transform: scale(1.05);
 }
+/* 🔹 Paginazione (più compatti e coerenti) */
+.btn-light {
+  background: #333;
+  color: #f5f5f5;
+  border: 1px solid #555;
+  font-size: 13px;
+  padding: 6px 10px; /* ridotto */
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
 
 /* --- 📱 MOBILE CARD LAYOUT --- */
 @media (max-width: 768px) {

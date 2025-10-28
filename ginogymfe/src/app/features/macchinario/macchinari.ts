@@ -15,6 +15,7 @@ import { ModalConfirmation } from '../../modale/modale';
 export class Macchinari implements OnInit {
 
   macchinariSubject = new BehaviorSubject<Macchinario[]>([]);
+  currentPage: 0 = 0;
   get macchinari$() { return this.macchinariSubject.asObservable() }
 
   totalElements = 0;
@@ -75,6 +76,25 @@ export class Macchinari implements OnInit {
         console.log('Eliminazione annullata');
       }
     );
+  }
+   // 🔹 Paginazione
+  paginaPrecedente(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.loadMacchinari();
+    }
+  }
+
+  paginaSuccessiva(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.loadMacchinari();
+    }
+  }
+
+  // 🔹 Torna alla Home
+  tornaHome(): void {
+    this.router.navigate(['../home']);
   }
 
 }

@@ -14,6 +14,13 @@ import { ModalConfirmation } from '../../modale/modale';
   styleUrl: './esercizi.css'
 })
 export class Esercizi {
+paginaSuccessiva() {
+throw new Error('Method not implemented.');
+}
+currentPage =0;
+paginaPrecedente() {
+throw new Error('Method not implemented.');
+}
 
 
   esercizi$!: Observable<Esercizio[]>
@@ -80,5 +87,8 @@ export class Esercizi {
       }
     );
   }
-
+   
 }
+
+
+

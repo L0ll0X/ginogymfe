@@ -36,5 +36,10 @@
     </tbody>
   </table>
 </div>
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <button class="btn btn-light" (click)="paginaPrecedente()" [disabled]="currentPage === 0">← Precedente</button>
+  <small>Pagina {{ currentPage + 1 }} / {{ totalPages || 1 }}</small>
+  <button class="btn btn-light" (click)="paginaSuccessiva()" [disabled]="currentPage >= totalPages - 1">Successiva →</button>
+</div>
 
 <router-outlet></router-outlet>
