@@ -35,34 +35,46 @@ export class EserciziScheda {
     private cdr: ChangeDetectorRef) { };
 
   ngOnInit(): void {
-    this.acroute.paramMap.pipe(
-      map(params => {
-        const idParam = params.get('id');
-        if (!idParam) {
-          console.error("ID della Scheda non trovato nell'URL.");
-          return null; // Restituisce null se l'ID non è presente
-        }
-        this.schedaId = +idParam;
-        return this.schedaId;
-      }),
-      switchMap(schedaId => {
-        if (schedaId && schedaId > 0) {
-          return this.loadEserciziSchedaBySchedaId(schedaId);
-        }
-
+  this.acroute.paramMap.pipe(
+    map(params => {
+      const idParam = params.get('id');
+      if (!idParam) {
+        console.error(" ID della Scheda non trovato nell'URL.");
+        return null;
+      }
+      this.schedaId = +idParam;
+      return this.schedaId;
+    }),
+    switchMap((schedaId: number | null) => {
+      if (schedaId && schedaId > 0) {
+       
+        return this.loadEserciziSchedaBySchedaId(schedaId);
+      } else {
+        
         return new Observable<EsercizioScheda[]>(observer => {
           observer.next([]);
           observer.complete();
-        }
-);
-      })
-    ).subscribe(esercizi => {
+        });
+      }
+    })
+  ).subscribe({
+    next: (esercizi: EsercizioScheda[]) => {
+      console.log("Esercizi caricati:", esercizi);
       this.eserciziScheda$ = new Observable<EsercizioScheda[]>(observer => {
         observer.next(esercizi);
         observer.complete();
       });
-    });
-  }
+    },
+    error: (err) => {
+      console.error(" Errore nel caricamento degli esercizi:", err);
+      this.eserciziScheda$ = new Observable<EsercizioScheda[]>(observer => {
+        observer.next([]);
+        observer.complete();
+      });
+    }
+  });
+}
+
 
   private loadEserciziSchedaBySchedaId(schedaId: number): Observable<EsercizioScheda[]> {
     return this.esercizioSchedaService.getBySchedaId$({

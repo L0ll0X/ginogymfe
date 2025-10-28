@@ -1,3 +1,4 @@
+import { EsercizioSchedaRequest } from "../lista-esercizi-scheda-utente/models/esercizio-scheda-request.model";
 import { EsercizioScheda } from "../lista-esercizi-scheda-utente/models/esercizio-scheda-utente.model";
 
 
@@ -14,7 +15,7 @@ export class SchedaModel {
 }
 
 export class CreateSchedaWithDetailRequest extends SchedaModel{
-    exerciseDetails: EsercizioScheda[] = []
+    exerciseDetails: EsercizioSchedaRequest[] = []
 
     constructor(data?:any){
       super(data);
