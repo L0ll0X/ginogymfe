@@ -1,12 +1,11 @@
 export class Utente {
   id!: number; 
-  firstName!: string;
+  name!: string;
   lastName!: string;
   username!: string;
   email!: string;
   password!: string;
   roles!: string [];
-  // abbonato?: boolean;
   cellulare!: string;  
 
   constructor(data?: any) {

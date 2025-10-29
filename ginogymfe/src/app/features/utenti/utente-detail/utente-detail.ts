@@ -33,7 +33,7 @@ export class UtenteDetail {
   private populateForm(user: Utente) {
     if (!!user) {
       this.userForm = this.fb.group({
-        firstName: [user.firstName , Validators.required],
+        name: [user.name , Validators.required],
         lastName: [user.lastName, Validators.required],
         email: [user.email, [Validators.required, Validators.email]],
         username: [user.username, [Validators.required]],
@@ -44,7 +44,7 @@ export class UtenteDetail {
       });
     } else {
       this.userForm = this.fb.group({
-        firstName: ['', Validators.required],
+        name: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         username: ['', [Validators.required]],
@@ -59,7 +59,7 @@ export class UtenteDetail {
     // if (this.userForm.valid) {
       const nuovoUtente = new Utente({
         id:0,
-        firstName: this.userForm.value.firstName,
+        name: this.userForm.value.name,
         lastName: this.userForm.value.lastName,
         email: this.userForm.value.email,
         username: this.userForm.value.username,
