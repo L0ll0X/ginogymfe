@@ -47,11 +47,6 @@ export class UtentiComponent implements OnInit {
       });
   }
 
-  filtraPerRuolo(): void {
-    this.currentPage = 0; // resetta la pagina quando cambi filtro
-    this.load();
-  }
-
   // 🔹 Paginazione
   paginaPrecedente(): void {
     if (this.currentPage > 0) {

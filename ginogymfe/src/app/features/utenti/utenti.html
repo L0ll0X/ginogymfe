@@ -2,14 +2,6 @@
   <h2>Lista Utenti e Personal Trainer</h2>
 
   <div class="d-flex align-items-center gap-2">
-    <!-- (change)="filtraPerRuolo()" -->
-    <select [(ngModel)]="ruoloFiltro" (change)="filtraPerRuolo()" class="form-select w-auto">
-      <option value="Tutti">Tutti</option>
-      <option value="UTENTE">Utenti</option>
-      <option value="ISTRUTTORE">Personal Trainer</option>
-      <option value="ADMIN">Amministratore</option>
-    </select>
-
     <button class="insert-button" (click)="goToCreate()">
       <i class="fa-solid fa-plus"></i>
     </button>
@@ -35,7 +27,7 @@
         <td>{{ u.roles }}</td>
         <td class="action-buttons">
           <button class="btn btn-primary" (click)="goToDetail(u.id!)" title="Modifica">
-            <i class="fa-solid fa-pen"></i>
+            <i class="fas fa-edit"></i>
           </button>
           <button class="btn btn-danger" (click)="delete(u.id!)" title="Elimina">
             <i class="fa-solid fa-trash"></i>
