@@ -15,6 +15,7 @@ import { ModalConfirmation } from '../../modale/modale';
   templateUrl: './utenti.html',
   styleUrls: ['./utenti.css']
 })
+
 export class UtentiComponent implements OnInit {
   private utentiSubject = new BehaviorSubject<Utente[]>([]);
   utenti$ = this.utentiSubject.asObservable();
@@ -74,7 +75,7 @@ export class UtentiComponent implements OnInit {
     this.router.navigate(['/utenti/detail', id]);
   }
 
-  // 🔹 Elimina utente
+  //  Elimina utente
   delete(id: number): void {
     if (confirm('Sei sicuro di voler eliminare questo utente?')) {
       this.utenteService.delete$(id).subscribe({

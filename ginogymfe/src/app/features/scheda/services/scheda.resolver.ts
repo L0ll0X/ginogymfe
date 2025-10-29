@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { SchedaModel } from '../models/scheda.model';
 import { SchedaService } from './scheda.service';
 
@@ -18,6 +18,6 @@ export class SchedaResolver implements Resolve<SchedaModel> {
       return of(new SchedaModel()); // restituisce una Scheda vuota
     }
 
-    return this.schedaService.getById(+schedaId); // usa il modello, non il componente
+    return this.schedaService.getById$(+schedaId).pipe(tap((res)=>console.log(res))); // usa il modello, non il componente
   }
 }

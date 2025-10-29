@@ -23,6 +23,7 @@ export class GruppiMuscolari {
   page = 0;
   size = 15;
   sort = 'name,asc';
+  currentPage: 0 = 0;
   constructor(
     private gruppoMuscolareService: GruppoMuscolareService,
     private router: Router,
@@ -74,6 +75,26 @@ export class GruppiMuscolari {
     }
   );
 }
+// 🔹 Paginazione
+paginaPrecedente(): void {
+  if (this.currentPage > 0) {
+    this.currentPage--;
+    this.loadGruppiMuscolari(); // ⬅️ Usa qui il metodo che ricarica i gruppi muscolari
+  }
+}
+
+paginaSuccessiva(): void {
+  if (this.currentPage < this.totalPages - 1) {
+    this.currentPage++;
+    this.loadGruppiMuscolari(); // ⬅️ idem
+  }
+}
+
+// 🔹 Torna alla Home
+tornaHome(): void {
+  this.router.navigate(['../home']);
+}
+
   
 }
 

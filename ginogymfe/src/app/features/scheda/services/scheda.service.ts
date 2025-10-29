@@ -4,16 +4,22 @@ import { Observable } from 'rxjs';
 import { SchedaModel } from '../models/scheda.model';
 import { Page } from '../../macchinario/services/macchinario.service';
 import { url } from "../../../../environments/environment.dev";
+import { Esercizio } from '../../esercizi/models/esercizio-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SchedaService {
+ 
   private apiUrl = `${url.baseUrl}${url.schede.base}`;
-
+  
   constructor(private http: HttpClient) {}
-
-  getById(id: number): Observable<SchedaModel> {
+  
+  getExercisesByWorkoutPlanId$(id: number) {
+     return this.http.get<Esercizio[]>(`${this.apiUrl}/workoutplan-exercises/${id}`);
+  }
+  
+  getById$(id: number): Observable<SchedaModel> {
     return this.http.get<SchedaModel>(`${this.apiUrl}/${id}`);
   }
 
@@ -37,4 +43,8 @@ export class SchedaService {
   delete$(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+
+
+  
 }

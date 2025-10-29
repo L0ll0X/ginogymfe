@@ -30,7 +30,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideClientHydration(withEventReplay()),
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+   //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [App]
 })
