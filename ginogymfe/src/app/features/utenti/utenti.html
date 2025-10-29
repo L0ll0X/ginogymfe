@@ -2,11 +2,12 @@
   <h2>Lista Utenti e Personal Trainer</h2>
 
   <div class="d-flex align-items-center gap-2">
-    <select [(ngModel)]="ruoloFiltro" class="form-select w-auto">
+    <!-- (change)="filtraPerRuolo()" -->
+    <select [(ngModel)]="ruoloFiltro" (change)="filtraPerRuolo()" class="form-select w-auto">
       <option value="Tutti">Tutti</option>
       <option value="UTENTE">Utenti</option>
-      <option value="ISTRUTTORE">Istruttori</option>
-      <option value="ADMIN">Admin</option>
+      <option value="ISTRUTTORE">Personal Trainer</option>
+      <option value="ADMIN">Amministratore</option>
     </select>
 
     <button class="insert-button" (click)="goToCreate()">
@@ -43,17 +44,11 @@
 
         </tr>
 
-        <tr *ngIf="(utenti$| async)?.length === 0">
-          <td colspan="5" class="text-center">Nessun utente trovato.</td>
-        </tr>
-      </tbody>
-    </table>
-</div>
-
-<div class="d-flex justify-content-between flex-row  align-items-center mt-3">
-  <button class="btn btn-light" (click)="paginaPrecedente()" [disabled]="currentPage === 0">← Precedente</button>
-  <small style="    text-align: center;">Pagina {{ currentPage + 1 }} / {{ totalPages || 1 }}</small>
-  <button class="btn btn-light" (click)="paginaSuccessiva()" [disabled]="currentPage >= totalPages - 1">Successiva →</button>
+</table>
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <button class="btn btn-light" (click)="paginaPrecedente()" [disabled]="currentPage === 0">←</button>
+  <small>Pagina {{ currentPage + 1 }} di {{ totalPages }}</small>
+  <button class="btn btn-light" (click)="paginaSuccessiva()" [disabled]="currentPage >= totalPages - 1">→</button>
 </div>
 
 

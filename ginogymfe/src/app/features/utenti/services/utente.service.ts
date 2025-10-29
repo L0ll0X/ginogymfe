@@ -17,20 +17,17 @@ private readonly baseUrl = url.baseUrl + url.utenti.base;
     return this.http.get<Utente>(`${url.baseUrl + url.utenti.base}/${id}`);
   }
 
+  get$(options: { page?: number; size?: number; sort?: string; role?: string } = {}): Observable<Page<Utente>> {
+    let params = new HttpParams();
 
+    if (options.page !== undefined) params = params.set('page', options.page.toString());
+    if (options.size !== undefined) params = params.set('size', options.size.toString());
+    if (options.sort) params = params.set('sort', options.sort);
+    if (options.role && options.role !== 'Tutti') params = params.set('role', options.role); // 👈 aggiunto
 
-  get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<Utente>> {
-    let params = new HttpParams()
-      .set('page', pageable.page.toString())
-      .set('size', pageable.size.toString())
-      .set('sort', pageable.sort);
-      return this.http.get<any>(`${url.baseUrl}${url.utenti.base}`, { params })
-      //.pipe(
-    //   tap(data => {
-    //     this.macchinari = data.content;
-    //     this.macchinariSubject.next(this.macchinari); // aggiorna lo stream
-    //   })
-    // );
+    console.log('📡 Chiamata get utenti con params:', params.toString()); // debug
+
+    return this.http.get<Page<Utente>>(this.baseUrl, { params });
   }
 
 
