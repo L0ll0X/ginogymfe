@@ -4,7 +4,7 @@ import { UtenteService } from './services/utente.service';
 import { Utente } from './models/utenti.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Page } from '../macchinario/services/macchinario.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalConfirmation } from '../../modale/modale';
@@ -16,7 +16,8 @@ import { ModalConfirmation } from '../../modale/modale';
   styleUrls: ['./utenti.css']
 })
 export class UtentiComponent implements OnInit {
-  utenti$!: Observable<Utente[]>
+  private utentiSubject = new BehaviorSubject<Utente[]>([]);
+  utenti$ = this.utentiSubject.asObservable();
   ruoloFiltro: string = 'Tutti';
   currentPage = 0;
   totalPages = 1;
@@ -29,11 +30,42 @@ export class UtentiComponent implements OnInit {
   }
 
   load(): void {
-    this.utenti$ = this.utenteService.get$({ page: this.currentPage, size: 10, sort:this.sort }).pipe(
-      map((page: Page<Utente>) => page.content)
-    )
-
+    this.utenteService
+      .get$({
+        page: this.currentPage,
+        size: 10,
+        sort: this.sort,
+        role: this.ruoloFiltro !== 'Tutti' ? this.ruoloFiltro : undefined
+      })
+      .subscribe({
+        next: (page: Page<Utente>) => {
+          this.utentiSubject.next(page.content);
+          this.totalPages = page.totalPages;
+        },
+        error: (err) => console.error('Errore caricamento utenti:', err)
+      });
   }
+
+  filtraPerRuolo(): void {
+    this.currentPage = 0; // resetta la pagina quando cambi filtro
+    this.load();
+  }
+
+  // 🔹 Paginazione
+  paginaPrecedente(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.load();
+    }
+  }
+
+  paginaSuccessiva(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.load();
+    }
+  }
+
   goToCreate(): void {
     this.router.navigate(['/utenti/detail']);
   }
@@ -54,26 +86,12 @@ export class UtentiComponent implements OnInit {
           console.log('Eliminazione annullata');
         }
       })
-  }
-}
-
-  // 🔹 Paginazione
-  paginaPrecedente(): void {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      this.load();
     }
   }
 
-  paginaSuccessiva(): void {
-    if (this.currentPage < this.totalPages - 1) {
-      this.currentPage++;
-      this.load();
-    }
-  }
-
-  // 🔹 Torna alla Home
+// 🔹 Torna alla Home
   tornaHome(): void {
     this.router.navigate(['../home']);
   }
+
 }
