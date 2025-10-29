@@ -3,10 +3,9 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
   <div>
-    <label for="username">Username:</label>
-    <input id="username" type="text" formControlName="username">
-
-    <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched" style="color: red;">
+    <label for="name">Nome:</label>
+    <input id="name" type="text" formControlName="name">
+    <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched" style="color: red;">
       Il nome è obbligatorio.
     </div>
   </div>
@@ -37,7 +36,7 @@
   </div>
 
   <div>
-    <label for="username">Name:</label>
+    <label for="username">Username:</label>
     <input id="username" type="username" formControlName="username">
     <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched" style="color: red;">
         <span *ngIf="userForm.get('username')?.errors?.['required']">L'username è obbligatorio.</span>
