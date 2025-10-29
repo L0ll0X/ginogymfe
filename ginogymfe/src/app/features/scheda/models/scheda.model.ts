@@ -7,7 +7,7 @@ export class SchedaModel {
   userId?: number;      
   startDate: string = '';    
   endDate: string= '';
-  
+  exerciseDetails?: EsercizioSchedaRequest[];
 
   constructor(obj?: any) {
         Object.assign(this, obj);
@@ -15,10 +15,12 @@ export class SchedaModel {
 }
 
 export class CreateSchedaWithDetailRequest extends SchedaModel{
-    exerciseDetails: EsercizioSchedaRequest[] = []
 
     constructor(data?:any){
       super(data);
       Object.assign(this, data)
+      if (!this.exerciseDetails) {
+          this.exerciseDetails = [];
     }
+}
 }

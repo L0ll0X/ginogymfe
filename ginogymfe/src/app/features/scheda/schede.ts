@@ -15,7 +15,7 @@ import { Page } from '../macchinario/services/macchinario.service';
 })
 export class Schede implements OnInit {
 
- schedeSubject = new BehaviorSubject<SchedaModel[]>([]);
+  schedeSubject = new BehaviorSubject<SchedaModel[]>([]);
   get schede$() { return this.schedeSubject.asObservable() }
 
   totalElements = 0;

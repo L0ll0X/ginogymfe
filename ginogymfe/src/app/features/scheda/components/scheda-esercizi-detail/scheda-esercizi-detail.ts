@@ -83,8 +83,8 @@ export class SchedaEserciziDetail {
       return;
     }
     this.onSchedaDetailSubmitted.emit(new CreaEsercizioScheda({
-      exerciseId: this.esercizioIdSelected,
-      workoutPlanId: this.schedaIdSelected,
+      idEsercizio: this.esercizioIdSelected,  
+      idWorkoutPlan: this.schedaIdSelected,
       peso: 0,
       recupero: dettaglioEsercizio.recupero,
       ripetizioni: dettaglioEsercizio.ripetizioni,

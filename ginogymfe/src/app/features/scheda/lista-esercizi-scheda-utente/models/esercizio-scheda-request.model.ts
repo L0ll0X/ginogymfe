@@ -5,8 +5,8 @@ export class EsercizioSchedaRequest{
     recupero!: number;
     peso!: number;
     id!: number;
-    exerciseId!:number;
-    schedaId!: number;
+    idEsercizio!:number;    
+    idWorkoutPlan!: number;
 
     constructor(obj?:any) {
    Object.assign(this, obj);

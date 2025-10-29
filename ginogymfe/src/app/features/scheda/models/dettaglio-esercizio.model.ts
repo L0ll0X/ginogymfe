@@ -6,8 +6,8 @@ export class DettaglioEsercizio {
     recupero!: number;
     peso!: number;
     exerciseId!: number;
-    dayOfWeekId!: number;
-    workoutPlanid!: number;
+    dayOfWeekId!: number;    
+    idWorkoutPlan!: number;
     
     constructor(obj?:any) {
       Object.assign(this, obj);

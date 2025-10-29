@@ -19,7 +19,7 @@ import { Page } from '../../macchinario/services/macchinario.service';
 export class EserciziScheda {
 
   eserciziScheda$!: Observable<EsercizioScheda[]>
-  schedaId: number | undefined; 
+  schedaId!: number; 
 
   totalElements = 0;
   totalPages = 0;

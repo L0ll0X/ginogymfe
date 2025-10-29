@@ -9,10 +9,9 @@ import {
 import { SchedaService } from '../services/scheda.service';
 import { Utente } from '../../utenti/models/utenti.model';
 import { UtenteService } from '../../utenti/services/utente.service';
-import { EsercizioScheda } from '../lista-esercizi-scheda-utente/models/esercizio-scheda-utente.model';
-import { Esercizio } from '../../esercizi/models/esercizio-model';
 import { CreaEsercizioScheda } from '../lista-esercizi-scheda-utente/models/crea-esercizio-scheda.model';
 import { EsercizioSchedaRequest } from '../lista-esercizi-scheda-utente/models/esercizio-scheda-request.model';
+import { of } from 'rxjs';
 
 @Component({
   standalone: false,
@@ -33,49 +32,49 @@ export class SchedaDetail implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.route.data
       .pipe(
-        switchMap(({ scheda }) => {
-          console.log('Scheda ricevuta dal resolver:', scheda);
-
+        tap(({ scheda }) => { 
           if (!scheda) {
-            this.scheda = new SchedaModel({
-              endDate: '',
-              id: scheda?.id,
-              startDate: '',
-              userId: 0
-            } as SchedaModel);
+            this.scheda = new SchedaModel({ /* ... nuova scheda ... */ } as SchedaModel);
           } else {
             this.scheda = scheda;
           }
-          return  this.schedaService.getExercisesByWorkoutPlanId$(this.scheda.id).pipe(
-           tap((dettagli) =>{
-            console.log(dettagli)
-                this.eserciziScheda = dettagli as any;
-
-           }) 
-          )
+        }),
+        switchMap(() => {
+          if (!this.scheda.id) {
+            console.log("Nuova scheda, nessun ID, non carico esercizi.");
+            return of([]); 
+          }
+          if (this.scheda.id && this.scheda. exerciseDetails && this.scheda.exerciseDetails.length > 0) {
+            console.log("Esercizi già caricati dal Resolver.");
+            return of(this.scheda.exerciseDetails);
+          }
+          return this.schedaService.getExercisesByWorkoutPlanId$(this.scheda.id);
+        }),
+        tap((dettagli) => {
+          console.log('Dettagli esercizi ricevuti:', dettagli);
+          this.eserciziScheda = dettagli as any;
         })
       ).subscribe();
+
   }
 
   bindSchedaEsercizio(schedaEsercizio: CreaEsercizioScheda) {
     this.eserciziScheda.push(
       new EsercizioSchedaRequest({
-        exerciseId: schedaEsercizio.exerciseId,
+        idEsercizio: schedaEsercizio.idEsercizio,
         peso: 0,
         recupero: schedaEsercizio.recupero,
-        serie: schedaEsercizio.serie,
-        id: schedaEsercizio.workoutPlanId,
+        serie: schedaEsercizio.serie,         
+        id: schedaEsercizio.idWorkoutPlan,
         ripetizioni: schedaEsercizio.ripetizioni
       } as EsercizioSchedaRequest)
     );
   }
 
   submit(): void {
-    if (this.scheda.id) {
-      
+    if (this.scheda.id) {      
       this.schedaService
         .put$(
           new ModifySchedaWithDetailRequest({
@@ -109,7 +108,7 @@ export class SchedaDetail implements OnInit {
           } as CreateSchedaWithDetailRequest)
         )
         .subscribe({
-          next: () => {
+          next: (schedaSalvata) => {
             alert('Scheda creata con successo!');
             this.router.navigate(['/schede']);
           },

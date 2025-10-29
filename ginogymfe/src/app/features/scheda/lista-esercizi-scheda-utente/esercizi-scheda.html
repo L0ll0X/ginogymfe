@@ -24,7 +24,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let esercizio of (eserciziScheda$ | async)">
+                    <div *ngIf="eserciziScheda$ | async as esercizi">
+                        <tr *ngFor="let esercizio of esercizi">
                         <td style="padding-inline: 10px;" data-label="Id">{{esercizio.exercise.id}}</td>
                         <td style="padding-inline: 10px;" data-label="Nome">{{esercizio.exercise.name}}</td>
                         <td style="padding-inline: 10px;" data-label="Gruppo Muscolare">
@@ -44,6 +45,7 @@
                             </button>
                         </td>
                     </tr>
+                    </div>
                 </tbody>
             </table>
         </div>
