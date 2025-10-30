@@ -15,13 +15,13 @@ import { Page } from '../macchinario/services/macchinario.service';
 })
 export class Schede implements OnInit {
 
-  schede$!: Observable<Schede[]>;
+  schede$!: Observable<SchedaModel[]>;
 
   totalElements = 0;
   totalPages = 0;
   currentPage = 0;
   size = 5;
-  sort = 'name,asc';
+  sort = 'startDate,asc';
 
   constructor(
     private schedaService: SchedaService,
