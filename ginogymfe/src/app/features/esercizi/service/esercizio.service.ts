@@ -18,22 +18,19 @@ export class EsercizioService {
 
   constructor(private http: HttpClient) {}
 
-    getEsercizioById$(id: number): Observable<Esercizio> {
-      return this.http.get<Esercizio>(`${url.baseUrl}${url.esercizi.base}/${id}`);
-    }
-
-    get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<Esercizio>> {
-    let params = new HttpParams()
-    .set('page', pageable.page.toString())
-    .set('size', pageable.size.toString())
-    .set('sort', pageable.sort);
-   
-    return this.http.get<any>(`${url.baseUrl}${url.esercizi.base}`, { params }).pipe(
-      tap(data => {
-        this.esercizi = data.content;
-        this.eserciziSubject.next(this.esercizi); // aggiorna lo stream
-      })
-    );
+    get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 5, sort: 'name,asc' }): Observable<Page<Esercizio>> {
+      let params = new HttpParams()
+        .set('page', pageable.page.toString())
+        .set('size', pageable.size.toString())
+        .set('sort', pageable.sort);
+    
+      return this.http.get<Page<Esercizio>>(`${url.baseUrl}${url.esercizi.base}`, { params }).pipe(
+        tap(pageData => {
+          // aggiorna lo stream con i contenuti della pagina
+          this.esercizi = pageData.content;
+          this.eserciziSubject.next(this.esercizi);
+        })
+      );
     }
 
   setEsercizi(esercizi: Esercizio[]) {

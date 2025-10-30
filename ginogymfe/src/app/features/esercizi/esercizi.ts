@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Esercizio } from './models/esercizio-model';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { EsercizioService } from './service/esercizio.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from '../macchinario/services/macchinario.service';
@@ -14,21 +14,13 @@ import { ModalConfirmation } from '../../modale/modale';
   styleUrl: './esercizi.css'
 })
 export class Esercizi {
-paginaSuccessiva() {
-throw new Error('Method not implemented.');
-}
-currentPage =0;
-paginaPrecedente() {
-throw new Error('Method not implemented.');
-}
-
 
   esercizi$!: Observable<Esercizio[]>
 
   totalElements = 0;
   totalPages = 0;
-  page = 0;
-  size = 15;
+  currentPage = 0;
+  size = 5;
   sort = 'name,asc';
 
   constructor(
@@ -39,10 +31,7 @@ throw new Error('Method not implemented.');
     private cdr: ChangeDetectorRef) { };
 
   ngOnInit(): void {
-    this.esercizioService.get$({ page: this.page, size: this.size, sort: this.sort }).subscribe(()=> {
-    this.cdr.detectChanges();
-  });
-    this.esercizi$ = this.esercizioService.esercizi$;
+    this.loadEsercizi();
   }
 
   goToCreate() {
@@ -53,17 +42,27 @@ throw new Error('Method not implemented.');
     this.router.navigate(['./details', id], { relativeTo: this.acroute });
   }
 
-  goToExerciseDetails(){
-    this.router.navigate(['./dettagli-esercizio'],{ relativeTo: this.acroute });
+  goToExerciseDetails() {
+    this.router.navigate(['./dettagli-esercizio'], { relativeTo: this.acroute });
   }
 
-  private loadEsercizi() {
-      this.esercizi$ = this.esercizioService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
-        map((esercizi: Page<Esercizio>) => {
-          return esercizi.content
-        })
+  private loadEsercizi(): void {
+    this.esercizi$ = this.esercizioService
+      .get$({
+        page: this.currentPage,
+        size: this.size,
+        sort: this.sort
+      })
+      .pipe(
+        // aggiorniamo info di paginazione
+        tap((page: Page<Esercizio>) => {
+          this.totalPages = page.totalPages;
+          this.totalElements = page.totalElements;
+        }),
+        // ritorniamo solo i contenuti per l’*ngFor
+        map((page: Page<Esercizio>) => page.content)
       );
-    }
+  }
 
   deleteEsercizio(id: number) {
     // 2️⃣ Apre la modale di conferma
@@ -87,7 +86,27 @@ throw new Error('Method not implemented.');
       }
     );
   }
-   
+
+  // 🔹 Paginazione
+  paginaPrecedente(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.loadEsercizi();
+    }
+  }
+
+  paginaSuccessiva(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.loadEsercizi();
+    }
+  }
+
+  // 🔹 Torna alla Home
+  tornaHome(): void {
+    this.router.navigate(['../home']);
+  }
+
 }
 
 
