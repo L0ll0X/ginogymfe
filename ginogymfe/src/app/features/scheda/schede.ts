@@ -8,28 +8,27 @@ import { ModalConfirmation } from '../../modale/modale';
 import { Page } from '../macchinario/services/macchinario.service';
 
 @Component({
-  standalone:false,
+  standalone: false,
   selector: 'app-scheda',
   templateUrl: './schede.html',
   styleUrls: ['./schede.css']
 })
 export class Schede implements OnInit {
 
-  schedeSubject = new BehaviorSubject<SchedaModel[]>([]);
-  get schede$() { return this.schedeSubject.asObservable() }
+  schede$!: Observable<Schede[]>;
 
   totalElements = 0;
   totalPages = 0;
-  page = 0;
-  size = 15;
-  sort = 'startDate,desc';
+  currentPage = 0;
+  size = 5;
+  sort = 'name,asc';
 
   constructor(
     private schedaService: SchedaService,
     private modalService: NgbModal,
     private router: Router,
     private acroute: ActivatedRoute
- ) { }
+  ) { }
 
   ngOnInit(): void {
     this.loadSchede();
@@ -37,14 +36,21 @@ export class Schede implements OnInit {
   }
 
   private loadSchede() {
-      this.schedaService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
-        map((schede: Page<SchedaModel>) => {
-          return schede.content
+    this.schede$ = this.schedaService
+      .get$({
+        page: this.currentPage,
+        size: this.size,
+        sort: this.sort
+      })
+      .pipe(
+        // aggiorniamo info di paginazione
+        tap((page: Page<Schede>) => {
+          this.totalPages = page.totalPages;
+          this.totalElements = page.totalElements;
         }),
-        tap((schede: SchedaModel[]) => {
-          this.schedeSubject.next(schede);
-        })
-      ).subscribe();
+        // ritorniamo solo i contenuti per l’*ngFor
+        map((page: Page<Schede>) => page.content)
+      );
   }
 
   goToCreate() {
@@ -57,10 +63,10 @@ export class Schede implements OnInit {
   }
 
   deleteScheda(id?: number) {
-     if (!id) return;
+    if (!id) return;
     //  Apre la modale di conferma
     const modalRef = this.modalService.open(ModalConfirmation);
-  
+
     //  Gestisce il risultato della modale
     modalRef.result.then(
       (confirmed) => {
@@ -81,10 +87,30 @@ export class Schede implements OnInit {
     );
   }
 
-  goToEserciziScheda(id:number){
+  goToEserciziScheda(id: number) {
     this.router.navigate(['esercizi-scheda', id], { relativeTo: this.acroute });
   }
-}
 
+  // 🔹 Paginazione
+  paginaPrecedente(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.loadSchede(); // ⬅️ Usa qui il metodo che ricarica i gruppi muscolari
+    }
+  }
+
+  paginaSuccessiva(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.loadSchede(); // ⬅️ idem
+    }
+  }
+
+  // 🔹 Torna alla Home
+  tornaHome(): void {
+    this.router.navigate(['../home']);
+  }
+
+}
 
 
