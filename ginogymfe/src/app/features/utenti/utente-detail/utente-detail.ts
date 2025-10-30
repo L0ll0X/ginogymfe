@@ -85,7 +85,7 @@ export class UtenteDetail {
   }
 
   goBack(): void {
-    this.router.navigate(['/utenti']);
+    this.router.navigate(['../home']);
   }
   
 }
