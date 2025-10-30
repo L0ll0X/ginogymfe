@@ -41,5 +41,10 @@
   <small>Pagina {{ currentPage + 1 }} / {{ totalPages || 1 }}</small>
   <button class="btn btn-light" (click)="paginaSuccessiva()" [disabled]="currentPage >= totalPages - 1">Successiva →</button>
 </div>
+<div class="text-center mt-4">
+  <button class="btn btn-secondary" (click)="tornaHome()">
+    <i class="fa-solid fa-house"></i>Home
+  </button>
+</div>
 
 <router-outlet></router-outlet>
