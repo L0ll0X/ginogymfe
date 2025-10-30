@@ -29,12 +29,12 @@ export class SchedaDetail implements OnInit {
     private router: Router,
     private schedaService: SchedaService,
     private utenteService: UtenteService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.data
       .pipe(
-        tap(({ scheda }) => { 
+        tap(({ scheda }) => {
           if (!scheda) {
             this.scheda = new SchedaModel({ /* ... nuova scheda ... */ } as SchedaModel);
           } else {
@@ -44,9 +44,9 @@ export class SchedaDetail implements OnInit {
         switchMap(() => {
           if (!this.scheda.id) {
             console.log("Nuova scheda, nessun ID, non carico esercizi.");
-            return of([]); 
+            return of([]);
           }
-          if (this.scheda.id && this.scheda. exerciseDetails && this.scheda.exerciseDetails.length > 0) {
+          if (this.scheda.id && this.scheda.exerciseDetails && this.scheda.exerciseDetails.length > 0) {
             console.log("Esercizi già caricati dal Resolver.");
             return of(this.scheda.exerciseDetails);
           }
@@ -66,7 +66,7 @@ export class SchedaDetail implements OnInit {
         idEsercizio: schedaEsercizio.idEsercizio,
         peso: 0,
         recupero: schedaEsercizio.recupero,
-        serie: schedaEsercizio.serie,         
+        serie: schedaEsercizio.serie,
         id: schedaEsercizio.idWorkoutPlan,
         ripetizioni: schedaEsercizio.ripetizioni
       } as EsercizioSchedaRequest)
@@ -74,7 +74,7 @@ export class SchedaDetail implements OnInit {
   }
 
   submit(): void {
-    if (this.scheda.id) {      
+    if (this.scheda.id) {
       this.schedaService
         .put$(
           new ModifySchedaWithDetailRequest({
@@ -96,7 +96,7 @@ export class SchedaDetail implements OnInit {
           }
         });
     } else {
-      
+
       this.schedaService
         .create$(
           new CreateSchedaWithDetailRequest({

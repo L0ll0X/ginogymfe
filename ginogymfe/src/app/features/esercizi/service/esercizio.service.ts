@@ -18,6 +18,10 @@ export class EsercizioService {
 
   constructor(private http: HttpClient) {}
 
+    getEsercizioById$(id: number): Observable<Esercizio> {
+      return this.http.get<Esercizio>(`${url.baseUrl}${url.esercizi.base}/${id}`);
+    }
+
     get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 5, sort: 'name,asc' }): Observable<Page<Esercizio>> {
       let params = new HttpParams()
         .set('page', pageable.page.toString())
