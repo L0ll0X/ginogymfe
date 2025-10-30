@@ -17,13 +17,12 @@ export class GruppiMuscolari {
 
   gruppiMuscolari$!: Observable<GruppoMuscolare[]>;
 
-
   totalElements = 0;
   totalPages = 0;
-  page = 0;
-  size = 15;
+  currentPage = 0;
+  size = 10;
   sort = 'name,asc';
-  currentPage: 0 = 0;
+  
   constructor(
     private gruppoMuscolareService: GruppoMuscolareService,
     private router: Router,
@@ -42,14 +41,23 @@ export class GruppiMuscolari {
     this.router.navigate(['./details', id], { relativeTo: this.acroute });
   }
 
-  private loadGruppiMuscolari() {
-    this.gruppiMuscolari$ = this.gruppoMuscolareService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
-      map((grupppi: Page<GruppoMuscolare>) => {
-        return grupppi.content
+  private loadGruppiMuscolari(): void {
+    this.gruppiMuscolari$ = this.gruppoMuscolareService
+      .get$({
+        page: this.currentPage,
+        size: this.size,
+        sort: this.sort
       })
-    );
+      .pipe(
+        // aggiorniamo info di paginazione
+        tap((page: Page<GruppoMuscolare>) => {
+          this.totalPages = page.totalPages;
+          this.totalElements = page.totalElements;
+        }),
+        // ritorniamo solo i contenuti per l’*ngFor
+        map((page: Page<GruppoMuscolare>) => page.content)
+      );
   }
-  
   
   deleteGruppoMuscolare(id: number) {
     //apre la modale

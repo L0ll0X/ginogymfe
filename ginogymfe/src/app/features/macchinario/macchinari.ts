@@ -14,14 +14,12 @@ import { ModalConfirmation } from '../../modale/modale';
 })
 export class Macchinari implements OnInit {
 
-  macchinariSubject = new BehaviorSubject<Macchinario[]>([]);
-  currentPage: 0 = 0;
-  get macchinari$() { return this.macchinariSubject.asObservable() }
-
+  macchinari$!: Observable<Macchinario[]>;
+  
   totalElements = 0;
   totalPages = 0;
-  page = 0;
-  size = 10;
+  currentPage = 0;
+  size = 5;
   sort = 'name,asc';
 
   constructor(
@@ -33,19 +31,25 @@ export class Macchinari implements OnInit {
 
   ngOnInit(): void {
     this.loadMacchinari();
-
   }
 
-  private loadMacchinari() {
-      this.macchinarioService.get$({ page: this.page, size: this.size, sort: this.sort }).pipe(
-        map((macchinari: Page<Macchinario>) => {
-          return macchinari.content
-        }),
-        tap((macchinari: Macchinario[]) => {
-          this.macchinariSubject.next(macchinari);
+  private loadMacchinari(): void {
+      this.macchinari$ = this.macchinarioService
+        .get$({
+          page: this.currentPage,
+          size: this.size,
+          sort: this.sort
         })
-      ).subscribe();
-  }
+        .pipe(
+          // aggiorniamo info di paginazione
+          tap((page: Page<Macchinario>) => {
+            this.totalPages = page.totalPages;
+            this.totalElements = page.totalElements;
+          }),
+          // ritorniamo solo i contenuti per l’*ngFor
+          map((page: Page<Macchinario>) => page.content)
+        );
+    }
 
   goToCreate() {
     this.router.navigate(['./details'], { relativeTo: this.acroute });

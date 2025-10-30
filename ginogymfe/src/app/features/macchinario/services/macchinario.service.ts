@@ -15,9 +15,10 @@ export interface Page<T> {
   providedIn: 'root'
 })
 export class MacchinarioService {
-    // macchinari:any[]=[];
-    // macchinariSubject= new BehaviorSubject <any[]>(this.macchinari);
-    // macchinari$=this.macchinariSubject.asObservable();
+    
+  macchinari:any[]=[];
+  macchinariSubject = new BehaviorSubject<Macchinario[]>([]);
+  get macchinari$(){ return this.macchinariSubject.asObservable()}
 
   constructor(private http: HttpClient) { }
 
@@ -26,25 +27,25 @@ export class MacchinarioService {
   }
 
   
-  get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 10, sort: 'name,asc' }): Observable<Page<Macchinario>> {
-    let params = new HttpParams()
-      .set('page', pageable.page.toString())
-      .set('size', pageable.size.toString())
-      .set('sort', pageable.sort);
-      return this.http.get<any>(`${url.baseUrl}${url.macchinari.base}`, { params })
-      //.pipe(
-    //   tap(data => {
-    //     this.macchinari = data.content;
-    //     this.macchinariSubject.next(this.macchinari); // aggiorna lo stream
-    //   })
-    // );
-  }
+  get$(pageable: { page: number, size: number, sort: string } = { page: 0, size: 5, sort: 'name,asc' }): Observable<Page<Macchinario>> {
+  let params = new HttpParams()
+    .set('page', pageable.page.toString())
+    .set('size', pageable.size.toString())
+    .set('sort', pageable.sort);
+
+  return this.http.get<Page<Macchinario>>(`${url.baseUrl}${url.macchinari.base}`, { params }).pipe(
+    tap(pageData => {
+      // aggiorna lo stream con i contenuti della pagina
+      this.macchinari = pageData.content;
+      this.macchinariSubject.next(this.macchinari);
+    })
+  );
+}
 
   create$(macchinario: Macchinario): Observable <Macchinario> {
       console.log(`${url.baseUrl}${url.macchinari.base}`)
       return this.http.post<Macchinario>(`${url.baseUrl}${url.macchinari.base}`, macchinario);
   }
-  
   
   put$(macchinario: Macchinario): Observable<Macchinario> {
       return this.http.put<Macchinario>(`${url.baseUrl}${url.macchinari.base}/${macchinario.id}`, macchinario);
