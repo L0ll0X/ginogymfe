@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { EsercizioScheda } from './models/esercizio-scheda-utente.model';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { map, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EsercizioSchedaService } from './service/esercizio-scheda.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -34,46 +34,39 @@ export class EserciziScheda {
     private modalService: NgbModal,
     private cdr: ChangeDetectorRef) { };
 
+private reloadSubject = new Subject<void>(); 
+
   ngOnInit(): void {
-  this.acroute.paramMap.pipe(
-    map(params => {
-      const idParam = params.get('id');
-      if (!idParam) {
-        console.error(" ID della Scheda non trovato nell'URL.");
-        return null;
-      }
-      this.schedaId = +idParam;
-      return this.schedaId;
-    }),
-    switchMap((schedaId: number | null) => {
-      if (schedaId && schedaId > 0) {
-       
-        return this.loadEserciziSchedaBySchedaId(schedaId);
-      } else {
-        
-        return new Observable<EsercizioScheda[]>(observer => {
-          observer.next([]);
-          observer.complete();
-        });
-      }
-    })
-  ).subscribe({
-    next: (esercizi: EsercizioScheda[]) => {
-      console.log("Esercizi caricati:", esercizi);
-      this.eserciziScheda$ = new Observable<EsercizioScheda[]>(observer => {
-        observer.next(esercizi);
-        observer.complete();
-      });
-    },
-    error: (err) => {
-      console.error(" Errore nel caricamento degli esercizi:", err);
-      this.eserciziScheda$ = new Observable<EsercizioScheda[]>(observer => {
-        observer.next([]);
-        observer.complete();
-      });
-    }
-  });
-}
+    // Collega l'Observable della rotta con il Subject di ricaricamento
+    this.eserciziScheda$ = this.acroute.paramMap.pipe(
+      map(params => {
+          const idParam = params.get('id');
+          if (!idParam) {
+              console.error(" ID della Scheda non trovato nell'URL.");
+              return null;
+          }
+          this.schedaId = +idParam;
+          return this.schedaId;
+      }),
+      switchMap(schedaId => 
+          this.reloadSubject.pipe(
+              startWith(undefined), // Fa partire subito la prima chiamata
+              switchMap(() => {
+                  if (schedaId && schedaId > 0) {
+                      // Chiama la funzione di caricamento che restituisce l'Observable
+                      return this.loadEserciziSchedaBySchedaId(schedaId);
+                  } else {
+                      // Ritorna un Observable vuoto
+                      return new Observable<EsercizioScheda[]>(observer => {
+                          observer.next([]);
+                          observer.complete();
+                      });
+                  }
+              })
+          )
+      )
+    );
+  }
 
 
   private loadEserciziSchedaBySchedaId(schedaId: number): Observable<EsercizioScheda[]> {
@@ -91,32 +84,47 @@ export class EserciziScheda {
     );
  }
 
-  goToCreate() {
-   this.router.navigate(['../../scheda-esercizi-details'], { relativeTo: this.acroute, queryParams: { schedaId: this.schedaId} });
-  }
 
-  goToDetail(id: number) {
-    this.router.navigate(['../../scheda-esercizi-details', id], { relativeTo: this.acroute });
-  }
+   deleteEsercizio(event: Event, id: number) {
+    if (!id) return;
+    
+    // FIX Accessibilità: Rimuovi il focus dal pulsante cliccato
+    const target = event.target as HTMLElement;
+    // Risali all'elemento button se il target è l'icona <i>
+    const buttonElement = target.closest('button');
+    if (buttonElement) {
+        buttonElement.blur(); 
+    } else {
+        target.blur(); 
+    }
 
-  deleteEsercizio(id: number) {
+
     const modalRef = this.modalService.open(ModalConfirmation);
-    // 3️⃣ Gestisce il risultato della modale
     modalRef.result.then(
       (confirmed) => {
         if (confirmed) {
-          this.esercizioSchedaService.delete$(id).pipe(
-            switchMap(() => this.loadEserciziSchedaBySchedaId(this.schedaId!))
-          ).subscribe({
-            next: (data) => {
-
-              this.eserciziScheda$ = this.loadEserciziSchedaBySchedaId(this.schedaId!);
-              this.cdr.detectChanges();
+          this.esercizioSchedaService.delete$(id).subscribe({
+            next: () => {
+                // Innesca il ricaricamento dei dati in modo reattivo
+                this.reloadSubject.next(); 
+                this.router.navigate(['../../schede'])
             },
-            error: (err) => console.error("Errore durante l'eliminazione:", err)
+            error: (err) => {
+                console.error("Errore durante l'eliminazione:", err);
+                // La gestione dell'errore HTTP qui dipende dalla tua strategia,
+                // ma per il 204 non dovresti vederla grazie al fix nel service.
+            }
           });
+        } else {
+          console.log('Eliminazione annullata');
         }
-      })
-
+      },
+      (dismissed) => {
+        console.log('Eliminazione annullata o modale chiusa');
+      }
+    );
   }
+ 
+   
+
 }

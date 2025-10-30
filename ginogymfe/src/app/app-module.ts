@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing-module';
 import { Login } from './login/login';
 import { JwtInterceptor } from './login/interceptor/jwt.interceptor';
-import { Home } from './features/home/home';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -30,7 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideClientHydration(withEventReplay()),
-   //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [App]
 })

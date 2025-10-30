@@ -76,8 +76,8 @@ export class EsercizioSchedaService {
     );
   }
 
-  delete$(id: number): Observable<void> {
-    return this.http.delete<void>(`${url.baseUrl}${url.schede.base}/${id}`).pipe(
+  delete$(id: number): Observable<any> {
+    return this.http.delete(`${url.baseUrl}${url.DettagliEsercizio.base}/${id}`, { responseType: 'text' as 'json' }).pipe(
       tap(() => {
         this.eserciziScheda = this.eserciziScheda.filter(m => m.id !== id);
         this.eserciziSchedaSubject.next(this.eserciziScheda);

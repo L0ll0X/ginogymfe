@@ -107,16 +107,7 @@ export class SchedaDetail implements OnInit {
             id: this.scheda.id
           } as CreateSchedaWithDetailRequest)
         )
-        .subscribe({
-          next: (schedaSalvata) => {
-            alert('Scheda creata con successo!');
-            this.router.navigate(['/schede']);
-          },
-          error: (error) => {
-            console.error('Creazione fallita', error);
-            alert('Errore durante la creazione della scheda.');
-          }
-        });
+        .subscribe(x => this.router.navigate(['/schede']));
     }
   }
 
